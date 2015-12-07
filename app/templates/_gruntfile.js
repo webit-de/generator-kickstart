@@ -5,6 +5,32 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
+    auto_install: {
+      local: {
+        options: {
+          failOnError: true,
+          bower: false
+        }
+      }
+    },
+
+    environments: {
+      options: {
+        local_path: './build',
+      },
+      preview: {
+        options: {
+          username: grunt.file.readJSON('hostConfig.json').username,
+          host: grunt.file.readJSON('hostConfig.json').hostServer,
+          deploy_path: grunt.file.readJSON('hostConfig.json').deployPath,
+          current_symlink: 'web',
+          releases_to_keep: 2,
+          passphrase: grunt.file.readJSON('clientConfig.json').passphrase,
+          privateKey: require('fs').readFileSync(require('userhome')('.ssh/id_rsa'))
+        }
+      }
+    },
+
     watch: {
       options: {
         spawn: false
@@ -343,6 +369,7 @@ module.exports = function(grunt) {
 
   });
 
+  grunt.loadNpmTasks('grunt-auto-install');
   grunt.loadNpmTasks('grunt-accessibility');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-compass');
@@ -362,6 +389,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-sync');
 
   grunt.registerTask('default', [
+    'auto_install',
     'clean:build',
     'replace',
     'imagemin',
@@ -374,6 +402,7 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('production', [
+    'auto_install',
     'clean:build',
     'replace',
     'imagemin',
@@ -383,7 +412,21 @@ module.exports = function(grunt) {
     'uglify:deferred_production',
     'uglify:external',
     'modernizr'
-   ]);
+  ]);
+
+  grunt.registerTask('deploy_preview', [
+    'auto_install',
+    'clean:build',
+    'replace',
+    'imagemin',
+    'sync',
+    'compass:development',
+    'requirejs:development',
+    'uglify:deferred_development',
+    'uglify:external',
+    'modernizr',
+    'ssh_deploy:preview'
+  ]);
 
   grunt.registerTask('test', [
     'csslint',

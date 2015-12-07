@@ -215,6 +215,22 @@ KickstartGenerator = yeoman.generators.Base.extend({
     );
 
     this.fs.copyTpl(
+      this.templatePath('_clientConfig.json'),
+      this.destinationPath('clientConfig.json'),
+      {
+        ProjectName: this.ProjectName
+      }
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('_hostConfig.json'),
+      this.destinationPath('hostConfig.json'),
+      {
+        ProjectName: this.ProjectName
+      }
+    );
+
+    this.fs.copyTpl(
       this.templatePath('_readme.md'),
       this.destinationPath('README.md'),
       {
