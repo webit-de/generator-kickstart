@@ -148,7 +148,7 @@ KickstartGenerator = yeoman.generators.Base.extend({
       this.ProjectName = string.slugify(answers.ProjectName);
       this.ProjectServer = answers.ProjectServer;
       this.HostServer = answers.HostServer;
-      this.Username = string.slugify(answers.Username);
+      this.Username = answers.Username;
       this.DeployPath = answers.DeployPath;
 
       // wysiwygCMS
