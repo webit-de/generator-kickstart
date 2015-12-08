@@ -13,7 +13,7 @@ module.exports = function(grunt) {
         }
       }
     },
-
+<% if (ProjectServer) { %>
     environments: {
       options: {
         local_path: './build',
@@ -29,7 +29,7 @@ module.exports = function(grunt) {
           privateKey: require('fs').readFileSync(require('userhome')('.ssh/id_rsa'))
         }
       }
-    },
+    },<% } %>
 
     watch: {
       options: {
@@ -387,6 +387,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-replace');
   grunt.loadNpmTasks('grunt-scss-lint');
   grunt.loadNpmTasks('grunt-sync');
+  <% if (ProjectServer) { %>grunt.loadNpmTasks('grunt-ssh-deploy');<% } %>
 
   grunt.registerTask('default', [
     'auto_install',
@@ -413,8 +414,8 @@ module.exports = function(grunt) {
     'uglify:external',
     'modernizr'
   ]);
-
-  grunt.registerTask('deploy_preview', [
+  <% if (ProjectServer) { %>
+  grunt.registerTask('deploy', [
     'auto_install',
     'clean:build',
     'replace',
@@ -426,7 +427,7 @@ module.exports = function(grunt) {
     'uglify:external',
     'modernizr',
     'ssh_deploy:preview'
-  ]);
+  ]);<% } %>
 
   grunt.registerTask('test', [
     'csslint',

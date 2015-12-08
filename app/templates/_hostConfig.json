@@ -1,5 +1,5 @@
 {
-  "username": "webblindpackung",
-  "hostServer": "blindpackung.dev.hob",
-  "deployPath": "/srv/kunden/blindpackung.dev.hob/www/<%= ProjectName %>"
+  "username": "<%= Username %>",
+  "hostServer": "<%= HostServer %>",
+  "deployPath": "<%= DeployPath %>"
 }

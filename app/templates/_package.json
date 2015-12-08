@@ -20,10 +20,10 @@
     "grunt-modernizr": "^0.6",
     "grunt-newer": "^1",
     "grunt-replace": "^0.8",
-    "grunt-ssh-deploy": "^0.3.2",
     "grunt-scss-lint": "^0.3",
-    "grunt-sync": "0.2",
-    "jshint-stylish": "^1",
-    "userhome": "^1.0.0"
+    "grunt-sync": "0.2",<% if (ProjectServer) { %>
+    "grunt-ssh-deploy": "^0.3.2",
+    "userhome": "^1.0.0",<% } %>
+    "jshint-stylish": "^1"
   }
 }

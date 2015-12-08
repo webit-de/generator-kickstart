@@ -74,6 +74,36 @@ KickstartGenerator = yeoman.generators.Base.extend({
       },
       {
         type: 'confirm',
+        name: 'ProjectServer',
+        message: 'Do you want to deploy to a webserver?',
+        default: true,
+      },
+      {
+        when: function(response) {
+          return response.ProjectServer;
+        },
+        type: 'input',
+        name: 'Username',
+        message: 'What is the Username?'
+      },
+      {
+        when: function(response) {
+          return response.ProjectServer;
+        },
+        type: 'input',
+        name: 'HostServer',
+        message: 'What is the Hostserver?'
+      },
+      {
+        when: function(response) {
+          return response.ProjectServer;
+        },
+        type: 'input',
+        name: 'DeployPath',
+        message: 'What is the Deploymentpath?'
+      },
+      {
+        type: 'confirm',
         name: 'wysiwygCMS',
         message: 'Do you need additional setup for your wysiwyg CMS?',
         default: false
@@ -116,6 +146,10 @@ KickstartGenerator = yeoman.generators.Base.extend({
       this.HTMLDeveloper = answers.HTMLDeveloper;
       this.ProjectManager = answers.ProjectManager;
       this.ProjectName = string.slugify(answers.ProjectName);
+      this.ProjectServer = answers.ProjectServer;
+      this.HostServer = answers.HostServer;
+      this.Username = string.slugify(answers.Username);
+      this.DeployPath = answers.DeployPath;
 
       // wysiwygCMS
       this.wysiwygCMS = answers.wysiwygCMS;
@@ -159,7 +193,10 @@ KickstartGenerator = yeoman.generators.Base.extend({
 
     this.fs.copyTpl(
       this.templatePath('_gitignore'),
-      this.destinationPath('.gitignore')
+      this.destinationPath('.gitignore'),
+      {
+        ProjectServer: this.ProjectServer
+      }
     );
 
     this.fs.copyTpl(
@@ -201,6 +238,7 @@ KickstartGenerator = yeoman.generators.Base.extend({
       this.destinationPath('gruntfile.js'),
       {
         ProjectName: this.ProjectName,
+        ProjectServer: this.ProjectServer,
         WCAG2: this.WCAG2,
         oldIE: this.oldIE
       }
@@ -210,7 +248,8 @@ KickstartGenerator = yeoman.generators.Base.extend({
       this.templatePath('_package.json'),
       this.destinationPath('package.json'),
       {
-        ProjectName: this.ProjectName
+        ProjectName: this.ProjectName,
+        ProjectServer: this.ProjectServer
       }
     );
 
@@ -218,7 +257,8 @@ KickstartGenerator = yeoman.generators.Base.extend({
       this.templatePath('_clientConfig.json'),
       this.destinationPath('clientConfig.json'),
       {
-        ProjectName: this.ProjectName
+        ProjectName: this.ProjectName,
+        ProjectServer: this.ProjectServer
       }
     );
 
@@ -226,7 +266,11 @@ KickstartGenerator = yeoman.generators.Base.extend({
       this.templatePath('_hostConfig.json'),
       this.destinationPath('hostConfig.json'),
       {
-        ProjectName: this.ProjectName
+        ProjectName: this.ProjectName,
+        ProjectServer: this.ProjectServer,
+        Username: this.Username,
+        HostServer: this.HostServer,
+        DeployPath: this.DeployPath
       }
     );
 
