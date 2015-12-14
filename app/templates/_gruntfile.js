@@ -25,7 +25,14 @@ module.exports = function(grunt) {
           deploy_path: grunt.file.readJSON('hostConfig.json').deployPath,
           current_symlink: 'web',
           releases_to_keep: 2,
-          passphrase: grunt.file.readJSON('clientConfig.json').passphrase,
+          passphrase: function() {
+            // check for clientConfig with passphrase
+            if(grunt.file.isMatch(clientConfig.json)) {
+              return grunt.file.readJSON('clientConfig.json').passphrase;
+            } else {
+              return '';
+            }
+          },
           privateKey: require('fs').readFileSync(require('userhome')('.ssh/id_rsa'))
         }
       }
