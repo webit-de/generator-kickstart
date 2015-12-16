@@ -91,6 +91,14 @@ KickstartGenerator = yeoman.generators.Base.extend({
           return response.ProjectServer;
         },
         type: 'input',
+        name: 'sshPath',
+        message: 'Please insert the Path to your ssh-Key, starting from Home. (e.g.: .ssh/id_rsa)'
+      },
+      {
+        when: function(response) {
+          return response.ProjectServer;
+        },
+        type: 'input',
         name: 'HostServer',
         message: 'What is the Hostserver?'
       },
@@ -149,6 +157,7 @@ KickstartGenerator = yeoman.generators.Base.extend({
       this.ProjectServer = answers.ProjectServer;
       this.HostServer = answers.HostServer;
       this.Username = answers.Username;
+      this.sshPath = answers.sshPath;
       this.DeployPath = answers.DeployPath;
 
       // wysiwygCMS
@@ -258,7 +267,8 @@ KickstartGenerator = yeoman.generators.Base.extend({
       this.destinationPath('clientConfig.json'),
       {
         ProjectName: this.ProjectName,
-        ProjectServer: this.ProjectServer
+        ProjectServer: this.ProjectServer,
+        sshPath: this.sshPath
       }
     );
 

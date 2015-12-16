@@ -2,6 +2,29 @@ module.exports = function(grunt) {
 
   'use strict';
 
+<% if (ProjectServer) { %>
+  var fileExists = require('file-exists'),
+  fs = require('fs'),
+  key = function() {
+    if (fileExists('clientConfig.json')) {
+      key = fs.readFileSync((require('userhome')(grunt.file.readJSON('clientConfig.json').keyPath)));
+    } else {
+      key = fs.readFileSync((require('userhome')('.ssh/id_rsa')));
+    }
+  },
+
+  passphraseConfig = function() {
+    if (fileExists('clientConfig.json')) {
+      passphraseConfig = grunt.file.readJSON('clientConfig.json').passphrase;
+    } else {
+      passphraseConfig = '';
+    }
+  };
+
+  key();
+  passphraseConfig();
+<% } %>
+
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
@@ -25,15 +48,8 @@ module.exports = function(grunt) {
           deploy_path: grunt.file.readJSON('hostConfig.json').deployPath,
           current_symlink: 'web',
           releases_to_keep: 2,
-          passphrase: function() {
-            // check for clientConfig with passphrase
-            if(grunt.file.isMatch(clientConfig.json)) {
-              return grunt.file.readJSON('clientConfig.json').passphrase;
-            } else {
-              return '';
-            }
-          },
-          privateKey: require('fs').readFileSync(require('userhome')('.ssh/id_rsa'))
+          passphrase: passphraseConfig,
+          privateKey: key
         }
       }
     },<% } %>

@@ -25,5 +25,8 @@
     "grunt-ssh-deploy": "^0.3.2",
     "userhome": "^1.0.0",<% } %>
     "jshint-stylish": "^1"
-  }
+  }<% if (ProjectServer) { %>,
+  "dependencies": {
+    "file-exists": "^1.0.0"
+  }<% } %>
 }
