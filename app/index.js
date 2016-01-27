@@ -381,25 +381,36 @@ KickstartGenerator = yeoman.generators.Base.extend({
   },
 
   /**
-   * Create all images from templates.
-   * @function images
+   * Create all Components from templates.
+   * @function components
    * @private
    */
-  images: function () {
+  components: function () {
 
-    this.fs.copy(
-      this.templatePath('_favicon.ico'),
-      this.destinationPath('favicon.ico')
+    // Site-Icons
+    this.fs.copyTpl(
+      this.templatePath('site-icons/_site-icons.html'),
+      this.destinationPath('components/app/site-icons/site-icons.html')
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('site-icons/_windows-tile-icon.html'),
+      this.destinationPath('components/app/site-icons/windows-tile-icon.html')
     );
 
     this.fs.copy(
-      this.templatePath('_apple-touch-icon.png'),
-      this.destinationPath('apple-touch-icon.png')
+      this.templatePath('site-icons/img/_favicon.ico'),
+      this.destinationPath('components/app/site-icons/img/favicon.ico')
     );
 
     this.fs.copy(
-      this.templatePath('_windows-tile-icon.png'),
-      this.destinationPath('windows-tile-icon.png')
+      this.templatePath('site-icons/img/_apple-touch-icon.png'),
+      this.destinationPath('components/app/site-icons/img/apple-touch-icon.png')
+    );
+
+    this.fs.copy(
+      this.templatePath('site-icons/img/_windows-tile-icon.png'),
+      this.destinationPath('components/app/site-icons/img/windows-tile-icon.png')
     );
 
   },

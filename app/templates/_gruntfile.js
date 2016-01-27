@@ -99,7 +99,7 @@ module.exports = function(grunt) {
       },
       img_background: {
         options: { livereload: true },
-        files: 'components/**/*.{png,gif,jpg,svg}',
+        files: 'components/**/*.{png,gif,jpg,svg,ico}',
         tasks: ['clean:css', 'imagemin:backgrounds' , 'compass:development', 'clean:development'],
       },
 
@@ -365,16 +365,6 @@ module.exports = function(grunt) {
           cwd: 'components/app',
           src: ['**/*.json'],
           dest: 'build/assets/json'
-        }],
-        verbose: true
-      },
-      favicon: {
-        files: [{
-          flatten: true,
-          expand: true,
-          cwd: '.',
-          src: ['favicon.ico', 'apple-touch-icon.png', 'windows-tile-icon.png'],
-          dest: 'build/assets/img'
         }],
         verbose: true
       }
