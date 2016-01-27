@@ -118,7 +118,7 @@ module.exports = function(grunt) {
         httpFontsPath: '/assets/font',
         httpImagesPath: '/assets/img',
         imagesDir: 'build/assets/img',
-        noLineComments: true,
+        noLineComments: false,
         require: 'sass-css-importer',
         sassDir: 'components',
         specify: ['components/*.scss', 'components/app/_deferred/**/*.scss']
@@ -129,9 +129,19 @@ module.exports = function(grunt) {
           sourcemap: true
         }
       },
-      production: {
+      <% if (ProjectServer) { %>
+      preview: {
+        options: {
+          environment: 'development',
+          sourcemap: false,
+        }
+      },
+      <% } %>
+      live: {
         options: {
           environment: 'production',
+          noLineComments: true,
+          sourcemap: true,
           httpPath: '/' // . = relative
         }
       }
@@ -194,7 +204,15 @@ module.exports = function(grunt) {
           optimize: 'none'
         }
       },
-      production: {
+      <% if (ProjectServer) { %>
+      preview: {
+        options: {
+          generateSourceMaps: false,
+          optimize: 'none'
+        }
+      },
+      <% } %>
+      live: {
         options: {
           generateSourceMaps: false,
           optimize: 'uglify'
@@ -215,7 +233,18 @@ module.exports = function(grunt) {
           dest: 'build/assets/js/deferred'
         }]
       },
-      deferred_production: {
+      <% if (ProjectServer) { %>
+      deferred_preview: {
+        files: [{
+          expand: true,
+          flatten: true,
+          cwd: 'components/app/_deferred',
+          src: ['**/*.js', '!**/test-*.js'],
+          dest: 'build/assets/js/deferred'
+        }]
+      },
+      <% } %>
+      deferred_live: {
         files: [{
           expand: true,
           flatten: true,
@@ -425,28 +454,27 @@ module.exports = function(grunt) {
     'modernizr'
   ]);
 
-  grunt.registerTask('production', [
-    'auto_install',
+  grunt.registerTask('live', [
     'clean:build',
     'replace',
     'imagemin',
     'sync',
-    'compass:production',
-    'requirejs:production',
-    'uglify:deferred_production',
+    'compass:live',
+    'requirejs:live',
+    'uglify:deferred_live',
     'uglify:external',
     'modernizr'
   ]);
   <% if (ProjectServer) { %>
-  grunt.registerTask('deploy', [
+  grunt.registerTask('preview', [
     'auto_install',
     'clean:build',
     'replace',
     'imagemin',
     'sync',
-    'compass:development',
-    'requirejs:development',
-    'uglify:deferred_development',
+    'compass:preview',
+    'requirejs:preview',
+    'uglify:deferred_preview',
     'uglify:external',
     'modernizr',
     'ssh_deploy:preview'
