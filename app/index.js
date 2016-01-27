@@ -19,7 +19,7 @@ string = require('underscore.string'),
 yeoman = require('yeoman-generator'),
 yosay = require('yosay'),
 
-KickstartGenerator = yeoman.generators.Base.extend({
+KickstartGenerator = yeoman.Base.extend({
 
   /**
    * Loads package.json and waits for callback to finish.
@@ -74,6 +74,44 @@ KickstartGenerator = yeoman.generators.Base.extend({
       },
       {
         type: 'confirm',
+        name: 'ProjectServer',
+        message: 'Do you want to deploy to a webserver?',
+        default: true,
+      },
+      {
+        when: function(response) {
+          return response.ProjectServer;
+        },
+        type: 'input',
+        name: 'Username',
+        message: 'What is the Username?'
+      },
+      {
+        when: function(response) {
+          return response.ProjectServer;
+        },
+        type: 'input',
+        name: 'sshPath',
+        message: 'Please insert the Path to your ssh-Key, starting from Home. (e.g.: .ssh/id_rsa)'
+      },
+      {
+        when: function(response) {
+          return response.ProjectServer;
+        },
+        type: 'input',
+        name: 'HostServer',
+        message: 'What is the Hostserver?'
+      },
+      {
+        when: function(response) {
+          return response.ProjectServer;
+        },
+        type: 'input',
+        name: 'DeployPath',
+        message: 'What is the Deploymentpath?'
+      },
+      {
+        type: 'confirm',
         name: 'wysiwygCMS',
         message: 'Do you need additional setup for your wysiwyg CMS?',
         default: false
@@ -116,6 +154,11 @@ KickstartGenerator = yeoman.generators.Base.extend({
       this.HTMLDeveloper = answers.HTMLDeveloper;
       this.ProjectManager = answers.ProjectManager;
       this.ProjectName = string.slugify(answers.ProjectName);
+      this.ProjectServer = answers.ProjectServer;
+      this.HostServer = answers.HostServer;
+      this.Username = answers.Username;
+      this.sshPath = answers.sshPath;
+      this.DeployPath = answers.DeployPath;
 
       // wysiwygCMS
       this.wysiwygCMS = answers.wysiwygCMS;
@@ -159,7 +202,10 @@ KickstartGenerator = yeoman.generators.Base.extend({
 
     this.fs.copyTpl(
       this.templatePath('_gitignore'),
-      this.destinationPath('.gitignore')
+      this.destinationPath('.gitignore'),
+      {
+        ProjectServer: this.ProjectServer
+      }
     );
 
     this.fs.copyTpl(
@@ -201,6 +247,7 @@ KickstartGenerator = yeoman.generators.Base.extend({
       this.destinationPath('gruntfile.js'),
       {
         ProjectName: this.ProjectName,
+        ProjectServer: this.ProjectServer,
         WCAG2: this.WCAG2,
         oldIE: this.oldIE
       }
@@ -210,7 +257,30 @@ KickstartGenerator = yeoman.generators.Base.extend({
       this.templatePath('_package.json'),
       this.destinationPath('package.json'),
       {
-        ProjectName: this.ProjectName
+        ProjectName: this.ProjectName,
+        ProjectServer: this.ProjectServer
+      }
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('_clientConfig.json'),
+      this.destinationPath('clientConfig.json'),
+      {
+        ProjectName: this.ProjectName,
+        ProjectServer: this.ProjectServer,
+        sshPath: this.sshPath
+      }
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('_hostConfig.json'),
+      this.destinationPath('hostConfig.json'),
+      {
+        ProjectName: this.ProjectName,
+        ProjectServer: this.ProjectServer,
+        Username: this.Username,
+        HostServer: this.HostServer,
+        DeployPath: this.DeployPath
       }
     );
 
@@ -311,25 +381,36 @@ KickstartGenerator = yeoman.generators.Base.extend({
   },
 
   /**
-   * Create all images from templates.
-   * @function images
+   * Create all Components from templates.
+   * @function components
    * @private
    */
-  images: function () {
+  components: function () {
 
-    this.fs.copy(
-      this.templatePath('_favicon.ico'),
-      this.destinationPath('favicon.ico')
+    // Site-Icons
+    this.fs.copyTpl(
+      this.templatePath('site-icons/_site-icons.html'),
+      this.destinationPath('components/app/site-icons/site-icons.html')
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('site-icons/_windows-tile-icon.html'),
+      this.destinationPath('components/app/site-icons/windows-tile-icon.html')
     );
 
     this.fs.copy(
-      this.templatePath('_apple-touch-icon.png'),
-      this.destinationPath('apple-touch-icon.png')
+      this.templatePath('site-icons/img/_favicon.ico'),
+      this.destinationPath('components/app/site-icons/img/favicon.ico')
     );
 
     this.fs.copy(
-      this.templatePath('_windows-tile-icon.png'),
-      this.destinationPath('windows-tile-icon.png')
+      this.templatePath('site-icons/img/_apple-touch-icon.png'),
+      this.destinationPath('components/app/site-icons/img/apple-touch-icon.png')
+    );
+
+    this.fs.copy(
+      this.templatePath('site-icons/img/_windows-tile-icon.png'),
+      this.destinationPath('components/app/site-icons/img/windows-tile-icon.png')
     );
 
   },
