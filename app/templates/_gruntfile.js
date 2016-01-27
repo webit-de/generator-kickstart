@@ -275,7 +275,7 @@ module.exports = function(grunt) {
           flatten: true,
           expand: true,
           cwd: 'components/app',
-          src: ['**/*.{gif,jpg,png,svg}'],
+          src: ['**/*.{gif,jpg,png,svg,ico}'],
           dest: 'build/assets/img'
         }]
       }
