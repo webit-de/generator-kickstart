@@ -6,7 +6,7 @@
  * @requires underscore.string
  * @requires yeoman-generator
  * @requires yosay
- * @author mail@markus-falk.com
+ * @author mail@markus-falk.com schramm@webit.de
  */
 
 'use strict';
@@ -33,7 +33,7 @@ KickstartGenerator = yeoman.Base.extend({
     this.on('end', function () {
 
       if(this.wysiwygCMS) {
-        this.log('Don\'t forget to run: ' + chalk.yellow('yo kickstart:addcomponent backend'));
+        this.log('Don\'t forget to run: ' + chalk.yellow('yo kickstart-webit:addcomponent backend'));
         this.log('\n');
       }
     });
