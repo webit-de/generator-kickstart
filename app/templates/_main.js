@@ -10,7 +10,12 @@ require([
   'jquery',<% if (oldIE) { %>
   'respondJS',<% } %>
   'jquery.exists'
-], function($, <% if (oldIE) { %>respondJS, <% } %>exists) {
+], function(
+  $,
+  <% if (oldIE) { %>
+  respondJS,<% } %>
+  exists
+) {
 
   'use strict';
 
