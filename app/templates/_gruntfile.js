@@ -72,7 +72,7 @@ module.exports = function(grunt) {
       },
       js_deferred: {
         files: ['components/app/_deferred/**/*.js'],
-        tasks: ['uglify:deferred', 'modernizr'],
+        tasks: ['uglify:deferred_development', 'modernizr'],
       },
       js_bower: {
         files: ['components/bower/**/*.js'],
