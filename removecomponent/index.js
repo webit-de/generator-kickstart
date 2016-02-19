@@ -13,7 +13,7 @@ var
 string = require('underscore.string'),
 yeoman = require('yeoman-generator'),
 
-RemovecomponentGenerator = yeoman.NamedBase.extend({
+RemovecomponentGenerator = yeoman.Base.extend({
 
   /**
    * Sets required arguments.
