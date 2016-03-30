@@ -9,7 +9,8 @@ module.exports = function(grunt) {
     if (fileExists('clientConfig.json')) {
       key = fs.readFileSync((require('userhome')(grunt.file.readJSON('clientConfig.json').keyPath)));
     } else {
-      key = fs.readFileSync((require('userhome')('.ssh/id_rsa')));
+      var idrsa = require('userhome')('.ssh/id_rsa');
+      key = fileExists(idrsa) ? fs.readFileSync(idrsa) : '';
     }
   },
 
