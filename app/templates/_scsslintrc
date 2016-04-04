@@ -23,7 +23,7 @@ linters:
     enabled: false
   QualifyingElement:
     enabled: false
-  SelectorDepth
+  SelectorDepth:
     enabled: false
   VendorPrefix:
     enabled: false
