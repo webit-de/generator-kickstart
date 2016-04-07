@@ -1,29 +1,5 @@
 linters:
-  SelectorFormat:
-    enabled: false
-  NameFormat:
-    enabled: false
-  LeadingZero:
-    enabled: false
-  Comment:
-    enabled: false
-  IdSelector:
-    enabled: false
-  PlaceholderInExtend:
-    enabled: false
   NestingDepth:
-    enabled: false
-  ImportantRule:
-    enabled: false
-  SpaceAfterComma:
-    enabled: false
-  ColorVariable:
-    enabled: false
-  StringQuotes:
-    enabled: false
-  QualifyingElement:
-    enabled: false
+    max-width: 4
   SelectorDepth:
-    enabled: false
-  VendorPrefix:
-    enabled: false
+    max-width: 4
