@@ -178,6 +178,26 @@ module.exports = function(grunt) {
                 // get file for replacement
                 return grunt.file.read('components/' + type + '/' + component + '/' + alt_file + '.html');
               }
+            },
+            {
+              match: /{(svg):{([\w|\-]*)}}/g,
+              replacement: function (match, type, file) {
+
+                // use regular svg file without folder
+
+                // get file for replacement
+                return grunt.file.read('components/app/_svg/' + file + '.svg');
+              }
+            },
+            {
+              match: /{(svg):{(.+):{(.+)}}}/g,
+              replacement: function (match, type, component, alt_file) {
+
+                // use regular svg file that is nested in a folder
+
+                // get file for replacement
+                return grunt.file.read('components/app/_svg/' + component + '/' + alt_file + '.svg');
+              }
             }
           ]
         },
@@ -276,8 +296,17 @@ module.exports = function(grunt) {
           flatten: true,
           expand: true,
           cwd: 'components/app',
-          src: ['**/*.{gif,jpg,png,svg,ico}'],
+          src: ['**/*.{gif,jpg,png,svg,ico}', '!_svg/**/*.svg', '!_svg/*.svg'],
           dest: 'build/assets/img'
+        }]
+      },
+      inline_svg: {
+        files: [{
+          flatten: false,
+          expand: true,
+          cwd: 'components/app/_svg',
+          src: ['**/*.svg','*.svg'],
+          dest: 'build/assets/img/inline-svg'
         }]
       }
     },
