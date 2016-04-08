@@ -92,6 +92,13 @@ module.exports = function(grunt) {
         tasks: ['replace'],
       },
 
+      // SVG
+      svg: {
+        options: { livereload: true },
+        files: ['components/app/_svg/*.svg' , 'components/app/_svg/**/*.svg'],
+        tasks: ['replace'],
+      },
+
       // Images
       img_content: {
         options: { livereload: true },
@@ -100,8 +107,13 @@ module.exports = function(grunt) {
       },
       img_background: {
         options: { livereload: true },
-        files: 'components/**/*.{png,gif,jpg,svg,ico}',
-        tasks: ['clean:css', 'imagemin:backgrounds' , 'compass:development', 'clean:development'],
+        files: ['components/**/*.{png,gif,jpg,svg,ico}', '!_svg/**/*.svg', '!_svg/*.svg'],
+        tasks: ['clean:css', 'imagemin:backgrounds' , 'compass:development'],
+      },
+      img_inline_svg: {
+        options: { livereload: true },
+        files: ['components/app/_svg/**/*.svg', 'components/app/_svg/*.svg'],
+        tasks: ['clean:css', 'imagemin:inline_svg' , 'compass:development'],
       },
 
       // websocket support
