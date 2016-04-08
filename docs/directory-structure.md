@@ -72,5 +72,22 @@ Here is what you can do with them:
     <!-- insert app/_deferred/component-name/alternate-file.html -->
     {deferred:{component-name:{alternate-file}}}
   <body>
-<html
+<html>
+```
+
+### SVG Placeholders
+
+Include your svg graphics via placeholder into your main template files.
+
+```html
+<html>
+  <head>Your sandbox.html</head>
+  <body>
+    <!-- insert svg/file-name.svg -->
+    {svg:{file-name}}
+
+    <!-- insert app/component-name/alternate-file.svg -->
+    {svg:{folder-name:{alternate-file}}}
+  <body>
+<html>
 ```
