@@ -166,51 +166,61 @@ module.exports = function(grunt) {
           excludeBuiltins: true,
           patterns: [
             {
-              match: /{(app|deferred):{([\w|\-]*)}}/g,
+              match: /{(app|deferred|svg):{([\w|\-]*)}}/g,
               replacement: function (match, type, file) {
+
+                var is_svg = type === 'svg' ? true : false,
+                    extension = is_svg ? '.svg' : '.html',
+                    path = '',
+                    start = '',
+                    end = '';
 
                 // use regular file
 
                 // add app folder to deferred component
-                type = type === 'deferred' ? 'app/_' + type : type;
+                type = type !== 'app' ? 'app/_' + type : type;
 
+                // set path to file
+                path = 'components/' + type + '/' + file + '/' + file + extension;
+
+                if (is_svg) {
+                  start = '<!-- START ' + path + ' -->\n';
+                  end = '<!-- END ' + path + ' -->\n';
+                }
+
+                // var output = start + grunt.file.read(path) + end;
                 // get file for replacement
-                return grunt.file.read('components/' + type + '/' + file + '/' + file + '.html');
+                return start + grunt.file.read(path) + end;
+                // return output;
               }
             },
             {
-              match: /{(app|deferred):{(.+):{(.+)}}}/g,
+              match: /{(app|deferred|svg):{(.+):{(.+)}}}/g,
               replacement: function (match, type, component, alt_file) {
+
+                var is_svg = type === 'svg' ? true : false,
+                    extension = is_svg ? '.svg' : '.html',
+                    path = '',
+                    start = '',
+                    end = '';
 
                 // use alternate file
 
                 // add app folder to deferred component
-                type = type === 'deferred' ? 'app/_' + type : type;
+                type = type !== 'app' ? 'app/_' + type : type;
+
+                // set path to file
+                path = 'components/' + type + '/' + component + '/' + alt_file + extension;
+
+                if (is_svg) {
+                  start = '<!-- START ' + path + ' -->\n';
+                  end = '<!-- END ' + path + ' -->\n';
+                }
 
                 // get file for replacement
-                return grunt.file.read('components/' + type + '/' + component + '/' + alt_file + '.html');
+                return start + grunt.file.read(path) + end;
               }
             },
-            {
-              match: /{(svg):{([\w|\-]*)}}/g,
-              replacement: function (match, type, file) {
-
-                // use regular svg file without folder
-
-                // get file for replacement
-                return grunt.file.read('components/app/_svg/' + file + '.svg');
-              }
-            },
-            {
-              match: /{(svg):{(.+):{(.+)}}}/g,
-              replacement: function (match, type, component, alt_file) {
-
-                // use regular svg file that is nested in a folder
-
-                // get file for replacement
-                return grunt.file.read('components/app/_svg/' + component + '/' + alt_file + '.svg');
-              }
-            }
           ]
         },
         files: [
