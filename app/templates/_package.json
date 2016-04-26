@@ -21,8 +21,10 @@
     "grunt-newer": "^1",
     "grunt-replace": "^0.8",
     "grunt-scss-lint": "^0.3",
+    "quiet-grunt": "^0.2.3",
     "grunt-sync": "0.2",<% if (ProjectServer) { %>
     "grunt-ssh-deploy": "^0.3.2",
+    "npm": "^3.5.0",
     "userhome": "^1.0.0",<% } %>
     "jshint-stylish": "^1"
   }<% if (ProjectServer) { %>,

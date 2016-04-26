@@ -2,6 +2,10 @@ module.exports = function(grunt) {
 
   'use strict';
 
+  if (grunt.option('q') || grunt.option('quiet')) {
+    require('quiet-grunt');
+  }
+
 <% if (ProjectServer) { %>
   var fileExists = require('file-exists'),
   fs = require('fs'),
