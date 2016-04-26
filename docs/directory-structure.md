@@ -6,6 +6,7 @@
 |   └── libs/ #(all 3rd party components)
 |   └── app/ #(all own components in folders containing JS, SCSS, HTML)
 |   |   └── _deferred/ #(modules that are loaded dynamically)
+|   |   └── _svg/ #(folder for inline-svg files to use with placeholder)
 |   |   └── <component-name>/
 |   |   |   └── img/ #(background-images used by this component)
 |   |   |   └── font/ #(webfonts used by this component)
@@ -39,6 +40,7 @@ This is what it builds into:
 build/
 |── assets/
 |   └── img/
+|       └── inline-svg/
 |       └── favicon.ico
 |       └── windows-tile-icon.png
 |       └── apple-touch-icon.png
