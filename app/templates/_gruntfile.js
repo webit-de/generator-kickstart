@@ -188,10 +188,8 @@ module.exports = function(grunt) {
                   end = '<!-- END ' + path + ' -->\n';
                 }
 
-                // var output = start + grunt.file.read(path) + end;
                 // get file for replacement
                 return start + grunt.file.read(path) + end;
-                // return output;
               }
             },
             {
