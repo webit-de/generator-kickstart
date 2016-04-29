@@ -189,7 +189,45 @@ module.exports = function(grunt) {
                 }
 
                 // get file for replacement
-                return start + grunt.file.read(path) + end;
+                // return start + grunt.file.read(path) + end;
+
+                // Nesting
+                var output = grunt.file.read(path),
+                    match = output.match(/{(app|svg):{([\w|\-]{0,})}}|{(app|svg):{(.+):{(.+)}}}/g);
+
+                if( match !== null ) {
+
+                  //replace each placeholder with its accociated file content
+                  match.forEach(function(elem){
+                    var
+                    inner_match = elem.replace( /[{}]/g,'').split(':'),
+                    inner_type = inner_match[0] !== 'app' ? 'app/_' + inner_match[0] : inner_match[0],
+                    inner_component = inner_match.length === 3 ? inner_match[1] : '',
+                    inner_file = inner_match.length < 3 ? inner_match[1] : inner_match[2],
+                    inner_regex = inner_match.length < 3 ? new RegExp("{" + inner_match[0] + ":{" + inner_file + "}}", "g") : new RegExp("{" + inner_match[0] + ":{" + inner_component + ":{" + inner_file + "}}}", "g"),
+                    is_svg = inner_match[0] === 'svg' ? true : false,
+                    extension = is_svg ? '.svg' : '.html',
+                    path = inner_match.length < 3 ? 'components/' + inner_type + '/' + inner_file + '/' + inner_file + extension : 'components/' + inner_type + '/' + inner_component + '/' + inner_file + extension,
+                    start = '',
+                    end = '';
+
+                    if (is_svg) {
+                      start = '<!-- START ' + path + ' -->\n';
+                      end = '<!-- END ' + path + ' -->\n';
+                    }
+
+
+                    var inner_output =  start + grunt.file.read(path) + end;
+
+                    // write file content into main output
+                    output = output.replace( inner_regex , inner_output );
+                  });
+
+                } else {
+                  output = start + output + end;
+                }
+
+                return output;
               }
             },
             {
@@ -215,8 +253,42 @@ module.exports = function(grunt) {
                   end = '<!-- END ' + path + ' -->\n';
                 }
 
-                // get file for replacement
-                return start + grunt.file.read(path) + end;
+                // Nesting
+                var output = grunt.file.read(path),
+                    match = output.match(/{(app|svg):{([\w|\-]{0,})}}|{(app|svg):{(.+):{(.+)}}}/g);
+
+                if( match !== null ) {
+
+                  //replace each placeholder with its accociated file content
+                  match.forEach(function(elem){
+                    var
+                    inner_match = elem.replace( /[{}]/g,'').split(':'),
+                    inner_type = inner_match[0] !== 'app' ? 'app/_' + inner_match[0] : inner_match[0],
+                    inner_component = inner_match.length === 3 ? inner_match[1] : '',
+                    inner_file = inner_match.length < 3 ? inner_match[1] : inner_match[2],
+                    inner_regex = inner_match.length < 3 ? new RegExp("{" + inner_match[0] + ":{" + inner_file + "}}", "g") : new RegExp("{" + inner_match[0] + ":{" + inner_component + ":{" + inner_file + "}}}", "g"),
+                    is_svg = inner_match[0] === 'svg' ? true : false,
+                    extension = is_svg ? '.svg' : '.html',
+                    path = inner_match.length < 3 ? 'components/' + inner_type + '/' + inner_file + '/' + inner_file + extension : 'components/' + inner_type + '/' + inner_component + '/' + inner_file + extension,
+                    start = '',
+                    end = '';
+
+                    if (is_svg) {
+                      start = '<!-- START ' + path + ' -->\n';
+                      end = '<!-- END ' + path + ' -->\n';
+                    }
+
+                    var inner_output =  start + grunt.file.read(path) + end;
+
+                    // write file content into main output
+                    output = output.replace( inner_regex , inner_output );
+                  });
+
+                } else {
+                  output = start + output + end;
+                }
+
+                return output;
               }
             },
           ]
