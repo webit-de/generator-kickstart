@@ -95,7 +95,7 @@ module.exports = function(grunt) {
       // SVG
       svg: {
         options: { livereload: true },
-        files: ['components/app/_svg/*.svg' , 'components/app/_svg/**/*.svg'],
+        files: ['components/app/_svg/**/*.svg'],
         tasks: ['replace'],
       },
 
@@ -112,7 +112,7 @@ module.exports = function(grunt) {
       },
       img_inline_svg: {
         options: { livereload: true },
-        files: ['components/app/_svg/**/*.svg', 'components/app/_svg/*.svg'],
+        files: ['components/app/_svg/**/*.svg'],
         tasks: ['clean:css', 'imagemin:inline_svg' , 'compass:development'],
       },
 
