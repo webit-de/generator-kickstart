@@ -7,6 +7,8 @@
 |   └── app/ #(all own components in folders containing JS, SCSS, HTML)
 |   |   └── _deferred/ #(modules that are loaded dynamically)
 |   |   └── _svg/ #(folder for inline-svg files to use with placeholder)
+|   |   |   └── <folder-name>/
+|   |   |   └── <svg-name>.svg
 |   |   └── <component-name>/
 |   |   |   └── img/ #(background-images used by this component)
 |   |   |   └── font/ #(webfonts used by this component)
