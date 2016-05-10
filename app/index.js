@@ -262,27 +262,29 @@ KickstartGenerator = yeoman.Base.extend({
       }
     );
 
-    this.fs.copyTpl(
-      this.templatePath('_clientConfig.json'),
-      this.destinationPath('clientConfig.json'),
-      {
-        ProjectName: this.ProjectName,
-        ProjectServer: this.ProjectServer,
-        sshPath: this.sshPath
-      }
-    );
+    if (this.ProjectServer) {
+      this.fs.copyTpl(
+        this.templatePath('_clientConfig.json'),
+        this.destinationPath('clientConfig.json'),
+        {
+          ProjectName: this.ProjectName,
+          ProjectServer: this.ProjectServer,
+          sshPath: this.sshPath
+        }
+      );
 
-    this.fs.copyTpl(
-      this.templatePath('_hostConfig.json'),
-      this.destinationPath('hostConfig.json'),
-      {
-        ProjectName: this.ProjectName,
-        ProjectServer: this.ProjectServer,
-        Username: this.Username,
-        HostServer: this.HostServer,
-        DeployPath: this.DeployPath
-      }
-    );
+      this.fs.copyTpl(
+        this.templatePath('_hostConfig.json'),
+        this.destinationPath('hostConfig.json'),
+        {
+          ProjectName: this.ProjectName,
+          ProjectServer: this.ProjectServer,
+          Username: this.Username,
+          HostServer: this.HostServer,
+          DeployPath: this.DeployPath
+        }
+      );
+    }
 
     this.fs.copyTpl(
       this.templatePath('_readme.md'),
