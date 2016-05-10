@@ -2,6 +2,7 @@
   "name": "<%= ProjectName %>",
   "repository": "git@gitlos.hob:<%= ProjectName %>",
   "license": "UNLICENSED",
+  "private": true,
   "version": "0.0.0",
   "devDependencies": {
     "grunt": "~0.4",
