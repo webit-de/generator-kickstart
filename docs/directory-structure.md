@@ -85,10 +85,10 @@ Include your svg graphics via placeholder into your main template files.
 <html>
   <head>Your sandbox.html</head>
   <body>
-    <!-- insert svg/file-name.svg -->
+    <!-- insert svg/file-name/file-name.svg -->
     {svg:{file-name}}
 
-    <!-- insert app/component-name/alternate-file.svg -->
+    <!-- insert svg/folder-name/alternate-file.svg -->
     {svg:{folder-name:{alternate-file}}}
   <body>
 <html>
