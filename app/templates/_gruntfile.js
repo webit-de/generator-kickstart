@@ -96,6 +96,13 @@ module.exports = function(grunt) {
         tasks: ['replace'],
       },
 
+      // SVG
+      svg: {
+        options: { livereload: true },
+        files: ['components/app/_svg/**/*.svg'],
+        tasks: ['replace'],
+      },
+
       // Images
       img_content: {
         options: { livereload: true },
@@ -104,8 +111,13 @@ module.exports = function(grunt) {
       },
       img_background: {
         options: { livereload: true },
-        files: 'components/**/*.{png,gif,jpg,svg,ico}',
-        tasks: ['clean:css', 'imagemin:backgrounds' , 'compass:development', 'clean:development'],
+        files: ['components/**/*.{png,gif,jpg,svg,ico}', '!_svg/**/*.svg', '!_svg/*.svg'],
+        tasks: ['clean:css', 'imagemin:backgrounds' , 'compass:development'],
+      },
+      img_inline_svg: {
+        options: { livereload: true },
+        files: ['components/app/_svg/**/*.svg'],
+        tasks: ['clean:css', 'imagemin:inline_svg' , 'compass:development'],
       },
 
       // websocket support
@@ -158,31 +170,131 @@ module.exports = function(grunt) {
           excludeBuiltins: true,
           patterns: [
             {
-              match: /{(app|deferred):{([\w|\-]*)}}/g,
+              match: /{(app|deferred|svg):{([\w|\-]*)}}/g,
               replacement: function (match, type, file) {
+
+                var is_svg = type === 'svg' ? true : false,
+                    extension = is_svg ? '.svg' : '.html',
+                    path = '',
+                    start = '',
+                    end = '';
 
                 // use regular file
 
                 // add app folder to deferred component
-                type = type === 'deferred' ? 'app/_' + type : type;
+                type = type !== 'app' ? 'app/_' + type : type;
+
+                // set path to file
+                path = 'components/' + type + '/' + file + '/' + file + extension;
+
+                if (is_svg) {
+                  start = '<!-- START ' + path + ' -->\n';
+                  end = '<!-- END ' + path + ' -->\n';
+                }
 
                 // get file for replacement
-                return grunt.file.read('components/' + type + '/' + file + '/' + file + '.html');
+                // return start + grunt.file.read(path) + end;
+
+                // Nesting
+                var output = grunt.file.read(path),
+                    match = output.match(/{(app|svg):{([\w|\-]{0,})}}|{(app|svg):{(.+):{(.+)}}}/g);
+
+                if( match !== null ) {
+
+                  //replace each placeholder with its accociated file content
+                  match.forEach(function(elem){
+                    var
+                    inner_match = elem.replace( /[{}]/g,'').split(':'),
+                    inner_type = inner_match[0] !== 'app' ? 'app/_' + inner_match[0] : inner_match[0],
+                    inner_component = inner_match.length === 3 ? inner_match[1] : '',
+                    inner_file = inner_match.length < 3 ? inner_match[1] : inner_match[2],
+                    inner_regex = inner_match.length < 3 ? new RegExp("{" + inner_match[0] + ":{" + inner_file + "}}", "g") : new RegExp("{" + inner_match[0] + ":{" + inner_component + ":{" + inner_file + "}}}", "g"),
+                    is_svg = inner_match[0] === 'svg' ? true : false,
+                    extension = is_svg ? '.svg' : '.html',
+                    path = inner_match.length < 3 ? 'components/' + inner_type + '/' + inner_file + '/' + inner_file + extension : 'components/' + inner_type + '/' + inner_component + '/' + inner_file + extension,
+                    start = '',
+                    end = '';
+
+                    if (is_svg) {
+                      start = '<!-- START ' + path + ' -->\n';
+                      end = '<!-- END ' + path + ' -->\n';
+                    }
+
+
+                    var inner_output =  start + grunt.file.read(path) + end;
+
+                    // write file content into main output
+                    output = output.replace( inner_regex , inner_output );
+                  });
+
+                } else {
+                  output = start + output + end;
+                }
+
+                return output;
               }
             },
             {
-              match: /{(app|deferred):{(.+):{(.+)}}}/g,
+              match: /{(app|deferred|svg):{(.+):{(.+)}}}/g,
               replacement: function (match, type, component, alt_file) {
+
+                var is_svg = type === 'svg' ? true : false,
+                    extension = is_svg ? '.svg' : '.html',
+                    path = '',
+                    start = '',
+                    end = '';
 
                 // use alternate file
 
                 // add app folder to deferred component
-                type = type === 'deferred' ? 'app/_' + type : type;
+                type = type !== 'app' ? 'app/_' + type : type;
 
-                // get file for replacement
-                return grunt.file.read('components/' + type + '/' + component + '/' + alt_file + '.html');
+                // set path to file
+                path = 'components/' + type + '/' + component + '/' + alt_file + extension;
+
+                if (is_svg) {
+                  start = '<!-- START ' + path + ' -->\n';
+                  end = '<!-- END ' + path + ' -->\n';
+                }
+
+                // Nesting
+                var output = grunt.file.read(path),
+                    match = output.match(/{(app|svg):{([\w|\-]{0,})}}|{(app|svg):{(.+):{(.+)}}}/g);
+
+                if( match !== null ) {
+
+                  //replace each placeholder with its accociated file content
+                  match.forEach(function(elem){
+                    var
+                    inner_match = elem.replace( /[{}]/g,'').split(':'),
+                    inner_type = inner_match[0] !== 'app' ? 'app/_' + inner_match[0] : inner_match[0],
+                    inner_component = inner_match.length === 3 ? inner_match[1] : '',
+                    inner_file = inner_match.length < 3 ? inner_match[1] : inner_match[2],
+                    inner_regex = inner_match.length < 3 ? new RegExp("{" + inner_match[0] + ":{" + inner_file + "}}", "g") : new RegExp("{" + inner_match[0] + ":{" + inner_component + ":{" + inner_file + "}}}", "g"),
+                    is_svg = inner_match[0] === 'svg' ? true : false,
+                    extension = is_svg ? '.svg' : '.html',
+                    path = inner_match.length < 3 ? 'components/' + inner_type + '/' + inner_file + '/' + inner_file + extension : 'components/' + inner_type + '/' + inner_component + '/' + inner_file + extension,
+                    start = '',
+                    end = '';
+
+                    if (is_svg) {
+                      start = '<!-- START ' + path + ' -->\n';
+                      end = '<!-- END ' + path + ' -->\n';
+                    }
+
+                    var inner_output =  start + grunt.file.read(path) + end;
+
+                    // write file content into main output
+                    output = output.replace( inner_regex , inner_output );
+                  });
+
+                } else {
+                  output = start + output + end;
+                }
+
+                return output;
               }
-            }
+            },
           ]
         },
         files: [
@@ -280,8 +392,17 @@ module.exports = function(grunt) {
           flatten: true,
           expand: true,
           cwd: 'components/app',
-          src: ['**/*.{gif,jpg,png,svg,ico}'],
+          src: ['**/*.{gif,jpg,png,svg,ico}', '!_svg/**/*.svg', '!_svg/*.svg'],
           dest: 'build/assets/img'
+        }]
+      },
+      inline_svg: {
+        files: [{
+          flatten: false,
+          expand: true,
+          cwd: 'components/app/_svg',
+          src: ['**/*.svg','*.svg'],
+          dest: 'build/assets/img/inline-svg'
         }]
       }
     },

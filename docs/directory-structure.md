@@ -6,6 +6,9 @@
 |   └── libs/ #(all 3rd party components)
 |   └── app/ #(all own components in folders containing JS, SCSS, HTML)
 |   |   └── _deferred/ #(modules that are loaded dynamically)
+|   |   └── _svg/ #(folder for inline-svg files to use with placeholder)
+|   |   |   └── <svg-name>/
+|   |   |   |   └── <svg-name>.svg
 |   |   └── <component-name>/
 |   |   |   └── img/ #(background-images used by this component)
 |   |   |   └── font/ #(webfonts used by this component)
@@ -39,6 +42,7 @@ This is what it builds into:
 build/
 |── assets/
 |   └── img/
+|       └── inline-svg/
 |       └── favicon.ico
 |       └── windows-tile-icon.png
 |       └── apple-touch-icon.png
@@ -72,5 +76,22 @@ Here is what you can do with them:
     <!-- insert app/_deferred/component-name/alternate-file.html -->
     {deferred:{component-name:{alternate-file}}}
   <body>
-<html
+<html>
+```
+
+### SVG Placeholders
+
+Include your svg graphics via placeholder into your main template files.
+
+```html
+<html>
+  <head>Your sandbox.html</head>
+  <body>
+    <!-- insert svg/file-name/file-name.svg -->
+    {svg:{file-name}}
+
+    <!-- insert svg/folder-name/alternate-file.svg -->
+    {svg:{folder-name:{alternate-file}}}
+  <body>
+<html>
 ```
