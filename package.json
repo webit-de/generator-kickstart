@@ -1,6 +1,6 @@
 {
   "name": "generator-kickstart-webit",
-  "version": "3.6.0",
+  "version": "3.7.0",
   "description": "Yeoman generator for creating websites and single page applications",
   "license": "MIT",
   "man": [
