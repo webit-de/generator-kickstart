@@ -500,10 +500,11 @@ module.exports = function(grunt) {
       dist: {
         'devFile' : 'components/libs/modernizr/modernizr.js',
         'dest' : 'build/assets/js/libs/modernizr.js',
-        'extra' : {
-          <% if (oldIE) { %>'html5printshiv'<% } %>,
-          'cssclasses' : true
-        },
+        'options' : [
+          <% if (oldIE) { %>'html5printshiv,'<% } %>
+          'setClasses'
+        ],
+        'uglify' : true,
         'files' : {
           'src': ['components/app/**/*.js', 'build/**/*.css']
         }
