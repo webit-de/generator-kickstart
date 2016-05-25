@@ -499,12 +499,9 @@ module.exports = function(grunt) {
     modernizr: {
       dist: {
         'devFile' : 'components/libs/modernizr/modernizr.js',
-        'outputFile' : 'build/assets/js/libs/modernizr.js',
+        'dest' : 'build/assets/js/libs/modernizr.js',
         'extra' : {
-          'shiv' : <% if (oldIE) { %>true<% } else { %>false<% } %>,
-          'printshiv' : <% if (oldIE) { %>true<% } else { %>false<% } %>,
-          'load' : false,
-          'mq' : false,
+          <% if (oldIE) { %>'html5printshiv'<% } %>,
           'cssclasses' : true
         },
         'files' : {
