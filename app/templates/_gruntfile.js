@@ -122,7 +122,7 @@ module.exports = function(grunt) {
 
       // websocket support
       livereload: {
-        options: { livereload: true },
+        options: { livereload: true, spawn: true },
         files: ['build/**/*.{css,js}']
       }
     },
@@ -499,14 +499,12 @@ module.exports = function(grunt) {
     modernizr: {
       dist: {
         'devFile' : 'components/libs/modernizr/modernizr.js',
-        'outputFile' : 'build/assets/js/libs/modernizr.js',
-        'extra' : {
-          'shiv' : <% if (oldIE) { %>true<% } else { %>false<% } %>,
-          'printshiv' : <% if (oldIE) { %>true<% } else { %>false<% } %>,
-          'load' : false,
-          'mq' : false,
-          'cssclasses' : true
-        },
+        'dest' : 'build/assets/js/libs/modernizr.js',
+        'options' : [
+          <% if (oldIE) { %>'html5printshiv,'<% } %>
+          'setClasses'
+        ],
+        'uglify' : true,
         'files' : {
           'src': ['components/app/**/*.js', 'build/**/*.css']
         }
