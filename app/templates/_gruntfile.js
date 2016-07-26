@@ -122,7 +122,7 @@ module.exports = function(grunt) {
 
       // websocket support
       livereload: {
-        options: { livereload: true },
+        options: { livereload: true, spawn: true },
         files: ['build/**/*.{css,js}']
       }
     },
