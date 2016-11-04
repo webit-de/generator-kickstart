@@ -249,7 +249,8 @@ KickstartGenerator = yeoman.Base.extend({
         ProjectName: this.ProjectName,
         ProjectServer: this.ProjectServer,
         WCAG2: this.WCAG2,
-        oldIE: this.oldIE
+        oldIE: this.oldIE,
+        livereload: this.livereload
       }
     );
 

@@ -165,7 +165,7 @@ module.exports = function(grunt) {
     },
 
     replace: {
-      modules: {
+      all_placeholder: {
         options: {
           excludeBuiltins: true,
           patterns: [
@@ -174,10 +174,10 @@ module.exports = function(grunt) {
               replacement: function (match, type, file) {
 
                 var is_svg = type === 'svg' ? true : false,
-                    extension = is_svg ? '.svg' : '.html',
-                    path = '',
-                    start = '',
-                    end = '';
+                extension = is_svg ? '.svg' : '.html',
+                path = '',
+                start = '',
+                end = '';
 
                 // use regular file
 
@@ -197,7 +197,7 @@ module.exports = function(grunt) {
 
                 // Nesting
                 var output = grunt.file.read(path),
-                    match = output.match(/{(app|svg):{([\w|\-]{0,})}}|{(app|svg):{(.+):{(.+)}}}/g);
+                match = output.match(/{(app|svg):{([\w|\-]{0,})}}|{(app|svg):{(.+):{(.+)}}}/g);
 
                 if( match !== null ) {
 
@@ -239,10 +239,10 @@ module.exports = function(grunt) {
               replacement: function (match, type, component, alt_file) {
 
                 var is_svg = type === 'svg' ? true : false,
-                    extension = is_svg ? '.svg' : '.html',
-                    path = '',
-                    start = '',
-                    end = '';
+                extension = is_svg ? '.svg' : '.html',
+                path = '',
+                start = '',
+                end = '';
 
                 // use alternate file
 
@@ -259,7 +259,7 @@ module.exports = function(grunt) {
 
                 // Nesting
                 var output = grunt.file.read(path),
-                    match = output.match(/{(app|svg):{([\w|\-]{0,})}}|{(app|svg):{(.+):{(.+)}}}/g);
+                match = output.match(/{(app|svg):{([\w|\-]{0,})}}|{(app|svg):{(.+):{(.+)}}}/g);
 
                 if( match !== null ) {
 
@@ -305,8 +305,35 @@ module.exports = function(grunt) {
             dest: 'build/'
           }
         ]
-      }
-    },
+      },
+      <% if (livereload) { %>
+        dev: {
+          options: {
+            excludeBuiltins: true,
+            patterns: [
+              {
+                match: /<\/body>/g,
+                replacement: function (match, type, file) {
+                  var
+                  body_markup = '</body>',
+                  livereload_markup = '<script>document.write(\'<script src="http://\' + (location.host || \'localhost\').split(\':\')[0] + \':35729/livereload.js?snipver=1"></\' + \'script>\')</script>';
+
+                  return body_markup+'\n'+livereload_markup;
+                }
+              },
+            ]
+          },
+          files: [
+            {
+              expand: true,
+              flatten: true,
+              src: ['build/*.html'],
+              dest: 'build/'
+            }
+          ]
+        }
+        <% } %>
+      },
 
     requirejs: {
       options: {
@@ -570,7 +597,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('live', [
     'clean:build',
-    'replace',
+    'replace:all_placeholder',
     'imagemin',
     'sync',
     'compass:live',
