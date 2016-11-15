@@ -173,7 +173,8 @@ module.exports = function(grunt) {
               match: /{(app|deferred|svg):{([\w|\-]*)}}/g,
               replacement: function (match, type, file) {
 
-                var is_svg = type === 'svg' ? true : false,
+                var
+                is_svg = type === 'svg' ? true : false,
                 extension = is_svg ? '.svg' : '.html',
                 path = '',
                 start = '',
@@ -196,13 +197,14 @@ module.exports = function(grunt) {
                 // return start + grunt.file.read(path) + end;
 
                 // Nesting
-                var output = grunt.file.read(path),
-                match = output.match(/{(app|svg):{([\w|\-]{0,})}}|{(app|svg):{(.+):{(.+)}}}/g);
+                var
+                output = grunt.file.read(path),
+                findMatch = output.match(/{(app|svg):{([\w|\-]{0,})}}|{(app|svg):{(.+):{(.+)}}}/g);
 
-                if( match !== null ) {
+                if( findMatch !== null ) {
 
                   //replace each placeholder with its accociated file content
-                  match.forEach(function(elem){
+                  findMatch.forEach(function(elem){
                     var
                     inner_match = elem.replace( /[{}]/g,'').split(':'),
                     inner_type = inner_match[0] !== 'app' ? 'app/_' + inner_match[0] : inner_match[0],
@@ -238,7 +240,8 @@ module.exports = function(grunt) {
               match: /{(app|deferred|svg):{(.+):{(.+)}}}/g,
               replacement: function (match, type, component, alt_file) {
 
-                var is_svg = type === 'svg' ? true : false,
+                var
+                is_svg = type === 'svg' ? true : false,
                 extension = is_svg ? '.svg' : '.html',
                 path = '',
                 start = '',
@@ -258,13 +261,14 @@ module.exports = function(grunt) {
                 }
 
                 // Nesting
-                var output = grunt.file.read(path),
-                match = output.match(/{(app|svg):{([\w|\-]{0,})}}|{(app|svg):{(.+):{(.+)}}}/g);
+                var
+                output = grunt.file.read(path),
+                findMatch = output.match(/{(app|svg):{([\w|\-]{0,})}}|{(app|svg):{(.+):{(.+)}}}/g);
 
-                if( match !== null ) {
+                if( findMatch !== null ) {
 
                   //replace each placeholder with its accociated file content
-                  match.forEach(function(elem){
+                  findMatch.forEach(function(elem) {
                     var
                     inner_match = elem.replace( /[{}]/g,'').split(':'),
                     inner_type = inner_match[0] !== 'app' ? 'app/_' + inner_match[0] : inner_match[0],
@@ -282,7 +286,7 @@ module.exports = function(grunt) {
                       end = '<!-- END ' + path + ' -->\n';
                     }
 
-                    var inner_output =  start + grunt.file.read(path) + end;
+                    var inner_output = start + grunt.file.read(path) + end;
 
                     // write file content into main output
                     output = output.replace( inner_regex , inner_output );
@@ -318,7 +322,7 @@ module.exports = function(grunt) {
                   body_markup = '</body>',
                   livereload_markup = '<script>document.write(\'<script src="http://\' + (location.host || \'localhost\').split(\':\')[0] + \':35729/livereload.js?snipver=1"></\' + \'script>\')</script>';
 
-                  return body_markup+'\n'+livereload_markup;
+                  return body_markup + '\n' + livereload_markup;
                 }
               },
             ]
