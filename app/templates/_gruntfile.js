@@ -322,7 +322,7 @@ module.exports = function(grunt) {
                   body_markup = '</body>',
                   livereload_markup = '<script>document.write(\'<script src="http://\' + (location.host || \'localhost\').split(\':\')[0] + \':35729/livereload.js?snipver=1"></\' + \'script>\')</script>';
 
-                  return body_markup + '\n' + livereload_markup;
+                  return livereload_markup +'\n\n' + body_markup + '\n';
                 }
               },
             ]
