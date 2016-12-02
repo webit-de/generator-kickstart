@@ -6,7 +6,15 @@
  * @requires <%= slug_name %>
  * @author TODO: add author
  */
-define(['jquery', 'qunit', '<%= slug_name %>'], function($, qunit, <%= class_name %>) {
+define([
+  'jquery',
+  'qunit',
+  '<%= slug_name %>'
+], function(
+  $,
+  qunit,
+  <%= class_name %>
+) {
 
   'use strict';
 

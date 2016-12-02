@@ -2,9 +2,7 @@
   "name": "<%= ProjectName %>",
   "version": "0",
   "main": "sandbox.html",
-  "dependencies": {<% if (oldIE) { %>
-    "jquery": "~1",
-    "respondJS": "~1",<% } %>
+  "dependencies": {
     "modernizr": "~2",
     "jquery.exists": "~1",
     "qunit": "~1",

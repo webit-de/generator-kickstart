@@ -2,18 +2,14 @@
  * Main entry point into all Java Script.
  * @module Main
  * @requires jquery
- <% if (oldIE) { %>* @requires respondJS<% } %>
  * @requires jquery.exists
  * @author TODO: add author
  */
 require([
-  'jquery',<% if (oldIE) { %>
-  'respondJS',<% } %>
+  'jquery',
   'jquery.exists'
 ], function(
   $,
-  <% if (oldIE) { %>
-  respondJS,<% } %>
   exists
 ) {
 
@@ -26,7 +22,8 @@ require([
      * @private
      */
     cacheElements: function() {
-      // this.$bar = $('.bar');
+      // this.$object = $('.class');
+      // this.string = 'string';
     },
     /**
      * Initiates the module.

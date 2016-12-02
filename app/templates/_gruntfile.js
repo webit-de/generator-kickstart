@@ -510,7 +510,7 @@ module.exports = function(grunt) {
           flatten: true,
           expand: true,
           cwd: 'components/app',
-          src: ['**/font/*.{ttf,eot,woff,svg}'],
+          src: ['**/font/*.{ttf,eot,woff,woff2,svg}'],
           dest: 'build/assets/font'
         }],
         verbose: true
@@ -532,7 +532,6 @@ module.exports = function(grunt) {
         'devFile' : 'components/libs/modernizr/modernizr.js',
         'dest' : 'build/assets/js/libs/modernizr.js',
         'options' : [
-          <% if (oldIE) { %>'html5printshiv,'<% } %>
           'setClasses'
         ],
         'uglify' : true,

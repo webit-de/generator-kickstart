@@ -5,7 +5,13 @@
  * @requires jquery.exists
  * @author TODO: add author
  */
-define(['jquery', 'jquery.exists'], function($, exists) {
+define([
+  'jquery',
+  'jquery.exists'
+], function(
+  $,
+  exists
+) {
 
   'use strict';
 

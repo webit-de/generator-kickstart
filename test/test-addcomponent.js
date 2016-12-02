@@ -56,8 +56,7 @@ describe('Kickstart:addcomponent', function () {
         // create dummy project-name.js
         generator.fs.copyTpl(
           generator.templatePath('../../app/templates/_frontend-template-setup.scss'),
-          generator.destinationPath('components/foo.js'),
-          { oldIE: false }
+          generator.destinationPath('components/foo.js')
         );
 
       })
@@ -180,8 +179,7 @@ describe('Kickstart:addcomponent', function () {
         // create dummy project-name.js
         generator.fs.copyTpl(
           generator.templatePath('../../app/templates/_frontend-template-setup.scss'),
-          generator.destinationPath('components/bar.js'),
-          { oldIE: false }
+          generator.destinationPath('components/bar.js')
         );
 
       })

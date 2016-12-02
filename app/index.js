@@ -118,12 +118,6 @@ KickstartGenerator = yeoman.Base.extend({
       },
       {
         type: 'confirm',
-        name: 'oldIE',
-        message: 'Would you like to support legacy IE (<9)?',
-        default: false
-      },
-      {
-        type: 'confirm',
         name: 'livereload',
         message: 'Would you like include livereload.js into your sandbox.html?',
         default: true
@@ -167,7 +161,6 @@ KickstartGenerator = yeoman.Base.extend({
       this.livereload = answers.livereload;
 
       // Support level
-      this.oldIE = answers.oldIE;
       this.WCAG2 = answers.WCAG2;
 
       done();
@@ -237,8 +230,7 @@ KickstartGenerator = yeoman.Base.extend({
       this.templatePath('_bower.json'),
       this.destinationPath('bower.json'),
       {
-        ProjectName: this.ProjectName,
-        oldIE: this.oldIE
+        ProjectName: this.ProjectName
       }
     );
 
@@ -249,7 +241,6 @@ KickstartGenerator = yeoman.Base.extend({
         ProjectName: this.ProjectName,
         ProjectServer: this.ProjectServer,
         WCAG2: this.WCAG2,
-        oldIE: this.oldIE,
         livereload: this.livereload
       }
     );
@@ -293,7 +284,6 @@ KickstartGenerator = yeoman.Base.extend({
       {
         ProjectName: this.ProjectName,
         WCAG2: this.WCAG2,
-        oldIE: this.oldIE,
         GraphicDesigner: this.GraphicDesigner,
         HTMLDeveloper: this.HTMLDeveloper,
         ProjectManager: this.ProjectManager
@@ -311,18 +301,12 @@ KickstartGenerator = yeoman.Base.extend({
 
     this.fs.copyTpl(
       this.templatePath('_frontend-template-setup.js'),
-      this.destinationPath('components/' + this.ProjectName + '.js'),
-      {
-        oldIE: this.oldIE
-      }
+      this.destinationPath('components/' + this.ProjectName + '.js')
     );
 
     this.fs.copyTpl(
       this.templatePath('_main.js'),
       this.destinationPath('components/app/main.js'),
-      {
-        oldIE: this.oldIE
-      }
     );
   },
 
@@ -375,8 +359,7 @@ KickstartGenerator = yeoman.Base.extend({
       this.templatePath('_sandbox.html'),
       this.destinationPath('sandbox.html'),
       {
-        ProjectName: this.ProjectName,
-        oldIE: this.oldIE,
+        ProjectName: this.ProjectName
         wysiwygCMS: this.wysiwygCMS,
         livereload: this.livereload
       }
