@@ -23,7 +23,7 @@ require([
      * @function _cacheElements
      * @private
      */
-    cacheElements: function() {
+    _cacheElements: function() {
       // this.$object = $('.class');
       // this.string = 'string';
     },
@@ -33,7 +33,7 @@ require([
      * @public
      */
     init: function() {
-      this.cacheElements();
+      this._cacheElements();
     }
   };
 
