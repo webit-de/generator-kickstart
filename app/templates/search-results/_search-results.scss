@@ -1,0 +1,57 @@
+// ==========================================================================
+// = Variables
+// ==========================================================================
+
+$ranking-wrap-color: #d3d3d3;
+$ranking-wrap-height: 20px;
+$ranking-wrap-width: 100px;
+
+$ranking-bar-color: #008000;
+
+// ==========================================================================
+// = Search-Results
+// ==========================================================================
+
+mark {
+  // add styles for searched word or text
+}
+
+// ==========================================================================
+// = Rankings
+// ==========================================================================
+
+.ranking-wrap {
+  background-color: $ranking-wrap-color;
+  display: inline-block;
+  height: $ranking-wrap-height;
+  width: $ranking-wrap-width;
+}
+
+.ranking-bar {
+  background: $ranking-bar-color;
+  height: inherit;
+  overflow: hidden;
+  position: relative;
+  width: 0;
+}
+
+// ==========================================================================
+// = Pagination
+// ==========================================================================
+
+.pagination {
+  li {
+    display: inline-block;
+  }
+
+  a,
+  strong {
+    &.page-active {
+      // add styles for active pagination-button
+    }
+
+    &.inactive {
+      // add styles for inactive pagination-button
+    }
+  }
+}

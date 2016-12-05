@@ -3,6 +3,7 @@ requirejs.config({
 	'baseUrl': './',
 	'paths': {
 		//{{app}}
+    '_core': 'app/_core/_core',
 
 		//{{libs}}
 		'jquery.exists': 'libs/jquery.exists/jquery.exists',

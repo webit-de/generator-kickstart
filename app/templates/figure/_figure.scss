@@ -1,0 +1,18 @@
+figure {
+  display: table;
+}
+
+// if cpation is on top of the image use pointer-events none
+figcaption {
+  caption-side: bottom;
+  display: table-caption;
+  pointer-events: none;
+}
+
+// to hover caption
+a:hover,
+a:focus {
+  + figcaption {
+    //do stuff
+  }
+}

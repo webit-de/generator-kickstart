@@ -67,7 +67,7 @@ define(['jquery'], function($) {
           func.apply(context, args);
         }, delay);
       };
-    },
+    }<% if (includeRwd) { %>,
 
     /**
      * Get HTML-FontFamily for current viewport.
@@ -93,14 +93,14 @@ define(['jquery'], function($) {
       mediaquery = mediaquery.replace(regex, '');
 
       return mediaquery;
-    }
+    }<% } %>
   };
 
   return /** @alias module:Core */ {
     /** debounce */
-    debounce: Core.debounce,
+    debounce: Core.debounce,<% if (includeRwd) { %>
     /** getMediaquery */
-    getMediaquery: Core.getMediaquery,
+    getMediaquery: Core.getMediaquery,<% } %>
     /** $window */
     $window: Core.$window,
     /** $document */

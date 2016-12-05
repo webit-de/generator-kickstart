@@ -7,9 +7,11 @@
  */
 require([
   'jquery',
+  '_core',
   'jquery.exists'
 ], function(
   $,
+  _Core,
   exists
 ) {
 

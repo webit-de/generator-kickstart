@@ -4,3 +4,9 @@
 // libs:
 
 // app:
+@import 'base';
+@import 'common';
+<% if (includeCookie) { %>@import 'cookie-info';<% } %>
+<% if (includeFigureElement) { %>@import 'figure';<% } %>
+<% if (includeDefaultForm) { %>@import 'form';<% } %>
+<% if (includeSearchResults) { %>@import 'search-results';<% } %>

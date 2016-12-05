@@ -1,0 +1,168 @@
+// ==========================================================================
+// = Variables
+// ==========================================================================
+
+$disabled-opacity: .4;
+$focus-styling-default: 1px dotted $color-black;
+
+// ==========================================================================
+// = regular Form
+// ==========================================================================
+
+button,
+.btn {
+  &::-moz-focus-inner { // removes unwanted extra spacing in Firefox
+    border: 0;
+    padding: 0;
+  }
+
+  &:hover,
+  &:focus {
+    // add hover and focus style
+  }
+}
+
+.form-label,
+.form-control {
+  .form-group-inline & {
+    display: inline-block;
+  }
+}
+
+.form-wrap {
+  overflow: hidden;
+}
+
+.form-wrap-inverse {
+  // another form-styling
+}
+
+.form-control {
+  &:not(:disabled):hover,
+  &:not(:disabled):focus {
+    // add hover and focus style
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: $disabled-opacity;
+  }
+}
+
+input,
+button,
+select,
+textarea {
+  @include appearance(none);
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+select {
+  text-overflow: ''; // Firefox
+
+  &::-ms-expand {
+    display: none; // removes selectbox button in IE 10
+  }
+}
+
+.form-require {
+  // add style for required form-elements
+}
+
+// ==========================================================================
+// = Checkboxen, Radiobuttons
+// ==========================================================================
+
+.switch-input {
+  @media screen {
+    left: -9999em;
+    position: absolute;
+  }
+}
+
+button,
+.switch-label {
+  cursor: pointer;
+
+  .switch-input:disabled + & {
+    cursor: not-allowed;
+    opacity: $disabled-opacity;
+  }
+}
+
+.switch-block {
+  display: block;
+}
+
+.switch-icon {
+  display: inline-block;
+
+  .form-wrap-inverse & {
+    // different style for another background-color
+  }
+
+  .switch-input:checked + .switch-label &,
+  .switch-input:not(:disabled):hover + .switch-label & {
+    // change icon if checked
+  }
+
+  .switch-input:not(:disabled):active + .switch-label &,
+  .switch-input:not(:disabled):focus + .switch-label & {
+    outline: $focus-styling-default;
+    outline-offset: 1px;
+  }
+
+  @media print {
+    display: none;
+  }
+}
+
+.radio-icon {
+  @include border-radius(100%);
+
+  .switch-input:checked + .switch-label & {
+    // change radio-icon if checked
+  }
+}
+
+.check-icon {
+  .switch-input:checked + .switch-label & {
+    // change check-icon if checked
+  }
+}
+
+// ==========================================================================
+// = Errormessages/ Messagebox
+// ==========================================================================
+
+.alert {
+  // Messagebox on top of the form
+}
+
+.alert-success {
+  // add style for success-message
+}
+
+.alert-info {
+  // add style for info-message
+}
+
+.alert-warning {
+  // add style for warning-message
+}
+
+.alert-error {
+  // add style for error-message
+}
+
+.has-error {
+  .help-block {
+    // show help-block and add error-styles
+  }
+}
+
+.help-block {
+  // add styles for help-block at form-fields
+}
