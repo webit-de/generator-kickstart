@@ -33,8 +33,8 @@ define([
       this.$social_media_share_pinterest = this.$social_media_share.find('.social-media-pinterest');
       this.$social_media_share_email = this.$social_media_share.find('.social-media-email');
 
-      this.currentUrl = _Core.window.location.href;
-      this.currentTitle = _Core.document.find('title').text();
+      this.currentUrl = window.location.href;
+      this.currentTitle = _Core.$document.find('title').text();
       this.currentImage = $('meta[property="og:image"]').attr('content');
       this.hashtag = 'hashtag';
     },
@@ -62,7 +62,7 @@ define([
       SocialMediaShare.$social_media_share_links.not(SocialMediaShare.$social_media_share_email).on('click', function(event) {
         var $this = $(this);
         event.preventDefault();
-        _Core.window.open($this.attr('href'), $this.text(), 'width=650, height=450, resizable=yes, scrollbars=yes');
+        window.open($this.attr('href'), $this.text(), 'width=650, height=450, resizable=yes, scrollbars=yes');
       });
     },
 
