@@ -1,7 +1,7 @@
 html {<% if (includeRwd) { %>
   font-family: 'xs';<% } %>
   min-height: 100%;
-  position: relative; // positioning footer <% if (includeRwd) { %>
+  position: relative; // positioning footer<% if (includeRwd) { %>
 
   @media (max-width: $bp-smartphone-small) {
     font-family: 'sm';
