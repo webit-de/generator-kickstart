@@ -260,11 +260,6 @@ KickstartGenerator = yeoman.Base.extend({
     );
 
     this.fs.copyTpl(
-      this.templatePath('_gems.rb'),
-      this.destinationPath('gems.rb')
-    );
-
-    this.fs.copyTpl(
       this.templatePath('_editorconfig'),
       this.destinationPath('.editorconfig')
     );
@@ -621,11 +616,6 @@ KickstartGenerator = yeoman.Base.extend({
     if (!this.options['skip-install']) {
       // bower & npm
       this.installDependencies();
-
-      // gems
-      this.log('Running ' + chalk.yellow.bold('bundle install') + ' for you to install the required dependencies. If this fails, try running the command yourself.');
-      this.log('\n');
-      this.spawnCommand('bundle', ['install']);
     }
   }
 
