@@ -416,6 +416,12 @@ KickstartGenerator = yeoman.Base.extend({
       this.destinationPath('components/app/site-icons/img/windows-tile-icon.png')
     );
 
+    // Sandbox-Sitemap
+    this.fs.copyTpl(
+      this.templatePath('sandbox-sitemap/_sandbox-sitemap.html'),
+      this.destinationPath('components/app/sandbox-sitemap/sandbox-sitemap.html')
+    );
+
   },
 
   /**
