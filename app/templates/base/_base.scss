@@ -26,28 +26,23 @@ $z-base: 1;
 // ==========================================================================
 
 // Base64 background-image regular
-@mixin base64-image-regular($url) {
-  background-image: inline-image($url + '.png');
+@define-mixin base64-image-regular $url {
+  background-inline-image: url($(url) + '.png');
   background-repeat: no-repeat;
 }
 
 // Base64 background-image with png fallback
-@mixin base64-image-retina($url) {
-  background-image: inline-image($url + '.svg');
+@define-mixin base64-image-retina $url {
+  background-inline-image: url($(url) + '.svg');
   background-repeat: no-repeat;
 }
 
-@mixin text-size-adjust($value: 100%) {
-  -webkit-text-size-adjust: $value;
-  -ms-text-size-adjust: $value;
+@define-mixin text-size-adjust $value: 100% {
   text-size-adjust: $value;
 }
 
-@mixin set-origin($value) {
-  -webkit-transform-origin: $value;
-     -moz-transform-origin: $value;
-      -ms-transform-origin: $value;
-          transform-origin: $value;
+@define-mixin set-origin $value {
+  transform-origin: $value;
 }
 
 // ==========================================================================
@@ -62,12 +57,6 @@ $z-base: 1;
 // = Placeholder
 // ==========================================================================
 
-%clearfix {
-  @include pie-clearfix;
-}
-
-%hidden-print {
-  @media print {
-    display: none !important;
-  }
+@define-extend clearfix {
+  clear: fix; // rucksack css
 }

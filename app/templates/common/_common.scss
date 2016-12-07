@@ -21,6 +21,6 @@ html {<% if (includeRwd) { %>
 }
 
 body {
-  @include text-size-adjust;
+  @mixin text-size-adjust;
   margin: 0;
 }
