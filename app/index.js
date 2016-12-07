@@ -489,6 +489,11 @@ KickstartGenerator = yeoman.Base.extend({
       }
     );
 
+    // Sandbox-Sitemap
+    this.fs.copyTpl(
+      this.templatePath('sandbox-sitemap/_sandbox-sitemap.html'),
+      this.destinationPath('components/app/sandbox-sitemap/sandbox-sitemap.html')
+    );
   },
 
   /**
@@ -622,7 +627,6 @@ KickstartGenerator = yeoman.Base.extend({
       this.log('\n');
       this.spawnCommand('bundle', ['install']);
     }
-
   }
 
 });
