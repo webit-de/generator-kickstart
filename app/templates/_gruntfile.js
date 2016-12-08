@@ -643,7 +643,7 @@ module.exports = function(grunt) {
     'postcss:preview',
     'requirejs:preview',
     'uglify:deferred_preview',
-    'uglify:external'
+    'uglify:external',
     'ssh_deploy:preview'
   ]);<% } %>
 
