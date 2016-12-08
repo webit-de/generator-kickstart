@@ -144,13 +144,17 @@ module.exports = function(grunt) {
           require('postcss-extend'),
           require('postcss-inline-image'),
           require('postcss-strip-inline-comments'),
+          require("postcss-calc")({
+            mediaQueries: true,
+            selectors: true
+          }),
           require('postcss-cssnext')({
             browsers: 'last 2 versions'
           }),
-          require('rucksack-css')({
-            hexRGBA: false,
-            easings: false
-          })
+          require('rucksack-css'),
+          require("css-mqpacker")({
+            sort: true
+          }),
         ],
         syntax: require('postcss-scss'),
         failOnError: true
@@ -168,7 +172,29 @@ module.exports = function(grunt) {
 
       live: {
         options: {
+          map: false,
+          parser: require('postcss-scss'),
           processors: [
+            require('precss')({
+              extension: 'scss'
+            }),
+            require('postcss-mixins'),
+            require('postcss-simple-vars'),
+            require('postcss-nested'),
+            require('postcss-extend'),
+            require('postcss-inline-image'),
+            require('postcss-strip-inline-comments'),
+            require("postcss-calc")({
+              mediaQueries: true,
+              selectors: true
+            }),
+            require('postcss-cssnext')({
+              browsers: 'last 2 versions'
+            }),
+            require('rucksack-css'),
+            require("css-mqpacker")({
+              sort: true
+            }),
             require('cssnano')({
               autoprefixer: false,
               safe: true

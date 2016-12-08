@@ -6,7 +6,11 @@
 $bp-smartphone-small: 360px;
 $bp-tablet-small: 768px;
 $bp-laptop-small: 1024px;
-$bp-desktop-small: 1280px;<% } %>
+$bp-desktop-small: 1280px;
+
+$bp-smartphone-large: calc($bp-tablet-small - 1);
+$bp-tablet-large: calc($bp-laptop-small - 1);
+$bp-laptop-large: calc($bp-desktop-small - 1);<% } %>
 
 // ==========================================================================
 // = Colors
