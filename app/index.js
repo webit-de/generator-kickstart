@@ -275,8 +275,8 @@ KickstartGenerator = yeoman.Base.extend({
     );
 
     this.fs.copyTpl(
-      this.templatePath('_scsslintrc'),
-      this.destinationPath('.scsslintrc')
+      this.templatePath('_scss-lint.yml'),
+      this.destinationPath('.scss-lint.yml')
     );
 
     this.fs.copyTpl(
