@@ -1,0 +1,73 @@
+// ==========================================================================
+// = Variables
+// ==========================================================================
+<% if (includeRwd) { %>
+// Breakpoints
+$bp-smartphone-small: 360px;
+$bp-tablet-small: 768px;
+$bp-laptop-small: 1024px;
+$bp-desktop-small: 1280px;<% } %>
+
+// ==========================================================================
+// = Colors
+// ==========================================================================
+
+$color-white: #fff;
+$color-black: #000;
+
+// ==========================================================================
+// = Z-Index
+// ==========================================================================
+
+$z-base: 1;
+
+// ==========================================================================
+// = Mixins
+// ==========================================================================
+
+// Base64 background-image regular
+@mixin base64-image-regular($url) {
+  background-image: inline-image($url + '.png');
+  background-repeat: no-repeat;
+}
+
+// Base64 background-image with png fallback
+@mixin base64-image-retina($url) {
+  background-image: inline-image($url + '.svg');
+  background-repeat: no-repeat;
+}
+
+@mixin text-size-adjust($value: 100%) {
+  -webkit-text-size-adjust: $value;
+  -ms-text-size-adjust: $value;
+  text-size-adjust: $value;
+}
+
+@mixin set-origin($value) {
+  -webkit-transform-origin: $value;
+     -moz-transform-origin: $value;
+      -ms-transform-origin: $value;
+          transform-origin: $value;
+}
+
+// ==========================================================================
+// = Functions
+// ==========================================================================
+
+@function em($px, $base: 10px) {
+  @return ($px / $base) * 1em;
+}
+
+// ==========================================================================
+// = Placeholder
+// ==========================================================================
+
+%clearfix {
+  @include pie-clearfix;
+}
+
+%hidden-print {
+  @media print {
+    display: none !important;
+  }
+}

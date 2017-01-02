@@ -1,5 +1,0 @@
-linters:
-  NestingDepth:
-    max-width: 4
-  SelectorDepth:
-    max-width: 4

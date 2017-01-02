@@ -1,2 +1,3 @@
 * text=auto
+core.autocrlf false
 core.eol = lf

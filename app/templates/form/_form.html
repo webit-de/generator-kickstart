@@ -1,0 +1,254 @@
+<div class="form-wrap">
+  <div class="alert alert-success" role="alert"><strong>Erfolg!</strong> Weitere Informationen folgen</div>
+
+  <div class="alert alert-info" role="alert"><strong>Info.</strong> Weitere Informationen folgen</div>
+
+  <div class="alert alert-warning" role="alert"><strong>Warnung.</strong> Weitere Informationen folgen</div>
+
+  <div class="alert alert-error" role="alert">
+    <h3>
+      Es sind 3 Eingabefehler aufgetreten:
+    </h3>
+    <ol>
+      <li>
+        Bitte eine gültige E-Mail-Adresse verwenden.
+      </li>
+      <li>
+        Bitte geben Sie einen Text an.
+      </li>
+      <li>
+        Bitte akzeptieren Sie die AGB.
+      </li>
+    </ol>
+  </div>
+
+  <form id="" class="form" action="#">
+    <fieldset>
+      <legend class="form-legend">Persönliche Angaben</legend>
+      <div class="form-group">
+        <fieldset>
+          <legend class="sr-only">Anrede
+            <abbr title="Pflichtfeld" class="form-require">*</abbr>
+          </legend>
+
+          <span class="form-label">Anrede
+            <abbr title="Pflichtfeld" class="form-require">*</abbr>
+          </span>
+
+          <div class="switch-check">
+            <input class="switch-input" id="radio-group1-1" title="option1-1" type="radio" name="radio-group1-1" checked>
+            <label class="switch-label" for="radio-group1-1">
+              <span class="switch-icon radio-icon"></span>
+              Frau
+            </label>
+
+            <input class="switch-input" id="radio-group2-1" title="option2-1" type="radio" name="radio-group1-1">
+            <label class="switch-label" for="radio-group2-1">
+              <span class="switch-icon radio-icon"></span>
+              Herr
+            </label>
+
+            <input class="switch-input" id="radio-group3-1" title="option3-1" type="radio" name="radio-group1-1" disabled>
+            <label class="switch-label" for="radio-group3-1">
+              <span class="switch-icon radio-icon"></span>
+              Disabled
+            </label>
+          </div>
+
+        </fieldset>
+      </div>
+
+      <div class="form-group">
+        <fieldset>
+          <legend class="sr-only">Anrede
+            <abbr title="Pflichtfeld" class="form-require">*</abbr>
+          </legend>
+
+          <span class="form-label">Anrede
+            <abbr title="Pflichtfeld" class="form-require">*</abbr>
+          </span>
+
+          <div class="switch-check">
+            <input class="switch-input" id="radio-group1-1-v" type="radio" name="radio-group1-1-v" checked>
+            <label class="switch-label switch-block" for="radio-group1-1-v">
+              <span class="switch-icon radio-icon"></span>
+              Frau
+            </label>
+            <input class="switch-input" id="radio-group2-1-v" type="radio" name="radio-group1-1-v">
+            <label class="switch-label switch-block" for="radio-group2-1-v">
+              <span class="switch-icon radio-icon"></span>
+              Herr
+            </label>
+            <input class="switch-input" id="radio-group3-1-v" type="radio" name="radio-group1-1-v" disabled>
+            <label class="switch-label switch-block" for="radio-group3-1-v">
+              <span class="switch-icon radio-icon"></span>
+              Disabled
+            </label>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="form-group form-select">
+        <label class="form-label" for="select-1-1">Selectbox</label>
+        <select id="select-1-1" class="form-control" name="title">
+          <option value="0" selected>Option 1</option>
+          <option value="1" disabled>Option 2</option>
+          <option value="2">Option 3</option>
+          <option value="3">Option 4</option>
+          <optgroup label="Gruppe 1">
+            <option value="4">Option 5</option>
+            <option value="5">Option 6</option>
+            <option value="6">Option 7</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <div class="form-group form-select">
+        <label class="form-label" for="select-1-2">Selectbox</label>
+        <select id="select-1-2" class="form-control" name="title" disabled>
+          <option value="0" selected>Option 1</option>
+          <option value="1" disabled>Option 2</option>
+          <option value="2">Option 3</option>
+          <option value="3">Option 4</option>
+          <optgroup label="Gruppe 1">
+            <option value="4">Option 5</option>
+            <option value="5">Option 6</option>
+            <option value="6">Option 7</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="entitle-1">Titel</label>
+        <input id="entitle-1" class="form-control" name="title" type="text">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="entitle-1-2">Titel</label>
+        <input id="entitle-1-2" class="form-control" name="title" type="text" disabled>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="prename1">Vorname
+          <abbr title="Pflichtfeld" class="form-require">*</abbr>
+        </label>
+        <input class="form-control" id="prename1" type="text">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="surname1">Nachname
+          <abbr title="Pflichtfeld" class="form-require">*</abbr>
+        </label>
+        <input class="form-control" id="surname1" type="text">
+      </div>
+
+      <div class="form-group has-error">
+        <p id="help-block-1" class="help-block">Bitte eine gültige E-Mail-Adresse verwenden</p>
+        <label class="form-label" for="exampleInputEmail1">E-Mail
+          <abbr title="Pflichtfeld" class="form-require">*</abbr>
+        </label>
+        <input class="form-control" id="exampleInputEmail1" aria-describedby="help-block-1" type="email">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="message1">Ihre Nachricht
+          <abbr title="Pflichtfeld" class="form-require">*</abbr>
+        </label>
+        <textarea class="form-control" id="message1" name="message1" rows="5"></textarea>
+      </div>
+
+      <div class="form-group">
+        <div class="switch-check">
+          <input class="switch-input" id="check1-1" type="checkbox" name="check1-1" checked>
+          <label class="switch-label" for="check1-1">
+            <span class="switch-icon check-icon"></span>
+            Frau
+          </label>
+
+          <input class="switch-input" id="check2-1" type="checkbox" name="check2-1">
+          <label class="switch-label" for="check2-1">
+            <span class="switch-icon check-icon"></span>
+            Herr
+          </label>
+
+          <input class="switch-input" id="check3-1" type="checkbox" name="check3-1" disabled>
+          <label class="switch-label" for="check3-1">
+            <span class="switch-icon check-icon"></span>
+            Disabled
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="switch-check">
+          <input class="switch-input" id="check1-1-v" type="checkbox" name="check1-1-v" checked>
+          <label class="switch-label switch-block" for="check1-1-v">
+            <span class="switch-icon check-icon"></span>
+            Frau
+          </label>
+
+          <input class="switch-input" id="check2-1-v" type="checkbox" name="check2-1-v">
+          <label class="switch-label switch-block" for="check2-1-v">
+            <span class="switch-icon check-icon"></span>
+            Herr
+          </label>
+
+          <input class="switch-input" id="check3-1-v" type="checkbox" name="check3-1-v" disabled>
+          <label class="switch-label switch-block" for="check3-1-v">
+            <span class="switch-icon check-icon"></span>
+            Disabled
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group has-error">
+        <div class="switch-check">
+          <p id="help-block-2" class="help-block">Bitte akzeptieren Sie die AGB</p>
+          <input class="switch-input" id="check-required-1" type="checkbox" name="check-required-1" aria-describedby="help-block-2" required="required">
+          <label class="switch-label switch-block" for="check-required-1">
+            <span class="switch-icon check-icon"></span>
+            Ich akzeptiere die AGB
+          </label>
+        </div>
+      </div>
+
+			<div class="form-group form-group-inline">
+        <label class="form-label" for="tourpass">Anzahl</label>
+				<input type="text" class="form-control" maxlength="2" size="1" name="formhandler[tourpass]" id="tourpass" value="0">
+			</div>
+
+      <div class="form-group ">
+  			<div class="input upload-btn">
+  				<div>
+  					<label class="form-label" for="photo">Foto hochladen<abbr title="erforderlich">*</abbr></label>
+  					<input id="upload" class="file" type="file" name="formhandler[photo]" value="">
+  				</div>
+  			</div>
+  		</div>
+
+      <div class="form-group">
+        <label class="form-label" for="datepicker-1-1">Datum</label>
+        <input type="date" class="form-control datepicker" id="datepicker-1-1">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="datepicker-1-2">Datum</label>
+        <input type="date" class="form-control datepicker" id="datepicker-1-2" disabled>
+      </div>
+
+      <div class="form-action">
+        <button class="btn" type="submit" name="button">
+          <span class="btn-text">Absenden</span>
+          <span class="icon"></span>
+        </button>
+      </div>
+
+      <div class="form-action">
+        <button class="btn" type="submit" name="button" disabled>
+          <span class="btn-text">Absenden</span>
+          <span class="icon"></span>
+        </button>
+      </div>
+    </fieldset>
+  </form> <!-- form -->
+</div>

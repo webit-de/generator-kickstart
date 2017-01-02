@@ -21,7 +21,7 @@ the repository on a high level of quality.
 Creates JavaScript documentation in ```documentation/```.
 
 ## grunt -q / grunt -quite
-Use grunt with less notifications. Each notification is replaced by '.'. Only when an error occurs, all notifications are printed at your bash. 
+Use grunt with less notifications. Each notification is replaced by '.'. Only when an error occurs, all notifications are printed at your bash.
 
 ## Customization of your grunt tasks
 

@@ -1,0 +1,26 @@
+html {<% if (includeRwd) { %>
+  font-family: 'xs';<% } %>
+  min-height: 100%;
+  position: relative; // positioning footer<% if (includeRwd) { %>
+
+  @media (max-width: $bp-smartphone-small) {
+    font-family: 'sm';
+  }
+
+  @media (min-width: $bp-tablet-small) {
+    font-family: 'md';
+  }
+
+  @media (min-width: $bp-laptop-small) {
+    font-family: 'lg';
+  }
+
+  @media (min-width: $bp-desktop-small) {
+    font-family: 'xl';
+  }<% } %>
+}
+
+body {
+  @include text-size-adjust;
+  margin: 0;
+}

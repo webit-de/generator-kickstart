@@ -41,6 +41,16 @@ KickstartGenerator = yeoman.Base.extend({
   },
 
   /**
+   * Converts user's answers into Booleans.
+   * @function _hasFeature
+   * @returns {Boolean} Is this feature wanted?
+   * @private
+   */
+  _hasFeature: function (feature) {
+    return this.features && this.features.indexOf(feature) !== -1;
+  },
+
+  /**
    * Ask user on project details.
    * @function askFor
    * @private
@@ -71,6 +81,43 @@ KickstartGenerator = yeoman.Base.extend({
         type: 'input',
         name: 'HTMLDeveloper',
         message: 'Who is developing the front end?'
+      },
+      {
+        type: 'checkbox',
+        name: 'whatFunctions',
+        message: 'What Functions do you need?',
+        choices: [
+          {
+            name: 'RWD',
+            value: 'includeRwd',
+            checked: true
+          },
+          {
+            name: 'CookieInfo',
+            value: 'includeCookie',
+            checked: true
+          },
+          {
+            name: 'FigureElement',
+            value: 'includeFigureElement',
+            checked: true
+          },
+          {
+            name: 'SocialSharing',
+            value: 'includeSocialSharing',
+            checked: true
+          },
+          {
+            name: 'DefaultForm',
+            value: 'includeDefaultForm',
+            checked: true
+          },
+          {
+            name: 'SearchResults',
+            value: 'includeSearchResults',
+            checked: true
+          }
+        ]
       },
       {
         type: 'confirm',
@@ -118,12 +165,6 @@ KickstartGenerator = yeoman.Base.extend({
       },
       {
         type: 'confirm',
-        name: 'oldIE',
-        message: 'Would you like to support legacy IE (<9)?',
-        default: false
-      },
-      {
-        type: 'confirm',
         name: 'livereload',
         message: 'Would you like include livereload.js into your sandbox.html?',
         default: true
@@ -153,6 +194,17 @@ KickstartGenerator = yeoman.Base.extend({
       this.GraphicDesigner = answers.GraphicDesigner;
       this.HTMLDeveloper = answers.HTMLDeveloper;
       this.ProjectManager = answers.ProjectManager;
+
+      // whatFunctions
+      this.features = answers.whatFunctions;
+      this.includeRwd = this._hasFeature('includeRwd');
+      this.includeCookie = this._hasFeature('includeCookie');
+      this.includeFigureElement = this._hasFeature('includeFigureElement');
+      this.includeSocialSharing = this._hasFeature('includeSocialSharing');
+      this.includeDefaultForm = this._hasFeature('includeDefaultForm');
+      this.includeSearchResults = this._hasFeature('includeSearchResults');
+
+      // ProjectServer
       this.ProjectName = string.slugify(answers.ProjectName);
       this.ProjectServer = answers.ProjectServer;
       this.HostServer = answers.HostServer;
@@ -167,7 +219,6 @@ KickstartGenerator = yeoman.Base.extend({
       this.livereload = answers.livereload;
 
       // Support level
-      this.oldIE = answers.oldIE;
       this.WCAG2 = answers.WCAG2;
 
       done();
@@ -224,8 +275,8 @@ KickstartGenerator = yeoman.Base.extend({
     );
 
     this.fs.copyTpl(
-      this.templatePath('_scsslintrc'),
-      this.destinationPath('.scsslintrc')
+      this.templatePath('_scss-lint.yml'),
+      this.destinationPath('.scss-lint.yml')
     );
 
     this.fs.copyTpl(
@@ -237,8 +288,7 @@ KickstartGenerator = yeoman.Base.extend({
       this.templatePath('_bower.json'),
       this.destinationPath('bower.json'),
       {
-        ProjectName: this.ProjectName,
-        oldIE: this.oldIE
+        ProjectName: this.ProjectName
       }
     );
 
@@ -249,7 +299,6 @@ KickstartGenerator = yeoman.Base.extend({
         ProjectName: this.ProjectName,
         ProjectServer: this.ProjectServer,
         WCAG2: this.WCAG2,
-        oldIE: this.oldIE,
         livereload: this.livereload
       }
     );
@@ -293,7 +342,6 @@ KickstartGenerator = yeoman.Base.extend({
       {
         ProjectName: this.ProjectName,
         WCAG2: this.WCAG2,
-        oldIE: this.oldIE,
         GraphicDesigner: this.GraphicDesigner,
         HTMLDeveloper: this.HTMLDeveloper,
         ProjectManager: this.ProjectManager
@@ -311,18 +359,12 @@ KickstartGenerator = yeoman.Base.extend({
 
     this.fs.copyTpl(
       this.templatePath('_frontend-template-setup.js'),
-      this.destinationPath('components/' + this.ProjectName + '.js'),
-      {
-        oldIE: this.oldIE
-      }
+      this.destinationPath('components/' + this.ProjectName + '.js')
     );
 
     this.fs.copyTpl(
       this.templatePath('_main.js'),
-      this.destinationPath('components/app/main.js'),
-      {
-        oldIE: this.oldIE
-      }
+      this.destinationPath('components/app/main.js')
     );
   },
 
@@ -361,7 +403,13 @@ KickstartGenerator = yeoman.Base.extend({
   styles: function () {
     this.fs.copyTpl(
       this.templatePath('_frontend-template-setup.scss'),
-      this.destinationPath('components/' + this.ProjectName + '.scss')
+      this.destinationPath('components/' + this.ProjectName + '.scss'),
+      {
+        includeCookie: this.includeCookie,
+        includeFigureElement: this.includeFigureElement,
+        includeDefaultForm: this.includeDefaultForm,
+        includeSearchResults: this.includeSearchResults
+      }
     );
   },
 
@@ -376,7 +424,6 @@ KickstartGenerator = yeoman.Base.extend({
       this.destinationPath('sandbox.html'),
       {
         ProjectName: this.ProjectName,
-        oldIE: this.oldIE,
         wysiwygCMS: this.wysiwygCMS,
         livereload: this.livereload
       }
@@ -385,12 +432,12 @@ KickstartGenerator = yeoman.Base.extend({
 
   /**
    * Create all Components from templates.
-   * @function components
+   * @function defaultComponents
    * @private
    */
-  components: function () {
+  defaultComponents: function () {
 
-    // Site-Icons
+    // site-icons
     this.fs.copyTpl(
       this.templatePath('site-icons/_site-icons.html'),
       this.destinationPath('components/app/site-icons/site-icons.html')
@@ -416,6 +463,152 @@ KickstartGenerator = yeoman.Base.extend({
       this.destinationPath('components/app/site-icons/img/windows-tile-icon.png')
     );
 
+    // _core
+    this.fs.copyTpl(
+      this.templatePath('_core/_core.js'),
+      this.destinationPath('components/app/_core/_core.js'),
+      {
+        includeRwd: this.includeRwd
+      }
+    );
+
+    // default styles
+    this.fs.copyTpl(
+      this.templatePath('base/_base.scss'),
+      this.destinationPath('components/app/base/_base.scss'),
+      {
+        includeRwd: this.includeRwd
+      }
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('common/_common.scss'),
+      this.destinationPath('components/app/common/_common.scss'),
+      {
+        includeRwd: this.includeRwd
+      }
+    );
+
+    // Sandbox-Sitemap
+    this.fs.copyTpl(
+      this.templatePath('sandbox-sitemap/_sandbox-sitemap.html'),
+      this.destinationPath('components/app/sandbox-sitemap/sandbox-sitemap.html')
+    );
+  },
+
+  /**
+   * Create all files for cookie-info from templates.
+   * @function cookieInfo
+   * @private
+   */
+  cookieInfo: function () {
+    if (this.includeCookie) {
+      this.fs.copyTpl(
+        this.templatePath('cookie-info/_cookie-info.html'),
+        this.destinationPath('components/app/cookie-info/cookie-info.html')
+      );
+
+      this.fs.copyTpl(
+        this.templatePath('cookie-info/_cookie-info.scss'),
+        this.destinationPath('components/app/cookie-info/_cookie-info.scss')
+      );
+
+      this.fs.copyTpl(
+        this.templatePath('cookie-info/_cookie-info.js'),
+        this.destinationPath('components/app/cookie-info/cookie-info.js')
+      );
+
+      this.fs.copyTpl(
+        this.templatePath('cookie-info/_cookie.js'),
+        this.destinationPath('components/libs/cookie/cookie.js')
+      );
+
+      this.fs.copy(
+        this.templatePath('cookie-info/_LICENSE'),
+        this.destinationPath('components/libs/cookie/LICENSE')
+      );
+    }
+  },
+
+  /**
+   * Create all files for figure-Element from templates.
+   * @function FigureElement
+   * @private
+   */
+  FigureElement: function () {
+    if (this.includeFigureElement) {
+      this.fs.copyTpl(
+        this.templatePath('figure/_figure.html'),
+        this.destinationPath('components/app/figure/figure.html')
+      );
+
+      this.fs.copyTpl(
+        this.templatePath('figure/_figure.scss'),
+        this.destinationPath('components/app/figure/_figure.scss')
+      );
+    }
+  },
+
+  /**
+   * Create all files for social-media-share from templates.
+   * @function SocialSharing
+   * @private
+   */
+  SocialSharing: function () {
+    if (this.includeSocialSharing) {
+      this.fs.copyTpl(
+        this.templatePath('social-media-share/_social-media-share-metatags.html'),
+        this.destinationPath('components/app/social-media-share/social-media-share-metatags.html')
+      );
+
+      this.fs.copyTpl(
+        this.templatePath('social-media-share/_social-media-share.html'),
+        this.destinationPath('components/app/social-media-share/social-media-share.html')
+      );
+
+      this.fs.copyTpl(
+        this.templatePath('social-media-share/_social-media-share.js'),
+        this.destinationPath('components/app/social-media-share/_social-media-share.js')
+      );
+    }
+  },
+
+  /**
+   * Create all files for default form from templates.
+   * @function DefaultForm
+   * @private
+   */
+  DefaultForm: function () {
+    if (this.includeDefaultForm) {
+      this.fs.copyTpl(
+        this.templatePath('form/_form.html'),
+        this.destinationPath('components/app/form/form.html')
+      );
+
+      this.fs.copyTpl(
+        this.templatePath('form/_form.scss'),
+        this.destinationPath('components/app/form/_form.scss')
+      );
+    }
+  },
+
+  /**
+   * Create all files for search-results from templates.
+   * @function SearchResults
+   * @private
+   */
+  SearchResults: function () {
+    if (this.includeSearchResults) {
+      this.fs.copyTpl(
+        this.templatePath('search-results/_search-results.html'),
+        this.destinationPath('components/app/search-results/search-results.html')
+      );
+
+      this.fs.copyTpl(
+        this.templatePath('search-results/_search-results.scss'),
+        this.destinationPath('components/app/search-results/_search-results.scss')
+      );
+    }
   },
 
   /**
@@ -434,7 +627,6 @@ KickstartGenerator = yeoman.Base.extend({
       this.log('\n');
       this.spawnCommand('bundle', ['install']);
     }
-
   }
 
 });
