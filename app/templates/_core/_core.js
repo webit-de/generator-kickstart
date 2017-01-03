@@ -2,7 +2,7 @@
  * A collection of useful JavaScript tools you might need on your way through the dangerous world of scripting
  * @module Core
  * @requires jquery
- * @author webit! Gesellschaft für nue Medien mbH
+ * @author webit! Gesellschaft für neue Medien mbH
  */
 define(['jquery'], function($) {
 
