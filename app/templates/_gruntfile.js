@@ -61,7 +61,8 @@ module.exports = function(grunt) {
 
     watch: {
       options: {
-        spawn: false
+        spawn: false,
+        livereload: true
       },
 
       // Styling
@@ -465,7 +466,7 @@ module.exports = function(grunt) {
           flatten: true,
           expand: true,
           cwd: 'components/app',
-          src: ['**/*.{gif,jpg,png,svg,ico}', '!_svg/**/*.svg', '!_svg/*.svg'],
+          src: ['**/*.{gif,jpg,png,svg,ico}', '!_svg/**/*.svg', '!_svg/*.svg', '!**/font/*.svg'],
           dest: 'build/assets/img'
         }]
       },
