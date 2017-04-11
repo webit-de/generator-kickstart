@@ -73,7 +73,7 @@ define([
       }
       else {
         /** Add Class no-cookies to the HTML tag if Cookies aren't enabled */
-        CookieInfo._Core.$html.addClass('no-cookies');
+        _Core.$html.addClass('no-cookies');
       }
     },
 
