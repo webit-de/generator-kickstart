@@ -1,6 +1,6 @@
 {
   "name": "generator-kickstart-webit",
-  "version": "3.8.1",
+  "version": "4.0.0",
   "description": "Yeoman generator for creating websites and single page applications",
   "license": "MIT",
   "man": [
@@ -9,11 +9,11 @@
     "./manpages/kickstart.1"
   ],
   "main": "app/index.js",
-  "repository": "OpenSourceWorkflow/generator-kickstart",
+  "repository": "webit-de/generator-kickstart",
   "author": {
-    "name": "Markus Falk",
-    "email": "mail@markus-falk.com",
-    "url": "https://github.com/markusfalk"
+    "name": "Christian Schramm",
+    "email": "schramm@webit.de",
+    "url": "https://github.com/ChristianSchramm"
   },
   "preferGlobal": true,
   "engines": {
@@ -24,7 +24,7 @@
   },
   "keywords": [
     "bower",
-    "compass",
+    "postcss",
     "csslint",
     "grunt",
     "html5",
