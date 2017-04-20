@@ -32,6 +32,9 @@ define([
     _cacheElements: function() {
       this.$cookie_info = _Core.$body.find('.cookie-info');
       this.$cookie_button = _Core.$body.find('.cookie-accept');
+
+      this.accept_cookies = true;
+      this.cookie_expiration_time = 365; // days
     },
 
     /**
@@ -53,9 +56,9 @@ define([
      * @private
      */
     _bindEvents: function() {
-      this.$cookie_button.on('click', function (event) {
+      CookieInfo.$cookie_button.on('click', function (event) {
         CookieInfo._hideCookieInfo();
-        CookieInfo._writeCookie(true);
+        CookieInfo._writeCookie(accept_cookies);
       });
     },
 
@@ -67,14 +70,14 @@ define([
     _checkCookie: function() {
       if((navigator.cookieEnabled)) {
         if (Cookie.read('cookiesAccepted') !== 'true') {
-          CookieInfo._writeCookie(false);
+          CookieInfo._writeCookie(!accept_cookies);
           CookieInfo.$cookie_info.slideDown();
           CookieInfo._bindEvents();
         }
       }
       else {
         /** Add Class no-cookies to the HTML tag if Cookies aren't enabled */
-        CookieInfo._Core.$html.addClass('no-cookies');
+        _Core.$html.addClass('no-cookies');
       }
     },
 
@@ -84,7 +87,7 @@ define([
      * @private
      */
     _writeCookie: function(value) {
-      Cookie.create('cookiesAccepted', value, 365);
+      Cookie.create('cookiesAccepted', value, cookie_expiration_time);
     },
 
     /**
@@ -93,7 +96,7 @@ define([
      * @private
      */
     _hideCookieInfo: function() {
-      this.$cookie_info.slideUp();
+      CookieInfo.$cookie_info.slideUp();
     }
   };
 
