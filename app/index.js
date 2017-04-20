@@ -354,12 +354,21 @@ KickstartGenerator = yeoman.Base.extend({
 
     this.fs.copyTpl(
       this.templatePath('_frontend-template-setup.js'),
-      this.destinationPath('components/' + this.ProjectName + '.js')
+      this.destinationPath('components/' + this.ProjectName + '.js'),
+      {
+        includeCookie: this.includeCookie,
+        includeSocialSharing: this.includeSocialSharing
+      }
     );
 
     this.fs.copyTpl(
       this.templatePath('_main.js'),
-      this.destinationPath('components/app/main.js')
+      this.destinationPath('components/app/main.js'),
+      {
+        HTMLDeveloper: this.HTMLDeveloper,
+        includeCookie: this.includeCookie,
+        includeSocialSharing: this.includeSocialSharing
+      }
     );
   },
 
@@ -403,7 +412,8 @@ KickstartGenerator = yeoman.Base.extend({
         includeCookie: this.includeCookie,
         includeFigureElement: this.includeFigureElement,
         includeDefaultForm: this.includeDefaultForm,
-        includeSearchResults: this.includeSearchResults
+        includeSearchResults: this.includeSearchResults,
+        includeSocialSharing: this.includeSocialSharing
       }
     );
   },

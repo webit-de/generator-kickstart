@@ -6,20 +6,24 @@
     <meta charset="utf-8">
     <meta name="description" content="">
     {app:{site-icons:{windows-tile-icon}}}
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title><%= ProjectName %></title>
 
     {app:{site-icons}}
     <link rel="stylesheet" href="assets/css/<%= ProjectName %>.css">
 
-    <script src="assets/js/libs/modernizr.js"></script>
+    <script type="text/javascript">
+      var html_node = document.getElementsByTagName("html")[0];
+      html_node.className =
+      html_node.className.replace( /(?:^|\s)no-js(?!\S)/g , ' js');
+    </script>
 
   </head>
   <body>
     {app:{sandbox-sitemap}}
 
-    <header class="header"></header>
+    <header class="header" role="banner"></header>
 
     <main class="main">
 
@@ -27,10 +31,10 @@
 
     </main> <!-- wrapper -->
 
-    <footer class="footer"></footer>
+    <footer class="footer" role="contentinfo"></footer>
 
     <% if (wysiwygCMS) { %><!-- front-end only: --><% } %>
-    <script data-main="assets/js/<%= ProjectName %>" src="assets/js/libs/require.js"></script>
+    <script async data-main="assets/js/<%= ProjectName %>" src="assets/js/libs/require.js"></script>
 
     <% if (wysiwygCMS) { %>
     <!-- used in wysiwyg CMS:

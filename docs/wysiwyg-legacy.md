@@ -5,7 +5,7 @@ This might be the case when your CMS uses front-end-editing and you need to only
 
 ```HTML
 <!-- front-end only: -->
-<script data-main="assets/js/<%= ProjectName %>" src="assets/js/libs/require.js"></script>
+<script async data-main="assets/js/<%= ProjectName %>" src="assets/js/libs/require.js"></script>
 
 <!-- used in wysiwyg CMS:
 <link rel="stylesheet" href="assets/css/backend.css">

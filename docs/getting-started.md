@@ -6,7 +6,6 @@
 * [PostCSS](http://postcss.org/)
 * [Grunt](http://gruntjs.com)
 * [Node](https://nodejs.org/)
-* [Ruby](https://www.ruby-lang.org/)
 * [Sass CSS Importer Plugin](https://github.com/chriseppstein/sass-css-importer)
 * [Sass](http://sass-lang.com/)
 * [Yeoman](http://yeoman.io)

@@ -2,17 +2,24 @@
  * Main entry point into all Java Script.
  * @module Main
  * @requires jquery
+ * @requires _core<% if (includeCookie) { %>
+ * @requires cookie-info<% } %><% if (includeSocialSharing) { %>
+ * @requires social-media-share<% } %>
  * @requires jquery.exists
- * @author TODO: add author
+ * @author <%= HTMLDeveloper %>
  */
 require([
   'jquery',
   '_core',
-  'jquery.exists'
+  'jquery.exists'<% if (includeCookie) { %>,
+  'cookie-info'<% } %><% if (includeSocialSharing) { %>,
+  'social-media-share'<% } %>
 ], function(
   $,
   _Core,
-  exists
+  exists<% if (includeCookie) { %>,
+  CookieInfo<% } %><% if (includeSocialSharing) { %>,
+  SocialMediaShare<% } %>
 ) {
 
   'use strict';
@@ -26,6 +33,7 @@ require([
     _cacheElements: function() {
       // this.$object = $('.class');
       // this.string = 'string';
+      // this.integer = 0;
     },
     /**
      * Initiates the module.
@@ -34,6 +42,8 @@ require([
      */
     init: function() {
       this._cacheElements();
+<% if (includeCookie) { %>      CookieInfo.init();<% } %>
+<% if (includeSocialSharing) { %>      SocialMediaShare.init();<% } %>
     }
   };
 

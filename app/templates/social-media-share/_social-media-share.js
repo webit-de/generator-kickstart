@@ -2,6 +2,7 @@
  * Generates Links for different platforms from og meta tags or respective information
  * @module SocialMediaShare
  * @requires jquery
+ * @requires _core
  * @requires jquery.exists
  * @author ruediger@webit.de
  */
@@ -23,15 +24,15 @@ define([
      * @private
      */
     _cacheElements: function() {
-      this.$social_media_share = _Core.$html.find('.social-media-share');
+      this.$social_media_share = _Core.$body.find('.social-media-share');
       this.$social_media_share_links = this.$social_media_share.find('a');
-      this.$social_media_share_facebook = this.$social_media_share.find('.social-media-facebook');
-      this.$social_media_share_twitter = this.$social_media_share.find('.social-media-twitter');
-      this.$social_media_share_googleplus = this.$social_media_share.find('.social-media-googleplus');
-      this.$social_media_share_xing = this.$social_media_share.find('.social-media-xing');
-      this.$social_media_share_whatsapp = this.$social_media_share.find('.social-media-whatsapp');
-      this.$social_media_share_pinterest = this.$social_media_share.find('.social-media-pinterest');
-      this.$social_media_share_email = this.$social_media_share.find('.social-media-email');
+      this.$social_media_share_facebook = _Core.$body.find('.social-media-facebook');
+      this.$social_media_share_twitter = _Core.$body.find('.social-media-twitter');
+      this.$social_media_share_googleplus = _Core.$body.find('.social-media-googleplus');
+      this.$social_media_share_xing = _Core.$body.find('.social-media-xing');
+      this.$social_media_share_whatsapp = _Core.$body.find('.social-media-whatsapp');
+      this.$social_media_share_pinterest = _Core.$body.find('.social-media-pinterest');
+      this.$social_media_share_email = _Core.$body.find('.social-media-email');
 
       this.currentUrl = window.location.href;
       this.currentTitle = _Core.$document.find('title').text();

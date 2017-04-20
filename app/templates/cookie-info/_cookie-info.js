@@ -3,6 +3,7 @@
  * the script requires the lib cookie.js from markusfalk, 'bower install markusfalk/cookie --save'
  * @module CookieInfo
  * @requires jquery
+ * @requires _core
  * @requires jquery.exists
  * @requires cookie
  * @author Christian Schramm / André Meier da Silva
@@ -29,8 +30,8 @@ define([
      * @private
      */
     _cacheElements: function() {
-      this.$cookie_info = _Core.$html.find('.cookie-info');
-      this.$cookie_button = this.$cookie_info.find('.cookie-accept');
+      this.$cookie_info = _Core.$body.find('.cookie-info');
+      this.$cookie_button = _Core.$body.find('.cookie-accept');
     },
 
     /**
