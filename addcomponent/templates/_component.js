@@ -26,7 +26,7 @@ define([
      * @private
      */
     _cacheElements: function() {
-      this.$<%= _name %> = $('.<%= slug_name %>');
+      this.$<%= _name %> = _Core.$body.find('.<%= slug_name %>');
       // this.string = 'string';
       // this.integer = 0;
     },
