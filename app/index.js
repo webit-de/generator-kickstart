@@ -416,6 +416,11 @@ KickstartGenerator = yeoman.Base.extend({
         includeSocialSharing: this.includeSocialSharing
       }
     );
+
+    this.fs.copyTpl(
+      this.templatePath('_frontend-template-setup-errorpage.scss'),
+      this.destinationPath('components/' + this.ProjectName + '-errorpage.scss')
+    );
   },
 
   /**

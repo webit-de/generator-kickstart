@@ -12,6 +12,10 @@ $bp-smartphone-large: calc($bp-tablet-small - 1);
 $bp-tablet-large: calc($bp-laptop-small - 1);
 $bp-laptop-large: calc($bp-desktop-small - 1);<% } %>
 
+// Content
+
+$content-width: 1180px;
+
 // ==========================================================================
 // = Colors
 // ==========================================================================
