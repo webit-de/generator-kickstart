@@ -434,8 +434,7 @@ KickstartGenerator = yeoman.Base.extend({
       this.destinationPath('sandbox.html'),
       {
         ProjectName: this.ProjectName,
-        wysiwygCMS: this.wysiwygCMS,
-        livereload: this.livereload
+        wysiwygCMS: this.wysiwygCMS
       }
     );
 
