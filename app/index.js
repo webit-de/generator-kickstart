@@ -438,6 +438,15 @@ KickstartGenerator = yeoman.Base.extend({
         livereload: this.livereload
       }
     );
+
+    this.fs.copyTpl(
+      this.templatePath('_errorpage.html'),
+      this.destinationPath('errorpage.html'),
+      {
+        ProjectName: this.ProjectName,
+        wysiwygCMS: this.wysiwygCMS
+      }
+    );
   },
 
   /**
