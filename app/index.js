@@ -116,6 +116,11 @@ KickstartGenerator = yeoman.Base.extend({
             name: 'SearchResults',
             value: 'includeSearchResults',
             checked: true
+          },
+          {
+            name: 'Template Errorpage',
+            value: 'includeErrorpage',
+            checked: true
           }
         ]
       },
@@ -203,6 +208,7 @@ KickstartGenerator = yeoman.Base.extend({
       this.includeSocialSharing = this._hasFeature('includeSocialSharing');
       this.includeDefaultForm = this._hasFeature('includeDefaultForm');
       this.includeSearchResults = this._hasFeature('includeSearchResults');
+      this.includeErrorpage = this._hasFeature('includeErrorpage');
 
       // ProjectServer
       this.ProjectName = string.slugify(answers.ProjectName);
@@ -417,10 +423,12 @@ KickstartGenerator = yeoman.Base.extend({
       }
     );
 
-    this.fs.copyTpl(
-      this.templatePath('_frontend-template-setup-errorpage.scss'),
-      this.destinationPath('components/' + this.ProjectName + '-errorpage.scss')
-    );
+    if (this.includeErrorpage) {
+      this.fs.copyTpl(
+        this.templatePath('_frontend-template-setup-errorpage.scss'),
+        this.destinationPath('components/' + this.ProjectName + '-errorpage.scss')
+      );
+    }
   },
 
   /**
@@ -438,14 +446,15 @@ KickstartGenerator = yeoman.Base.extend({
       }
     );
 
-    this.fs.copyTpl(
-      this.templatePath('_errorpage.html'),
-      this.destinationPath('errorpage.html'),
-      {
-        ProjectName: this.ProjectName,
-        wysiwygCMS: this.wysiwygCMS
-      }
-    );
+    if (this.includeErrorpage) {
+      this.fs.copyTpl(
+        this.templatePath('_errorpage.html'),
+        this.destinationPath('errorpage.html'),
+        {
+          ProjectName: this.ProjectName
+        }
+      );
+    }
   },
 
   /**
@@ -510,7 +519,11 @@ KickstartGenerator = yeoman.Base.extend({
     // Sandbox-Sitemap
     this.fs.copyTpl(
       this.templatePath('sandbox-sitemap/_sandbox-sitemap.html'),
-      this.destinationPath('components/app/sandbox-sitemap/sandbox-sitemap.html')
+      this.destinationPath('components/app/sandbox-sitemap/sandbox-sitemap.html'),
+      {
+        ProjectName: this.ProjectName,
+        includeErrorpage: this.includeErrorpage
+      }
     );
   },
 
