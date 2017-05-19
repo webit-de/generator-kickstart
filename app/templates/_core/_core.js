@@ -67,6 +67,27 @@ define(['jquery'], function($) {
           func.apply(context, args);
         }, delay);
       };
+    },
+
+    /**
+     * Checks if provided element is in view using the window's and elements top and bottom ends
+     * @function isInViewport
+     * @public
+     * @param {$object} $element - jQuery object of the element that should be checked
+     * @return {bool} - true or false if element is in viewport
+     */
+    isInViewport: function($element) {
+      var is_in_viewport = false;
+      var top_of_element = $element.offset().top;
+      var bottom_of_element = top_of_element + $element.outerHeight();
+      var top_of_screen = Core.$window.scrollTop();
+      var bottom_of_screen = top_of_screen + Core.$window.height();
+
+      if((bottom_of_screen > top_of_element) && (top_of_screen < bottom_of_element)){
+        is_in_viewport = true;
+      }
+
+      return is_in_viewport;
     }<% if (includeRwd) { %>,
 
     /**
@@ -101,6 +122,8 @@ define(['jquery'], function($) {
     debounce: Core.debounce,<% if (includeRwd) { %>
     /** getMediaquery */
     getMediaquery: Core.getMediaquery,<% } %>
+    /** isInViewport */
+    isInViewport: Core.isInViewport,
     /** $window */
     $window: Core.$window,
     /** $document */
