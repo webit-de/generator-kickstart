@@ -25,12 +25,12 @@
     "grunt-replace": "^1",
     "grunt-scss-lint": "^0.3",
     "quiet-grunt": "^0.2.3",
-    "grunt-sync": "0.5",<% if (ProjectServer) { %>
+    "grunt-sync": "0.5",<% if (ProjectServer || DemoServer) { %>
     "grunt-ssh-deploy": "^0.4",
     "npm": "^3",
     "userhome": "^1.0.0",<% } %>
     "jshint-stylish": "^2"
-  }<% if (ProjectServer) { %>,
+  }<% if (ProjectServer || DemoServer) { %>,
   "dependencies": {
     "file-exists": "^1.0.0"
   }<% } %>
