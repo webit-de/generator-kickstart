@@ -6,7 +6,7 @@ module.exports = function(grunt) {
     require('quiet-grunt');
   }
 
-<% if (ProjectServer) { %>
+<% if (ProjectServer || DemoServer) { %>
   var fileExists = require('file-exists'),
   fs = require('fs'),
   key = function() {
@@ -27,8 +27,7 @@ module.exports = function(grunt) {
   };
 
   key();
-  passphraseConfig();
-<% } %>
+  passphraseConfig();<% } %>
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -41,24 +40,35 @@ module.exports = function(grunt) {
         }
       }
     },
-<% if (ProjectServer) { %>
+<% if (ProjectServer || DemoServer) { %>
     environments: {
       options: {
         local_path: './build',
-      },
+      }<% if (ProjectServer) { %>,
       preview: {
         options: {
-          username: grunt.file.readJSON('hostConfig.json').username,
-          host: grunt.file.readJSON('hostConfig.json').hostServer,
-          deploy_path: grunt.file.readJSON('hostConfig.json').deployPath,
+          username: grunt.file.readJSON('hostConfig.json').preview.username,
+          host: grunt.file.readJSON('hostConfig.json').preview.hostServer,
+          deploy_path: grunt.file.readJSON('hostConfig.json').preview.deployPath,
           current_symlink: 'web',
           releases_to_keep: 2,
           passphrase: passphraseConfig,
           privateKey: key
         }
-      }
-    },<% } %>
-
+      }<% } %><% if (DemoServer) { %>,
+      demo: {
+        options: {
+          username: grunt.file.readJSON('hostConfig.json').demo.username,
+          host: grunt.file.readJSON('hostConfig.json').demo.hostServer,
+          deploy_path: grunt.file.readJSON('hostConfig.json').demo.deployPath,
+          current_symlink: 'web',
+          releases_to_keep: 2,
+          passphrase: passphraseConfig,
+          privateKey: key
+        }
+      }<% } %>
+    },
+<% } %>
     watch: {
       options: {
         spawn: false,
@@ -164,13 +174,11 @@ module.exports = function(grunt) {
       development: {
         src: 'components/<%= ProjectName %>.scss',
         dest: 'build/assets/css/<%= ProjectName %>.css'
-      },
-
+      },<% if (ProjectServer) { %>
       preview: {
         src: 'components/<%= ProjectName %>.scss',
         dest: 'build/assets/css/<%= ProjectName %>.css'
-      },
-
+      },<% } %>
       live: {
         options: {
           map: false,
@@ -353,7 +361,7 @@ module.exports = function(grunt) {
           }
         ]
       },
-    <% if (livereload) { %>
+<% if (livereload) { %>
       dev: {
         options: {
           excludeBuiltins: true,
@@ -379,8 +387,8 @@ module.exports = function(grunt) {
           }
         ]
       }
-    <% } %>
-      },
+<% } %>
+    },
 
     requirejs: {
       options: {
@@ -395,14 +403,14 @@ module.exports = function(grunt) {
           optimize: 'none'
         }
       },
-      <% if (ProjectServer) { %>
+<% if (ProjectServer) { %>
       preview: {
         options: {
           generateSourceMaps: false,
           optimize: 'none'
         }
       },
-      <% } %>
+<% } %>
       live: {
         options: {
           generateSourceMaps: false,
@@ -424,7 +432,7 @@ module.exports = function(grunt) {
           dest: 'build/assets/js/deferred'
         }]
       },
-      <% if (ProjectServer) { %>
+<% if (ProjectServer) { %>
       deferred_preview: {
         files: [{
           expand: true,
@@ -434,7 +442,7 @@ module.exports = function(grunt) {
           dest: 'build/assets/js/deferred'
         }]
       },
-      <% } %>
+<% } %>
       deferred_live: {
         files: [{
           expand: true,
@@ -553,7 +561,7 @@ module.exports = function(grunt) {
           flatten: true,
           expand: true,
           cwd: 'components/app',
-          src: ['**/font/*.{ttf,eot,woff,woff2,svg}'],
+          src: ['**/font/**/*.{ttf,eot,woff,woff2,svg}'],
           dest: 'build/assets/font'
         }],
         verbose: true
@@ -610,7 +618,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-replace');
   grunt.loadNpmTasks('grunt-scss-lint');
   grunt.loadNpmTasks('grunt-sync');
-  <% if (ProjectServer) { %>grunt.loadNpmTasks('grunt-ssh-deploy');<% } %>
+  <% if (ProjectServer || DemoServer) { %>grunt.loadNpmTasks('grunt-ssh-deploy');<% } %>
 
   grunt.registerTask('default', [
     'auto_install',
@@ -634,7 +642,7 @@ module.exports = function(grunt) {
     'uglify:deferred_live',
     'uglify:external'
   ]);
-  <% if (ProjectServer) { %>
+<% if (ProjectServer) { %>
   grunt.registerTask('preview', [
     'auto_install',
     'clean:build',
@@ -646,6 +654,18 @@ module.exports = function(grunt) {
     'uglify:deferred_preview',
     'uglify:external',
     'ssh_deploy:preview'
+  ]);<% } %>
+<% if (DemoServer) { %>
+  grunt.registerTask('demo', [
+    'clean:build',
+    'replace:all_placeholder',
+    'imagemin',
+    'sync',
+    'postcss:live',
+    'requirejs:live',
+    'uglify:deferred_live',
+    'uglify:external',
+    'ssh_deploy:demo'
   ]);<% } %>
 
   grunt.registerTask('test', [
