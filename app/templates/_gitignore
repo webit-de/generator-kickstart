@@ -1,14 +1,19 @@
+### Folders
+.bundles
+.sass-cache
+/build
+/documentation
+/vendor
+node_modules
+
+### Files
+.DS_Store
+.ftppass
+*.tmp
+*.sublime-*
+*.bat
 *.bak
 *.error
 *.log
-*.sublime-*
-*.tmp
-.DS_Store
-.ftppass
-.sass-cache
-.bundles
-build
-node_modules
-documentation
-./vendor
+npm-debug.log
 <% if (ProjectServer) { %>clientConfig.json<% } %>
