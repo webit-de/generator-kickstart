@@ -572,7 +572,7 @@ KickstartGenerator = yeoman.Base.extend({
 
       this.fs.copyTpl(
         this.templatePath('social-media-share/_social-media-share.js'),
-        this.destinationPath('components/app/social-media-share/_social-media-share.js')
+        this.destinationPath('components/app/social-media-share/social-media-share.js')
       );
     }
   },
