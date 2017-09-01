@@ -8,7 +8,7 @@ requirejs.config({
     'social-media-share': 'app/social-media-share/social-media-share',<% } %>
 
 		//{{libs}}<% if (includeCookie) { %>
-    'cookie': 'app/cookie-info/cookie',<% } %>
+    'cookie': 'libs/cookie/cookie',<% } %>
 		'jquery.exists': 'libs/jquery.exists/jquery.exists',
 		'jquery': 'libs/jquery/dist/jquery.min'
 	},
