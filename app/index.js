@@ -139,7 +139,8 @@ KickstartGenerator = yeoman.Base.extend({
         },
         type: 'input',
         name: 'sshPath',
-        message: 'Please insert the Path to your ssh-Key, starting from Home. (e.g.: .ssh/id_rsa)'
+        message: 'Please insert the Path to your ssh-Key, starting from Home.,
+        default: '.ssh/id_rsa'
       },
       {
         when: function(response) {
