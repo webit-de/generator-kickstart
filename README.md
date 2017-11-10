@@ -2,7 +2,7 @@
 
 <b>The open source workflow for the web</b>
 
-<img src="https://raw.githubusercontent.com/markusfalk/generator-kickstart/master/docs/kickstart.png" alt="">
+<img src="https://github.com/webit-de/generator-kickstart/blob/master/docs/kickstart.png" alt="">
 
 ## What is Kickstart?
 

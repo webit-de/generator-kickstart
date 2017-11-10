@@ -1,16 +1,8 @@
 // ==========================================================================
 // = Variables
 // ==========================================================================
-<% if (includeRwd) { %>
-// Breakpoints
-$bp-smartphone-small: 360px;
-$bp-tablet-small: 768px;
-$bp-laptop-small: 1024px;
-$bp-desktop-small: 1280px;
 
-$bp-smartphone-large: calc($bp-tablet-small - 1);
-$bp-tablet-large: calc($bp-laptop-small - 1);
-$bp-laptop-large: calc($bp-desktop-small - 1);<% } %>
+$image-path: /assets/img;
 
 // Content
 
@@ -28,6 +20,50 @@ $color-black: #000;
 // ==========================================================================
 
 $z-base: 1;
+<% if (includeRwd) { %>
+// ==========================================================================
+// = Breakpoints
+// ==========================================================================
+
+@define-mixin for-phone-only {
+  @media (max-width: 599px) { @mixin-content; }
+}
+
+@define-mixin for-tablet-portrait-up {
+  @media (min-width: 600px) { @mixin-content; }
+}
+
+@define-mixin for-tablet-portrait-only {
+  @media (min-width: 600px) and (max-width: 899px) { @mixin-content; }
+}
+
+@define-mixin for-tablet-portrait-down {
+  @media (max-width: 899px) { @mixin-content; }
+}
+
+@define-mixin for-tablet-landscape-up {
+  @media (min-width: 900px) { @mixin-content; }
+}
+
+@define-mixin for-tablet-landscape-only {
+  @media (min-width: 900px) and (max-width: 1219px) { @mixin-content; }
+}
+
+@define-mixin for-tablet-landscape-down {
+  @media (max-width: 1219px) { @mixin-content; }
+}
+
+@define-mixin for-desktop-up {
+  @media (min-width: 1220px) { @mixin-content; }
+}
+
+@define-mixin for-desktop-only {
+  @media (min-width: 1220px) and (max-width: 1920px) { @mixin-content; }
+}
+
+@define-mixin for-big-desktop-up {
+  @media (min-width: 1921px) { @mixin-content; }<% } %>
+}
 
 // ==========================================================================
 // = Mixins
@@ -51,6 +87,33 @@ $z-base: 1;
 
 @define-mixin set-origin $value {
   transform-origin: $value;
+}
+
+@define-mixin grid-list $items-per-line, $wrap: nowrap, $justify: center, $spacing: $content-padding, $grid-list-item: .grid-list-item {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: $wrap;
+  justify-content: $justify;
+  margin-left: calc(-1 * $spacing * .5);
+  margin-right: calc(-1 * $spacing * .5);
+  margin-top: -$spacing;
+
+  > $(grid-list-item) {
+    box-sizing: border-box;
+    padding-top: $spacing;
+    padding-left: calc($spacing * .5);
+    padding-right: calc($spacing * .5);
+    min-height: 1px; // Bugfix IE10 height
+    width: calc(100% / $items-per-line);
+  }
+
+  > $(grid-list-item)_x2 {
+    width: calc((100% / $items-per-line) * 2 + (0 * $spacing));
+  }
+
+  > $(grid-list-item)-big {
+    flex-grow: 1;
+  }
 }
 
 // ==========================================================================

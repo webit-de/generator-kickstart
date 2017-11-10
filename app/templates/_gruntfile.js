@@ -553,7 +553,7 @@ module.exports = function(grunt) {
           flatten: true,
           expand: true,
           cwd: 'components/app',
-          src: ['**/font/*.{ttf,eot,woff,woff2,svg}'],
+          src: ['**/font/**/*.{ttf,eot,woff,woff2,svg}'],
           dest: 'build/assets/font'
         }],
         verbose: true

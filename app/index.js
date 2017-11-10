@@ -144,7 +144,8 @@ KickstartGenerator = yeoman.Base.extend({
         },
         type: 'input',
         name: 'sshPath',
-        message: 'Please insert the Path to your ssh-Key, starting from Home. (e.g.: .ssh/id_rsa)'
+        message: 'Please insert the Path to your ssh-Key, starting from Home.',
+        default: '.ssh/id_rsa'
       },
       {
         when: function(response) {
@@ -276,8 +277,8 @@ KickstartGenerator = yeoman.Base.extend({
     );
 
     this.fs.copyTpl(
-      this.templatePath('_scsslintrc'),
-      this.destinationPath('.scsslintrc')
+      this.templatePath('_scss-lint.yml'),
+      this.destinationPath('.scss-lint.yml')
     );
 
     this.fs.copyTpl(
@@ -614,7 +615,7 @@ KickstartGenerator = yeoman.Base.extend({
 
       this.fs.copyTpl(
         this.templatePath('social-media-share/_social-media-share.js'),
-        this.destinationPath('components/app/social-media-share/_social-media-share.js')
+        this.destinationPath('components/app/social-media-share/social-media-share.js')
       );
     }
   },

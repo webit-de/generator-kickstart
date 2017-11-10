@@ -1,4 +1,8 @@
-@media (max-width: 767px) { // change mediaquery to used variable
+// ==========================================================================
+// = Common Styles
+// ==========================================================================
+
+@mixin for-tablet-portrait-down {
   .hidden-xs {
     display: none;
   }
