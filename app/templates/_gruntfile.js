@@ -61,23 +61,24 @@ module.exports = function(grunt) {
 
     watch: {
       options: {
-        spawn: false
+        spawn: false,
+        livereload: true
       },
 
       // Styling
       scss: {
         files: 'components/**/*.scss',
-        tasks: ['sync:webfonts', 'imagemin', 'compass:development', 'modernizr']
+        tasks: ['sync:webfonts', 'imagemin', 'postcss:development']
       },
 
       // Scripting
       js: {
         files: ['components/*.js', 'components/app/**/*.js', '!components/app/_deferred/**/*.js'],
-        tasks: ['requirejs:development', 'modernizr'],
+        tasks: ['requirejs:development'],
       },
       js_deferred: {
         files: ['components/app/_deferred/**/*.js'],
-        tasks: ['uglify:deferred_development', 'modernizr'],
+        tasks: ['uglify:deferred_development'],
       },
       js_bower: {
         files: ['components/bower/**/*.js'],
@@ -112,12 +113,12 @@ module.exports = function(grunt) {
       img_background: {
         options: { livereload: true },
         files: ['components/**/*.{png,gif,jpg,svg,ico}', '!_svg/**/*.svg', '!_svg/*.svg'],
-        tasks: ['clean:css', 'imagemin:backgrounds' , 'compass:development'],
+        tasks: ['clean:css', 'imagemin:backgrounds' , 'postcss:development'],
       },
       img_inline_svg: {
         options: { livereload: true },
         files: ['components/app/_svg/**/*.svg'],
-        tasks: ['clean:css', 'imagemin:inline_svg' , 'compass:development'],
+        tasks: ['clean:css', 'imagemin:inline_svg' , 'postcss:development'],
       },
 
       // websocket support
@@ -127,40 +128,82 @@ module.exports = function(grunt) {
       }
     },
 
-    compass: {
+    postcss: {
       options: {
-        asset_cache_buster: false,
-        bundleExec: true,
-        cssDir: 'build/assets/css',
-        httpFontsPath: '/assets/font',
-        httpImagesPath: '/assets/img',
-        imagesDir: 'build/assets/img',
-        noLineComments: false,
-        require: 'sass-css-importer',
-        sassDir: 'components',
-        specify: ['components/*.scss', 'components/app/_deferred/**/*.scss']
+        map: {
+          inline: false,
+          annotation: 'build/assets/css/'
+        },
+        parser: require('postcss-scss'),
+        processors: [
+          require('precss')({
+            extension: 'scss'
+          }),
+          require('postcss-mixins'),
+          require('postcss-simple-vars'),
+          require('postcss-nested'),
+          require('postcss-extend'),
+          require('postcss-inline-image'),
+          require('postcss-strip-inline-comments'),
+          require("postcss-calc")({
+            mediaQueries: true,
+            selectors: true
+          }),
+          require('postcss-cssnext')({
+            browsers: 'last 2 versions'
+          }),
+          require('rucksack-css'),
+          require("css-mqpacker")({
+            sort: true
+          }),
+        ],
+        syntax: require('postcss-scss'),
+        failOnError: true
       },
+
       development: {
-        options: {
-          environment: 'development',
-          sourcemap: true
-        }
+        src: 'components/<%= ProjectName %>.scss',
+        dest: 'build/assets/css/<%= ProjectName %>.css'
       },
-      <% if (ProjectServer) { %>
+
       preview: {
-        options: {
-          environment: 'development',
-          sourcemap: false,
-        }
+        src: 'components/<%= ProjectName %>.scss',
+        dest: 'build/assets/css/<%= ProjectName %>.css'
       },
-      <% } %>
+
       live: {
         options: {
-          environment: 'production',
-          noLineComments: true,
-          sourcemap: true,
-          httpPath: '/' // . = relative
-        }
+          map: false,
+          parser: require('postcss-scss'),
+          processors: [
+            require('precss')({
+              extension: 'scss'
+            }),
+            require('postcss-mixins'),
+            require('postcss-simple-vars'),
+            require('postcss-nested'),
+            require('postcss-extend'),
+            require('postcss-inline-image'),
+            require('postcss-strip-inline-comments'),
+            require("postcss-calc")({
+              mediaQueries: true,
+              selectors: true
+            }),
+            require('postcss-cssnext')({
+              browsers: 'last 2 versions'
+            }),
+            require('rucksack-css'),
+            require("css-mqpacker")({
+              sort: true
+            }),
+            require('cssnano')({
+              autoprefixer: false,
+              safe: true
+            })
+          ]
+        },
+        src: 'components/<%= ProjectName %>.scss',
+        dest: 'build/assets/css/<%= ProjectName %>.css'
       }
     },
 
@@ -423,7 +466,7 @@ module.exports = function(grunt) {
           flatten: true,
           expand: true,
           cwd: 'components/app',
-          src: ['**/*.{gif,jpg,png,svg,ico}', '!_svg/**/*.svg', '!_svg/*.svg'],
+          src: ['**/*.{gif,jpg,png,svg,ico}', '!_svg/**/*.svg', '!_svg/*.svg', '!**/font/*.svg'],
           dest: 'build/assets/img'
         }]
       },
@@ -527,20 +570,6 @@ module.exports = function(grunt) {
       }
     },
 
-    modernizr: {
-      dist: {
-        'devFile' : 'components/libs/modernizr/modernizr.js',
-        'dest' : 'build/assets/js/libs/modernizr.js',
-        'options' : [
-          'setClasses'
-        ],
-        'uglify' : true,
-        'files' : {
-          'src': ['components/app/**/*.js', 'build/**/*.css']
-        }
-      }
-    },
-
     jsdoc : {
       dist : {
         src: ['components/app/**/*.js'],
@@ -552,7 +581,6 @@ module.exports = function(grunt) {
 
     scsslint: {
       options: {
-        bundleExec: true,
         colorizeOutput: true,
         compact: true,
         config: '.scsslintrc',
@@ -568,7 +596,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-auto-install');
   grunt.loadNpmTasks('grunt-accessibility');
   grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-compass');
+  grunt.loadNpmTasks('grunt-postcss');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-csslint');
   grunt.loadNpmTasks('grunt-contrib-imagemin');
@@ -578,7 +606,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-jsdoc');
-  grunt.loadNpmTasks('grunt-modernizr');
   grunt.loadNpmTasks('grunt-newer');
   grunt.loadNpmTasks('grunt-replace');
   grunt.loadNpmTasks('grunt-scss-lint');
@@ -591,11 +618,10 @@ module.exports = function(grunt) {
     'replace',
     'imagemin',
     'sync',
-    'compass:development',
+    'postcss:development',
     'requirejs:development',
     'uglify:deferred_development',
-    'uglify:external',
-    'modernizr'
+    'uglify:external'
   ]);
 
   grunt.registerTask('live', [
@@ -603,11 +629,10 @@ module.exports = function(grunt) {
     'replace:all_placeholder',
     'imagemin',
     'sync',
-    'compass:live',
+    'postcss:live',
     'requirejs:live',
     'uglify:deferred_live',
-    'uglify:external',
-    'modernizr'
+    'uglify:external'
   ]);
   <% if (ProjectServer) { %>
   grunt.registerTask('preview', [
@@ -616,11 +641,10 @@ module.exports = function(grunt) {
     'replace',
     'imagemin',
     'sync',
-    'compass:preview',
+    'postcss:preview',
     'requirejs:preview',
     'uglify:deferred_preview',
     'uglify:external',
-    'modernizr',
     'ssh_deploy:preview'
   ]);<% } %>
 

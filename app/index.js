@@ -139,7 +139,8 @@ KickstartGenerator = yeoman.Base.extend({
         },
         type: 'input',
         name: 'sshPath',
-        message: 'Please insert the Path to your ssh-Key, starting from Home. (e.g.: .ssh/id_rsa)'
+        message: 'Please insert the Path to your ssh-Key, starting from Home.',
+        default: '.ssh/id_rsa'
       },
       {
         when: function(response) {
@@ -260,11 +261,6 @@ KickstartGenerator = yeoman.Base.extend({
     );
 
     this.fs.copyTpl(
-      this.templatePath('_gems.rb'),
-      this.destinationPath('gems.rb')
-    );
-
-    this.fs.copyTpl(
       this.templatePath('_editorconfig'),
       this.destinationPath('.editorconfig')
     );
@@ -359,12 +355,21 @@ KickstartGenerator = yeoman.Base.extend({
 
     this.fs.copyTpl(
       this.templatePath('_frontend-template-setup.js'),
-      this.destinationPath('components/' + this.ProjectName + '.js')
+      this.destinationPath('components/' + this.ProjectName + '.js'),
+      {
+        includeCookie: this.includeCookie,
+        includeSocialSharing: this.includeSocialSharing
+      }
     );
 
     this.fs.copyTpl(
       this.templatePath('_main.js'),
-      this.destinationPath('components/app/main.js')
+      this.destinationPath('components/app/main.js'),
+      {
+        HTMLDeveloper: this.HTMLDeveloper,
+        includeCookie: this.includeCookie,
+        includeSocialSharing: this.includeSocialSharing
+      }
     );
   },
 
@@ -408,7 +413,8 @@ KickstartGenerator = yeoman.Base.extend({
         includeCookie: this.includeCookie,
         includeFigureElement: this.includeFigureElement,
         includeDefaultForm: this.includeDefaultForm,
-        includeSearchResults: this.includeSearchResults
+        includeSearchResults: this.includeSearchResults,
+        includeSocialSharing: this.includeSocialSharing
       }
     );
   },
@@ -424,8 +430,7 @@ KickstartGenerator = yeoman.Base.extend({
       this.destinationPath('sandbox.html'),
       {
         ProjectName: this.ProjectName,
-        wysiwygCMS: this.wysiwygCMS,
-        livereload: this.livereload
+        wysiwygCMS: this.wysiwygCMS
       }
     );
   },
@@ -568,7 +573,7 @@ KickstartGenerator = yeoman.Base.extend({
 
       this.fs.copyTpl(
         this.templatePath('social-media-share/_social-media-share.js'),
-        this.destinationPath('components/app/social-media-share/_social-media-share.js')
+        this.destinationPath('components/app/social-media-share/social-media-share.js')
       );
     }
   },
@@ -621,11 +626,6 @@ KickstartGenerator = yeoman.Base.extend({
     if (!this.options['skip-install']) {
       // bower & npm
       this.installDependencies();
-
-      // gems
-      this.log('Running ' + chalk.yellow.bold('bundle install') + ' for you to install the required dependencies. If this fails, try running the command yourself.');
-      this.log('\n');
-      this.spawnCommand('bundle', ['install']);
     }
   }
 

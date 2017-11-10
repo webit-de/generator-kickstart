@@ -1,5 +1,5 @@
 var requirejs = {
-  baseUrl: "../",
+  baseUrl: '../',
   paths: {
     //{{app}}
     '_core': 'app/_core/_core',

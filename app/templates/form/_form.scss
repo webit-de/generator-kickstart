@@ -6,7 +6,7 @@ $disabled-opacity: .4;
 $focus-styling-default: 1px dotted $color-black;
 
 // ==========================================================================
-// = regular Form
+// = Common Styles
 // ==========================================================================
 
 button,
@@ -53,7 +53,7 @@ input,
 button,
 select,
 textarea {
-  @include appearance(none);
+  appearance: none;
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
@@ -120,7 +120,7 @@ button,
 }
 
 .radio-icon {
-  @include border-radius(100%);
+  border-radius: 100%;
 
   .switch-input:checked + .switch-label & {
     // change radio-icon if checked

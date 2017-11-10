@@ -3,7 +3,6 @@
   "version": "0",
   "main": "sandbox.html",
   "dependencies": {
-    "modernizr": "~2",
     "jquery.exists": "~1",
     "qunit": "~1",
     "requirejs": "~2"

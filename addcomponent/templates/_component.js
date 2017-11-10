@@ -2,14 +2,17 @@
  * TODO: add description
  * @module <%= class_name %>
  * @requires jquery
+ * @requires _core
  * @requires jquery.exists
  * @author TODO: add author
  */
 define([
   'jquery',
+  '_core',
   'jquery.exists'
 ], function(
   $,
+  _Core,
   exists
 ) {
 
@@ -18,12 +21,14 @@ define([
   var <%= class_name %> = {
 
     /**
-     * Caches all jQuery Objects for later use.
+     * Caches all jQuery Objects, Strings or Variables for later use.
      * @function _cacheElements
      * @private
      */
     _cacheElements: function() {
-      this.$<%= _name %> = $('.<%= slug_name %>');
+      this.$<%= _name %> = _Core.$body.find('.<%= slug_name %>');
+      // this.string = 'string';
+      // this.integer = 0;
     },
 
     /**
