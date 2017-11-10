@@ -428,6 +428,21 @@ KickstartGenerator = yeoman.Base.extend({
         this.templatePath('_frontend-template-setup-errorpage.scss'),
         this.destinationPath('components/' + this.ProjectName + '-errorpage.scss')
       );
+
+      this.fs.copy(
+        this.templatePath('_svg/errorpages/_error-400.svg'),
+        this.destinationPath('components/app/_svg/errorpages/error-400.svg')
+      );
+
+      this.fs.copy(
+        this.templatePath('_svg/errorpages/_error-404.svg'),
+        this.destinationPath('components/app/_svg/errorpages/error-404.svg')
+      );
+
+      this.fs.copy(
+        this.templatePath('_svg/errorpages/_error-500.svg'),
+        this.destinationPath('components/app/_svg/errorpages/error-500.svg')
+      );
     }
   },
 
