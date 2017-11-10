@@ -1,26 +1,42 @@
+// ==========================================================================
+// = Common Styles
+// ==========================================================================
+
 html {<% if (includeRwd) { %>
   font-family: 'xs';<% } %>
   min-height: 100%;
   position: relative; // positioning footer<% if (includeRwd) { %>
 
-  @media (max-width: $bp-smartphone-small) {
+  @mixin for-phone-only {
     font-family: 'sm';
   }
 
-  @media (min-width: $bp-tablet-small) {
+  @mixin for-tablet-portrait-only {
     font-family: 'md';
   }
 
-  @media (min-width: $bp-laptop-small) {
+  @mixin for-tablet-landscape-only {
     font-family: 'lg';
   }
 
-  @media (min-width: $bp-desktop-small) {
+  @mixin for-desktop-up {
     font-family: 'xl';
   }<% } %>
 }
 
 body {
   @mixin text-size-adjust;
+  box-sizing: border-box;
   margin: 0;
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+// ==========================================================================
+// = Layout
+// ==========================================================================
+
+.intern {
+  margin: 0 auto;
+  max-width: $content-width;
 }

@@ -116,6 +116,11 @@ KickstartGenerator = yeoman.Base.extend({
             name: 'SearchResults',
             value: 'includeSearchResults',
             checked: true
+          },
+          {
+            name: 'Template Errorpage',
+            value: 'includeErrorpage',
+            checked: true
           }
         ]
       },
@@ -139,7 +144,7 @@ KickstartGenerator = yeoman.Base.extend({
         },
         type: 'input',
         name: 'sshPath',
-        message: 'Please insert the Path to your ssh-Key, starting from Home. (e.g.: .ssh/id_rsa)',
+        message: 'Please insert the Path to your ssh-Key, starting from Home.',
         default: '.ssh/id_rsa'
       },
       {
@@ -178,7 +183,7 @@ KickstartGenerator = yeoman.Base.extend({
         },
         type: 'input',
         name: 'sshPath',
-        message: 'Please insert the Path to your ssh-Key, starting from Home. (e.g.: .ssh/id_rsa)',
+        message: 'Please insert the Path to your ssh-Key, starting from Home.',
         default: '.ssh/id_rsa'
       },
       {
@@ -243,6 +248,7 @@ KickstartGenerator = yeoman.Base.extend({
       this.includeSocialSharing = this._hasFeature('includeSocialSharing');
       this.includeDefaultForm = this._hasFeature('includeDefaultForm');
       this.includeSearchResults = this._hasFeature('includeSearchResults');
+      this.includeErrorpage = this._hasFeature('includeErrorpage');
 
       // ProjectServer
       this.ProjectName = string.slugify(answers.ProjectName);
@@ -466,6 +472,28 @@ KickstartGenerator = yeoman.Base.extend({
         includeSocialSharing: this.includeSocialSharing
       }
     );
+
+    if (this.includeErrorpage) {
+      this.fs.copyTpl(
+        this.templatePath('_frontend-template-setup-errorpage.scss'),
+        this.destinationPath('components/' + this.ProjectName + '-errorpage.scss')
+      );
+
+      this.fs.copy(
+        this.templatePath('_svg/errorpages/_error-400.svg'),
+        this.destinationPath('components/app/_svg/errorpages/error-400.svg')
+      );
+
+      this.fs.copy(
+        this.templatePath('_svg/errorpages/_error-404.svg'),
+        this.destinationPath('components/app/_svg/errorpages/error-404.svg')
+      );
+
+      this.fs.copy(
+        this.templatePath('_svg/errorpages/_error-500.svg'),
+        this.destinationPath('components/app/_svg/errorpages/error-500.svg')
+      );
+    }
   },
 
   /**
@@ -482,6 +510,16 @@ KickstartGenerator = yeoman.Base.extend({
         wysiwygCMS: this.wysiwygCMS
       }
     );
+
+    if (this.includeErrorpage) {
+      this.fs.copyTpl(
+        this.templatePath('_errorpage.html'),
+        this.destinationPath('errorpage.html'),
+        {
+          ProjectName: this.ProjectName
+        }
+      );
+    }
   },
 
   /**
@@ -546,7 +584,11 @@ KickstartGenerator = yeoman.Base.extend({
     // Sandbox-Sitemap
     this.fs.copyTpl(
       this.templatePath('sandbox-sitemap/_sandbox-sitemap.html'),
-      this.destinationPath('components/app/sandbox-sitemap/sandbox-sitemap.html')
+      this.destinationPath('components/app/sandbox-sitemap/sandbox-sitemap.html'),
+      {
+        ProjectName: this.ProjectName,
+        includeErrorpage: this.includeErrorpage
+      }
     );
   },
 
@@ -622,7 +664,7 @@ KickstartGenerator = yeoman.Base.extend({
 
       this.fs.copyTpl(
         this.templatePath('social-media-share/_social-media-share.js'),
-        this.destinationPath('components/app/social-media-share/_social-media-share.js')
+        this.destinationPath('components/app/social-media-share/social-media-share.js')
       );
     }
   },
