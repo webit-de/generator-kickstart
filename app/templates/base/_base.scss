@@ -62,8 +62,9 @@ $z-base: 1;
 }
 
 @define-mixin for-big-desktop-up {
-  @media (min-width: 1921px) { @mixin-content; }<% } %>
+  @media (min-width: 1921px) { @mixin-content; }
 }
+<% } %>
 
 // ==========================================================================
 // = Mixins

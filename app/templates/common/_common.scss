@@ -2,11 +2,14 @@
 // = Common Styles
 // ==========================================================================
 
-html {<% if (includeRwd) { %>
-  font-family: 'xs';<% } %>
+html {
+  <% if (includeRwd) { %>
+  font-family: 'xs';
+  <% } %>
   min-height: 100%;
-  position: relative; // positioning footer<% if (includeRwd) { %>
+  position: relative; // positioning footer
 
+  <% if (includeRwd) { %>
   @mixin for-phone-only {
     font-family: 'sm';
   }
@@ -21,7 +24,8 @@ html {<% if (includeRwd) { %>
 
   @mixin for-desktop-up {
     font-family: 'xl';
-  }<% } %>
+  }
+  <% } %>
 }
 
 body {
