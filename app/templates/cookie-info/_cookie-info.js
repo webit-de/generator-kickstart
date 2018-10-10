@@ -58,7 +58,7 @@ define([
     _bindEvents: function() {
       CookieInfo.$cookie_button.on('click', function (event) {
         CookieInfo._hideCookieInfo();
-        CookieInfo._writeCookie(accept_cookies);
+        CookieInfo._writeCookie(CookieInfo.accept_cookies);
       });
     },
 
@@ -70,7 +70,7 @@ define([
     _checkCookie: function() {
       if((navigator.cookieEnabled)) {
         if (Cookie.read('cookiesAccepted') !== 'true') {
-          CookieInfo._writeCookie(!accept_cookies);
+          CookieInfo._writeCookie(!CookieInfo.accept_cookies);
           CookieInfo.$cookie_info.slideDown();
           CookieInfo._bindEvents();
         }
@@ -84,10 +84,11 @@ define([
     /**
      * Write Cookie.
      * @function _checkCookie
+     * @param {bollean} - value to be written on the Cookie
      * @private
      */
     _writeCookie: function(value) {
-      Cookie.create('cookiesAccepted', value, cookie_expiration_time);
+      Cookie.create('cookiesAccepted', value, CookieInfo.cookie_expiration_time);
     },
 
     /**
