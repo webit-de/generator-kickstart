@@ -480,7 +480,23 @@ module.exports = function(grunt) {
         }]
       }
     },
-
+    <% if (includeSprite) { %>
+      svgstore: {
+        options: {
+          cleanup: ['fill', 'style', 'class'],
+          includeDescElement: false,
+          includeTitleElement: false,
+          formatting : {
+            indent_size : 2
+          }
+        },
+        default : {
+          files: {
+            'components/app/_svg/various/sprite.svg': ['components/app/icons/img/*.svg'],
+          }
+        }
+      },
+      <% } %>
     jshint: {
       options: {
         jshintrc: '.jshintrc',
@@ -611,10 +627,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-scss-lint');
   grunt.loadNpmTasks('grunt-sync');
   <% if (ProjectServer) { %>grunt.loadNpmTasks('grunt-ssh-deploy');<% } %>
+  <% if (includeSprite) { %>grunt.loadNpmTasks('grunt-svgstore');<% } %>
 
   grunt.registerTask('default', [
     'auto_install',
     'clean:build',
+    <% if (includeSprite) { %>'svgstore',<% } %>
     'replace',
     'imagemin',
     'sync',
@@ -626,6 +644,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('live', [
     'clean:build',
+    <% if (includeSprite) { %>'svgstore',<% } %>
     'replace:all_placeholder',
     'imagemin',
     'sync',
@@ -638,6 +657,7 @@ module.exports = function(grunt) {
   grunt.registerTask('preview', [
     'auto_install',
     'clean:build',
+    <% if (includeSprite) { %>'svgstore',<% } %>
     'replace',
     'imagemin',
     'sync',

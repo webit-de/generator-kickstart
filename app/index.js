@@ -93,6 +93,11 @@ KickstartGenerator = yeoman.Base.extend({
             checked: true
           },
           {
+            name: 'SVG-Sprite',
+            value: 'includeSprite',
+            checked: true
+          },
+          {
             name: 'CookieInfo',
             value: 'includeCookie',
             checked: true
@@ -210,6 +215,7 @@ KickstartGenerator = yeoman.Base.extend({
       this.includeDefaultForm = this._hasFeature('includeDefaultForm');
       this.includeSearchResults = this._hasFeature('includeSearchResults');
       this.includeErrorpage = this._hasFeature('includeErrorpage');
+      this.includeSprite = this._hasFeature('includeSrite');
 
       // ProjectServer
       this.ProjectName = string.slugify(answers.ProjectName);
@@ -301,7 +307,8 @@ KickstartGenerator = yeoman.Base.extend({
         ProjectName: this.ProjectName,
         ProjectServer: this.ProjectServer,
         WCAG2: this.WCAG2,
-        livereload: this.livereload
+        livereload: this.livereload,
+        includeSprite: this.includeSprite
       }
     );
 
@@ -310,7 +317,8 @@ KickstartGenerator = yeoman.Base.extend({
       this.destinationPath('package.json'),
       {
         ProjectName: this.ProjectName,
-        ProjectServer: this.ProjectServer
+        ProjectServer: this.ProjectServer,
+        includeSprite: this.includeSprite
       }
     );
 
@@ -420,7 +428,8 @@ KickstartGenerator = yeoman.Base.extend({
         includeFigureElement: this.includeFigureElement,
         includeDefaultForm: this.includeDefaultForm,
         includeSearchResults: this.includeSearchResults,
-        includeSocialSharing: this.includeSocialSharing
+        includeSocialSharing: this.includeSocialSharing,
+        includeSprite: this.includeSprite
       }
     );
 
@@ -458,7 +467,8 @@ KickstartGenerator = yeoman.Base.extend({
       this.destinationPath('sandbox.html'),
       {
         ProjectName: this.ProjectName,
-        wysiwygCMS: this.wysiwygCMS
+        wysiwygCMS: this.wysiwygCMS,
+        includeSprite: this.includeSprite
       }
     );
 
@@ -573,6 +583,20 @@ KickstartGenerator = yeoman.Base.extend({
       this.fs.copy(
         this.templatePath('cookie-info/_LICENSE'),
         this.destinationPath('components/libs/cookie/LICENSE')
+      );
+    }
+  },
+
+  /**
+   * Create all files for iconSprite from templates.
+   * @function SVG-Sprite
+   * @private
+   */
+  iconSprite: function () {
+    if (this.includeSprite) {
+      this.fs.copyTpl(
+        this.templatePath('icons/_icons.scss'),
+        this.destinationPath('components/app/icons/_icons.scss')
       );
     }
   },
