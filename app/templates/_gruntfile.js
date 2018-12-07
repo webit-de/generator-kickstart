@@ -78,7 +78,7 @@ module.exports = function(grunt) {
       },
       js_deferred: {
         files: ['components/app/_deferred/**/*.js'],
-        tasks: ['uglify:deferred_development'],
+        tasks: ['sync:deferred_js'],
       },
       js_bower: {
         files: ['components/bower/**/*.js'],
@@ -413,7 +413,9 @@ module.exports = function(grunt) {
 
     uglify: {
       options: {
-        output.comments: 'some', // for license comments
+        output: {
+          comments: 'some', // for license comments
+        }
       },
       deferred_live: {
         files: [{
