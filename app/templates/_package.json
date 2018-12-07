@@ -17,7 +17,7 @@
     "grunt-contrib-jshint": "^1",
     "grunt-contrib-qunit": "^1.2",
     "grunt-contrib-requirejs": "^1",
-    "grunt-contrib-uglify": "^1",
+    "grunt-contrib-uglify": "^4",
     "grunt-contrib-watch": "^1",
     "grunt-jsdoc": "^2",
     "grunt-newer": "^1",

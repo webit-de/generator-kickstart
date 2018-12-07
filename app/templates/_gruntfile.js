@@ -412,6 +412,9 @@ module.exports = function(grunt) {
     },
 
     uglify: {
+      options: {
+        output.comments: 'some', // for license comments
+      },
       deferred_development: {
         options: {
           sourceMap: true
