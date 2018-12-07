@@ -574,7 +574,8 @@ module.exports = function(grunt) {
       dist : {
         src: ['components/app/**/*.js'],
         options: {
-          destination: 'documentation'
+          destination: 'documentation',
+          private: true
         }
       }
     },
