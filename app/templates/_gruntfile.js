@@ -415,29 +415,6 @@ module.exports = function(grunt) {
       options: {
         output.comments: 'some', // for license comments
       },
-      deferred_development: {
-        options: {
-          sourceMap: true
-        },
-        files: [{
-          expand: true,
-          flatten: true,
-          cwd: 'components/app/_deferred',
-          src: ['**/*.js', '!**/test-*.js'],
-          dest: 'build/assets/js/deferred'
-        }]
-      },
-      <% if (ProjectServer) { %>
-      deferred_preview: {
-        files: [{
-          expand: true,
-          flatten: true,
-          cwd: 'components/app/_deferred',
-          src: ['**/*.js', '!**/test-*.js'],
-          dest: 'build/assets/js/deferred'
-        }]
-      },
-      <% } %>
       deferred_live: {
         files: [{
           expand: true,
@@ -570,6 +547,15 @@ module.exports = function(grunt) {
           dest: 'build/assets/json'
         }],
         verbose: true
+      },
+      deferred_js: {
+        files: [{
+          expand: true,
+          flatten: true,
+          cwd: 'components/app/_deferred',
+          src: ['**/*.js', '!**/test-*.js'],
+          dest: 'build/assets/js/deferred'
+        }]
       }
     },
 
@@ -624,7 +610,6 @@ module.exports = function(grunt) {
     'sync',
     'postcss:development',
     'requirejs:development',
-    'uglify:deferred_development',
     'uglify:external'
   ]);
 
@@ -632,7 +617,8 @@ module.exports = function(grunt) {
     'clean:build',
     'replace:all_placeholder',
     'imagemin',
-    'sync',
+    'sync:webfonts',
+    'sync:json',
     'postcss:live',
     'requirejs:live',
     'uglify:deferred_live',
@@ -647,7 +633,6 @@ module.exports = function(grunt) {
     'sync',
     'postcss:preview',
     'requirejs:preview',
-    'uglify:deferred_preview',
     'uglify:external',
     'ssh_deploy:preview'
   ]);<% } %>
