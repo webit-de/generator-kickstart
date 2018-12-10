@@ -19,15 +19,11 @@
   .no-cookies & {
     display: block;
   }
-}
 
-// ==========================================================================
-// = Cookie-Button
-// ==========================================================================
-
-.cookie-accept {
-  .no-js &,
-  .no-cookies & {
-    display: none;
+  button {
+    .no-js &,
+    .no-cookies & {
+      display: none;
+    }
   }
 }

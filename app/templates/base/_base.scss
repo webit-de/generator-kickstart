@@ -90,7 +90,7 @@ $z-base: 1;
   transform-origin: $value;
 }
 
-@define-mixin grid-list $items-per-line, $wrap: nowrap, $justify: center, $spacing: $content-padding, $grid-list-item: .grid-list-item {
+@define-mixin grid $items-per-line, $wrap: nowrap, $justify: center, $spacing: $content-padding, $grid-item: .grid-item {
   display: flex;
   flex-direction: row;
   flex-wrap: $wrap;
@@ -99,7 +99,7 @@ $z-base: 1;
   margin-right: calc(-1 * $spacing * .5);
   margin-top: -$spacing;
 
-  > $(grid-list-item) {
+  > $(grid-item) {
     box-sizing: border-box;
     padding-top: $spacing;
     padding-left: calc($spacing * .5);
@@ -108,11 +108,11 @@ $z-base: 1;
     width: calc(100% / $items-per-line);
   }
 
-  > $(grid-list-item)_x2 {
+  > $(grid-item)_x2 {
     width: calc((100% / $items-per-line) * 2 + (0 * $spacing));
   }
 
-  > $(grid-list-item)-big {
+  > $(grid-item)-big {
     flex-grow: 1;
   }
 }

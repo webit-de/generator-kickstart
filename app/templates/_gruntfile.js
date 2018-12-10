@@ -78,7 +78,7 @@ module.exports = function(grunt) {
       },
       js_deferred: {
         files: ['components/app/_deferred/**/*.js'],
-        tasks: ['uglify:deferred_development'],
+        tasks: ['sync:deferred_js'],
       },
       js_bower: {
         files: ['components/bower/**/*.js'],
@@ -412,29 +412,11 @@ module.exports = function(grunt) {
     },
 
     uglify: {
-      deferred_development: {
-        options: {
-          sourceMap: true
-        },
-        files: [{
-          expand: true,
-          flatten: true,
-          cwd: 'components/app/_deferred',
-          src: ['**/*.js', '!**/test-*.js'],
-          dest: 'build/assets/js/deferred'
-        }]
+      options: {
+        output: {
+          comments: 'some', // for license comments
+        }
       },
-      <% if (ProjectServer) { %>
-      deferred_preview: {
-        files: [{
-          expand: true,
-          flatten: true,
-          cwd: 'components/app/_deferred',
-          src: ['**/*.js', '!**/test-*.js'],
-          dest: 'build/assets/js/deferred'
-        }]
-      },
-      <% } %>
       deferred_live: {
         files: [{
           expand: true,
@@ -567,6 +549,15 @@ module.exports = function(grunt) {
           dest: 'build/assets/json'
         }],
         verbose: true
+      },
+      deferred_js: {
+        files: [{
+          expand: true,
+          flatten: true,
+          cwd: 'components/app/_deferred',
+          src: ['**/*.js', '!**/test-*.js'],
+          dest: 'build/assets/js/deferred'
+        }]
       }
     },
 
@@ -574,7 +565,8 @@ module.exports = function(grunt) {
       dist : {
         src: ['components/app/**/*.js'],
         options: {
-          destination: 'documentation'
+          destination: 'documentation',
+          private: true
         }
       }
     },
@@ -620,7 +612,6 @@ module.exports = function(grunt) {
     'sync',
     'postcss:development',
     'requirejs:development',
-    'uglify:deferred_development',
     'uglify:external'
   ]);
 
@@ -628,7 +619,8 @@ module.exports = function(grunt) {
     'clean:build',
     'replace:all_placeholder',
     'imagemin',
-    'sync',
+    'sync:webfonts',
+    'sync:json',
     'postcss:live',
     'requirejs:live',
     'uglify:deferred_live',
@@ -643,7 +635,6 @@ module.exports = function(grunt) {
     'sync',
     'postcss:preview',
     'requirejs:preview',
-    'uglify:deferred_preview',
     'uglify:external',
     'ssh_deploy:preview'
   ]);<% } %>

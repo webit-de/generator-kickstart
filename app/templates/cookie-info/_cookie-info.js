@@ -31,7 +31,7 @@ define([
      */
     _cacheElements: function() {
       this.$cookie_info = _Core.$body.find('.cookie-info');
-      this.$cookie_button = _Core.$body.find('.cookie-accept');
+      this.$cookie_button = _Core.$body.find('.js-cookie-accept');
 
       this.accept_cookies = true;
       this.cookie_expiration_time = 365; // days
@@ -57,6 +57,7 @@ define([
      */
     _bindEvents: function() {
       CookieInfo.$cookie_button.on('click', function (event) {
+        event.preventDefault();
         CookieInfo._hideCookieInfo();
         CookieInfo._writeCookie(CookieInfo.accept_cookies);
       });
@@ -70,7 +71,6 @@ define([
     _checkCookie: function() {
       if((navigator.cookieEnabled)) {
         if (Cookie.read('cookiesAccepted') !== 'true') {
-          CookieInfo._writeCookie(!CookieInfo.accept_cookies);
           CookieInfo.$cookie_info.slideDown();
           CookieInfo._bindEvents();
         }
