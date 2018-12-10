@@ -1,5 +1,12 @@
-{
-  "username": "<%= Username %>",
-  "hostServer": "<%= HostServer %>",
-  "deployPath": "<%= DeployPath %>"
+{<% if (ProjectServer) { %>
+  "preview": {
+    "username": "<%= UsernamePreview %>",
+    "hostServer": "<%= HostServerPreview %>",
+    "deployPath": "<%= DeployPathPreview %>"
+  }<% } %><% if (ProjectServer && DemoServer) { %>,<% } %><% if (DemoServer) { %>
+  "demo": {
+    "username": "<%= UsernameDemo %>",
+    "hostServer": "<%= HostServerDemo %>",
+    "deployPath": "<%= DeployPathDemo %>"
+  }<% } %>
 }

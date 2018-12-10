@@ -39,11 +39,11 @@
     "quiet-grunt": "^0.2.3",
     "rucksack-css": "^0.8.6",
     "npm": "^4.0.3",
-    "grunt-sync": "0.5",<% if (ProjectServer) { %>
+    "grunt-sync": "0.5",<% if (ProjectServer || DemoServer) { %>
     "grunt-ssh-deploy": "^0.4",
     "userhome": "^1.0.0",<% } %>
     "jshint-stylish": "^2"
-  }<% if (ProjectServer) { %>,
+  }<% if (ProjectServer || DemoServer) { %>,
   "dependencies": {
     "file-exists": "^1.0.0"
   }<% } %>

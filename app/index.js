@@ -135,7 +135,7 @@ KickstartGenerator = yeoman.Base.extend({
           return response.ProjectServer;
         },
         type: 'input',
-        name: 'Username',
+        name: 'UsernamePreview',
         message: 'What is the Username?'
       },
       {
@@ -152,7 +152,7 @@ KickstartGenerator = yeoman.Base.extend({
           return response.ProjectServer;
         },
         type: 'input',
-        name: 'HostServer',
+        name: 'HostServerPreview',
         message: 'What is the Hostserver?'
       },
       {
@@ -160,7 +160,46 @@ KickstartGenerator = yeoman.Base.extend({
           return response.ProjectServer;
         },
         type: 'input',
-        name: 'DeployPath',
+        name: 'DeployPathPreview',
+        message: 'What is the Deploymentpath?'
+      },
+      {
+        type: 'confirm',
+        name: 'DemoServer',
+        message: 'Do you want to deploy to a demoserver?',
+        default: true,
+      },
+      {
+        when: function(response) {
+          return response.DemoServer;
+        },
+        type: 'input',
+        name: 'UsernameDemo',
+        message: 'What is the Username?'
+      },
+      {
+        when: function(response) {
+          return response.DemoServer;
+        },
+        type: 'input',
+        name: 'sshPath',
+        message: 'Please insert the Path to your ssh-Key, starting from Home.',
+        default: '.ssh/id_rsa'
+      },
+      {
+        when: function(response) {
+          return response.DemoServer;
+        },
+        type: 'input',
+        name: 'HostServerDemo',
+        message: 'What is the Hostserver?'
+      },
+      {
+        when: function(response) {
+          return response.DemoServer;
+        },
+        type: 'input',
+        name: 'DeployPathDemo',
         message: 'What is the Deploymentpath?'
       },
       {
@@ -214,10 +253,16 @@ KickstartGenerator = yeoman.Base.extend({
       // ProjectServer
       this.ProjectName = string.slugify(answers.ProjectName);
       this.ProjectServer = answers.ProjectServer;
-      this.HostServer = answers.HostServer;
-      this.Username = answers.Username;
+      this.HostServerPreview = answers.HostServerPreview;
+      this.UsernamePreview = answers.UsernamePreview;
       this.sshPath = answers.sshPath;
-      this.DeployPath = answers.DeployPath;
+      this.DeployPathPreview = answers.DeployPathPreview;
+
+      // DemoServer
+      this.DemoServer = answers.DemoServer;
+      this.HostServerDemo = answers.HostServerDemo;
+      this.UsernameDemo = answers.UsernameDemo;
+      this.DeployPathDemo = answers.DeployPathDemo;
 
       // wysiwygCMS
       this.wysiwygCMS = answers.wysiwygCMS;
@@ -300,6 +345,7 @@ KickstartGenerator = yeoman.Base.extend({
       {
         ProjectName: this.ProjectName,
         ProjectServer: this.ProjectServer,
+        DemoServer: this.DemoServer,
         WCAG2: this.WCAG2,
         livereload: this.livereload
       }
@@ -310,17 +356,16 @@ KickstartGenerator = yeoman.Base.extend({
       this.destinationPath('package.json'),
       {
         ProjectName: this.ProjectName,
-        ProjectServer: this.ProjectServer
+        ProjectServer: this.ProjectServer,
+        DemoServer: this.DemoServer,
       }
     );
 
-    if (this.ProjectServer) {
+    if (this.ProjectServer || this.DemoServer) {
       this.fs.copyTpl(
         this.templatePath('_clientConfig.json'),
         this.destinationPath('clientConfig.json'),
         {
-          ProjectName: this.ProjectName,
-          ProjectServer: this.ProjectServer,
           sshPath: this.sshPath
         }
       );
@@ -331,9 +376,13 @@ KickstartGenerator = yeoman.Base.extend({
         {
           ProjectName: this.ProjectName,
           ProjectServer: this.ProjectServer,
-          Username: this.Username,
-          HostServer: this.HostServer,
-          DeployPath: this.DeployPath
+          DemoServer: this.DemoServer,
+          UsernamePreview: this.UsernamePreview,
+          UsernameDemo: this.UsernameDemo,
+          HostServerPreview: this.HostServerPreview,
+          HostServerDemo: this.HostServerDemo,
+          DeployPathPreview: this.DeployPathPreview,
+          DeployPathDemo: this.DeployPathDemo
         }
       );
     }

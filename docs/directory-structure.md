@@ -28,9 +28,11 @@
 └── README.md
 └── apple-touch-icon.png
 └── bower.json
+└── clientConfig.json #(if you want to deploy to servers)
 └── favicon.ico
 └── gems.rb
 └── gruntfile.js
+└── hostConfig.json #(if you want to deploy to servers)
 └── package.json
 └── sandbox.html #(main template, you can add as many as you want)
 └── windows-tile-icon.png
