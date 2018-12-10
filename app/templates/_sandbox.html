@@ -21,6 +21,11 @@
 
   </head>
   <body>
+    <% if (includeSprite) { %>
+    <div style="display:none;">
+      {svg:{various:{sprite}}}
+    </div>
+    <% } %>
     {app:{sandbox-sitemap}}
 
     <header class="header" role="banner"></header>

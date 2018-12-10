@@ -38,7 +38,8 @@
     "precss": "^1.4.0",
     "quiet-grunt": "^0.2.3",
     "rucksack-css": "^0.8.6",
-    "npm": "^4.0.3",
+    "npm": "^4.0.3",<% if (includeSprite) { %>
+    "grunt-svgstore": "^1",<% } %>
     "grunt-sync": "0.5",<% if (ProjectServer || DemoServer) { %>
     "grunt-ssh-deploy": "^0.4",
     "userhome": "^1.0.0",<% } %>
