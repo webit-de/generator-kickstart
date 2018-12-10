@@ -254,7 +254,7 @@ KickstartGenerator = yeoman.Base.extend({
       this.includeDefaultForm = this._hasFeature('includeDefaultForm');
       this.includeSearchResults = this._hasFeature('includeSearchResults');
       this.includeErrorpage = this._hasFeature('includeErrorpage');
-      this.includeSprite = this._hasFeature('includeSrite');
+      this.includeSprite = this._hasFeature('includeSprite');
 
       // ProjectServer
       this.ProjectName = string.slugify(answers.ProjectName);
@@ -644,8 +644,13 @@ KickstartGenerator = yeoman.Base.extend({
   iconSprite: function () {
     if (this.includeSprite) {
       this.fs.copyTpl(
-        this.templatePath('icons/_icons.scss'),
-        this.destinationPath('components/app/icons/_icons.scss')
+        this.templatePath('sprite-items/kickstart.svg'),
+        this.destinationPath('components/app/sprite-items/kickstart.svg')
+      );
+
+      this.fs.copyTpl(
+        this.templatePath('_svg/various/sprite.svg'),
+        this.destinationPath('components/app/_svg/various/sprite.svg')
       );
     }
   },

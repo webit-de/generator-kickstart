@@ -9,4 +9,3 @@
 <% if (includeFigureElement) { %>@import 'app/figure/figure';<% } %>
 <% if (includeDefaultForm) { %>@import 'app/form/form';<% } %>
 <% if (includeSearchResults) { %>@import 'app/search-results/search-results';<% } %>
-<% if (includeSprite) { %>@import 'app/icons/icons';<% } %>
