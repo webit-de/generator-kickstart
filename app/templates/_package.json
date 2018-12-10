@@ -7,6 +7,7 @@
   "devDependencies": {
     "cssnano": "^3.5.2",
     "grunt": "^1",
+    "grunt-cli": "^1",
     "grunt-accessibility": "^5",
     "grunt-auto-install": "^0.3.1",
     "grunt-contrib-clean": "^1",
@@ -17,7 +18,7 @@
     "grunt-contrib-jshint": "^1",
     "grunt-contrib-qunit": "^1.2",
     "grunt-contrib-requirejs": "^1",
-    "grunt-contrib-uglify": "^1",
+    "grunt-contrib-uglify": "^4",
     "grunt-contrib-watch": "^1",
     "grunt-jsdoc": "^2",
     "grunt-newer": "^1",
@@ -39,11 +40,11 @@
     "rucksack-css": "^0.8.6",
     "npm": "^4.0.3",<% if (includeSprite) { %>
     "grunt-svgstore": "^1",<% } %>
-    "grunt-sync": "0.5",<% if (ProjectServer) { %>
+    "grunt-sync": "0.5",<% if (ProjectServer || DemoServer) { %>
     "grunt-ssh-deploy": "^0.4",
     "userhome": "^1.0.0",<% } %>
     "jshint-stylish": "^2"
-  }<% if (ProjectServer) { %>,
+  }<% if (ProjectServer || DemoServer) { %>,
   "dependencies": {
     "file-exists": "^1.0.0"
   }<% } %>
