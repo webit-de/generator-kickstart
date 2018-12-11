@@ -55,19 +55,19 @@ var Foo = {
 
 ```javascript
 // BAD
-var foo = {
-  'a': 'value',
-  'b': 'value'
-};
-var bar = ['a', 'b'];
-
-// GOOD
-var // use comma separated list
+var
 foo = {
   'a': 'value',
   'b': 'value'
 },
 bar = ['a', 'b'];
+
+// GOOD
+var foo = { // separate declarations are less error-prone
+  'a': 'value',
+  'b': 'value'
+};
+var bar = ['a', 'b'];
 ```
 
 ### Quotes
@@ -211,14 +211,4 @@ define([ // line break long dependency arrays for readability
 
   };
 });
-```
-
-```javascript
-// BAD
-foo === bar && foobar(); // don't short circuit
-
-// GOOD
-if (foo === bar) { // improved readability
-  foobar();
-}
 ```

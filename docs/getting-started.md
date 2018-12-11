@@ -6,16 +6,15 @@
 * [PostCSS](http://postcss.org/)
 * [Grunt](http://gruntjs.com)
 * [Node](https://nodejs.org/)
-* [Sass CSS Importer Plugin](https://github.com/chriseppstein/sass-css-importer)
-* [Sass](http://sass-lang.com/)
+* [Yarn](https://yarnpkg.com/)
 * [Yeoman](http://yeoman.io)
-
-Kickstart generates a Gemfile with the needed ruby gems.
 
 ### Install Kickstart
 
 Install Yeoman & Kickstart generator ([Yeoman Getting Started Guide](http://yeoman.io/learning/index.html))
 
-```bash
-$ npm install -g generator-kickstart
-```
+1. clone this project
+2. cd into the newly generated folder
+3. run `npm link` to create a symlink to this package (see [npm docs](https://docs.npmjs.com/cli/link.html))
+
+Kickstart is now available as a Yeoman generator. Run `yo kickstart-webit` to start the scaffolding process.
