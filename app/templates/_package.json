@@ -4,6 +4,10 @@
   "license": "UNLICENSED",
   "private": true,
   "version": "0.0.0",
+  "engines": {
+    "node": "~8",
+    "npm": "~6"
+  },
   "devDependencies": {
     "cssnano": "^3.5.2",
     "grunt": "^1",
@@ -42,10 +46,8 @@
     "grunt-svgstore": "^1",<% } %>
     "grunt-sync": "0.5",<% if (ProjectServer || DemoServer) { %>
     "grunt-ssh-deploy": "^0.4",
-    "userhome": "^1.0.0",<% } %>
+    "userhome": "^1.0.0",
+    "file-exists": "^1.0.0",<% } %>
     "jshint-stylish": "^2"
-  }<% if (ProjectServer || DemoServer) { %>,
-  "dependencies": {
-    "file-exists": "^1.0.0"
-  }<% } %>
+  }
 }
