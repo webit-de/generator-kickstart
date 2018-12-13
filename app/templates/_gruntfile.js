@@ -110,6 +110,13 @@ module.exports = function(grunt) {
         tasks: ['replace'],
       },
 
+      // testdata
+      testdata: {
+        options: { livereload: true },
+        files: ['testdata/*', 'components/app/**/testdata/*'],
+        tasks: ['sync:testdata'],
+      },
+
       // Images
       img_content: {
         options: { livereload: true },
@@ -607,6 +614,16 @@ module.exports = function(grunt) {
           dest: 'build/assets/js/deferred'
         }]
       },
+      testdata: {
+        files: [{
+          flatten: true,
+          expand: true,
+          cwd: '.',
+          src: ['testdata/*', 'components/app/**/testdata/*'],
+          dest: 'build/testdata'
+        }],
+          verbose: true
+      },
       <% if (includeSprite) {%>
       svg_sprites: {
         files: [{
@@ -682,6 +699,7 @@ module.exports = function(grunt) {
     'replace:all_placeholder',
     'imagemin',
     'sync:webfonts',
+    'sync:testdata',
     'sync:json',<% if (includeSprite) { %>
     'sync:svg_sprites',<% } %>
     'postcss:live',

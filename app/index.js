@@ -290,6 +290,7 @@ KickstartGenerator = yeoman.Base.extend({
    */
   folders: function () {
     mkdirp.mkdirp('img');
+    mkdirp.mkdirp('testdata');
   },
 
   /**
