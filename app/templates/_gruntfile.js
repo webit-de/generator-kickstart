@@ -90,10 +90,6 @@ module.exports = function(grunt) {
         files: ['components/app/_deferred/**/*.js'],
         tasks: ['sync:deferred_js'],
       },
-      js_bower: {
-        files: ['components/bower/**/*.js'],
-        tasks: ['uglify:external', 'requirejs:development'],
-      },
       json: {
         options: { livereload: true },
         files: ['components/app/**/*.json'],
