@@ -90,10 +90,6 @@ module.exports = function(grunt) {
         files: ['components/app/_deferred/**/*.js'],
         tasks: ['sync:deferred_js'],
       },
-      js_bower: {
-        files: ['components/bower/**/*.js'],
-        tasks: ['uglify:external', 'requirejs:development'],
-      },
       json: {
         options: { livereload: true },
         files: ['components/app/**/*.json'],
@@ -103,15 +99,22 @@ module.exports = function(grunt) {
       // HTML
       html: {
         options: { livereload: true },
-        files: ['*.html','components/app/**/*.html' , '!components/bower/**/*.html', '!build/**/*.html'],
+        files: ['components/app/_svg/**/*.svg', 'components/app/_sprite-items/**/*.svg'],
         tasks: ['replace'],
       },
 
       // SVG
       svg: {
         options: { livereload: true },
-        files: ['components/app/_svg/**/*.svg'],
+        files: ['components/app/_svg/**/*.svg', 'components/app/_sprite-items/**/*.svg'],
         tasks: ['replace'],
+      },
+
+      // testdata
+      testdata: {
+        options: { livereload: true },
+        files: ['testdata/*', 'components/app/**/testdata/*'],
+        tasks: ['sync:testdata'],
       },
 
       // Images
@@ -122,8 +125,13 @@ module.exports = function(grunt) {
       },
       img_background: {
         options: { livereload: true },
-        files: ['components/**/*.{png,gif,jpg,svg,ico}', '!_svg/**/*.svg', '!_svg/*.svg'],
-        tasks: ['clean:css', 'imagemin:backgrounds' , 'postcss:development'],
+        files: [
+          'components/**/*.{png,gif,svg,ico}',
+          '!components/app/_svg/**/*.svg',
+          '!components/app/_svg/*.svg',
+          '!components/app/_sprite-items/**/*.svg'
+        ],
+        tasks: ['clean:css', 'imagemin:backgrounds'],
       },
       img_inline_svg: {
         options: { livereload: true },
@@ -505,7 +513,7 @@ module.exports = function(grunt) {
       },
       default : {
         files: {
-          'components/app/_svg/various/sprite.svg': ['components/app/sprite-items/*.svg']
+          'components/app/_svg/various/sprite.svg': ['components/app/_sprite-items/*.svg']
         }
       }
     },
@@ -606,6 +614,16 @@ module.exports = function(grunt) {
           dest: 'build/assets/js/deferred'
         }]
       },
+      testdata: {
+        files: [{
+          flatten: true,
+          expand: true,
+          cwd: '.',
+          src: ['testdata/*', 'components/app/**/testdata/*'],
+          dest: 'build/testdata'
+        }],
+          verbose: true
+      },
       <% if (includeSprite) {%>
       svg_sprites: {
         files: [{
@@ -681,6 +699,7 @@ module.exports = function(grunt) {
     'replace:all_placeholder',
     'imagemin',
     'sync:webfonts',
+    'sync:testdata',
     'sync:json',<% if (includeSprite) { %>
     'sync:svg_sprites',<% } %>
     'postcss:live',

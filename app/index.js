@@ -290,6 +290,7 @@ KickstartGenerator = yeoman.Base.extend({
    */
   folders: function () {
     mkdirp.mkdirp('img');
+    mkdirp.mkdirp('testdata');
   },
 
   /**
@@ -644,8 +645,8 @@ KickstartGenerator = yeoman.Base.extend({
   iconSprite: function () {
     if (this.includeSprite) {
       this.fs.copyTpl(
-        this.templatePath('sprite-items/kickstart.svg'),
-        this.destinationPath('components/app/sprite-items/kickstart.svg')
+        this.templatePath('_sprite-items/kickstart.svg'),
+        this.destinationPath('components/app/_sprite-items/kickstart.svg')
       );
 
       this.fs.copyTpl(
