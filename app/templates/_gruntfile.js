@@ -99,7 +99,7 @@ module.exports = function(grunt) {
       // HTML
       html: {
         options: { livereload: true },
-        files: ['components/app/_svg/**/*.svg', 'components/app/_sprite-items/**/*.svg'],
+        files: ['*.html', 'components/app/**/*.html', '!build/**/*.html'],
         tasks: ['replace'],
       },
 
@@ -625,13 +625,13 @@ module.exports = function(grunt) {
           verbose: true
       },
       <% if (includeSprite) {%>
-      svg_sprites: {
+      svg_sprite: {
         files: [{
           flatten: false,
           expand: false,
-          cwd: 'components/app/_svg/general/',
-          src: ['*-sprite.svg'],
-          dest: 'build/assets/img/inline-svg/general'
+          cwd: 'components/app/_svg/various/',
+          src: ['sprite.svg'],
+          dest: 'build/assets/img/inline-svg/various'
         }],
         verbose: true
       }
@@ -701,7 +701,7 @@ module.exports = function(grunt) {
     'sync:webfonts',
     'sync:testdata',
     'sync:json',<% if (includeSprite) { %>
-    'sync:svg_sprites',<% } %>
+    'sync:svg_sprite',<% } %>
     'postcss:live',
     'requirejs:live',
     'uglify:deferred_live',
