@@ -513,7 +513,7 @@ module.exports = function(grunt) {
       },
       default : {
         files: {
-          'components/app/_svg/general/sprite.svg': ['components/app/_sprite-items/*.svg']
+          'components/app/_svg/various/sprite.svg': ['components/app/_sprite-items/*.svg']
         }
       }
     },
@@ -629,9 +629,9 @@ module.exports = function(grunt) {
         files: [{
           flatten: false,
           expand: false,
-          cwd: 'components/app/_svg/general/',
+          cwd: 'components/app/_svg/various/',
           src: ['sprite.svg'],
-          dest: 'build/assets/img/inline-svg/general'
+          dest: 'build/assets/img/inline-svg/various'
         }],
         verbose: true
       }
