@@ -1,92 +1,49 @@
-<!-- only for Frontend Development-->
-
-<div id="sandbox-sitemap" class="normal">
-  <button id="sitemap-button">&#9776;</button>
-  <div class="scrollable-container">
-    <strong>Website</strong>
+<div id="sandbox-sitemap" class="sitemap--inactive">
+  <button type="button" id="sitemap__button">&#9776;</button>
+  <div class="sitemap__container">
+    <p><strong>Website</strong></p>
     <ul>
-      <li><a href="sandbox.html" tabindex="-1">*Sandbox</a></li>
-      <% if (includeErrorpage) { %><li><a href="errorpage.html" tabindex="-1">Fehlerseite</a></li><% } %>
+      <li><a href="sandbox.html" tabindex="-1">**Sandbox**</a></li>
+      <% if (includeErrorpage) { %><li><a href="errorpage.html" tabindex="-1">Errorpage</a></li><% } %>
     </ul>
-  </div>  <!-- scrollable-container -->
-</div> <!-- sandbox-sitemap -->
+  </div>
+</div>
 
 <style>
   #sandbox-sitemap {
-    background-color: #fff;
-    bottom: 0;
-    box-shadow: 0 0 15px silver;
-    color: #4c4c4c;
-    font-size: 12px;
-    left: 0;
-    line-height: 1;
-    padding: 5px 0px 5px 5px;
-    position: fixed;
-    transform: translate(-100%, 0);
-    transition: transform 0.5s ease;
-    z-index: 100;
-  }
-
-  #sandbox-sitemap ul {
-    padding-right: 20px;
-  }
-
-  #sandbox-sitemap strong,
-  #sandbox-sitemap li,
-  #sandbox-sitemap a {
-    color: #1a1a1a;
-    font: inherit;
-  }
-
-  #sandbox-sitemap strong {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 7px;
-  }
-
-  #sitemap-button {
     background-color: white;
-    border-bottom-right-radius: 100%;
-    border-top-right-radius: 100%;
-    box-shadow: 10px 0px 15px silver;
-    font-size: 30px;
+    border-color: currentColor;
+    border-style: solid;
+    border-width: 5px 5px 0 0;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    transition: transform 0.5s;
+    z-index: 999;
+  }
+
+  .sitemap--inactive {
+    transform: translateX(-100%);
+  }
+
+  #sitemap__button {
+    background-color: black;
+    border: 0;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
     left: 100%;
     outline: none;
-    padding: 8px 13px 8px 8px;
+    padding: 10px 15px;
     position: absolute;
-    top: 50%;
+    top: 15px;
   }
 
-  .scrollable-container {
-    max-height: 50vh;
+  .sitemap__container {
+    max-height: 65vh;
+    max-width: calc(100vw - 80px);
     overflow-y: auto;
-    padding: 10px 0;
-  }
-
-  #sandbox-sitemap.show {
-    transform: translate(0,0);
-  }
-
-  @media (min-width: 601px) {
-    #sitemap-button {
-      transform: translate(0, -50%);
-    }
-  }
-
-  @media (max-width: 600px) {
-    #sandbox-sitemap.show #sitemap-button {
-      box-shadow: none;
-      float: right;
-      font-size: 25px;
-      left: auto;
-      padding: 8px;
-      position: relative;
-      top: auto;
-    }
-
-    #sandbox-sitemap {
-      font-size: 16px;
-    }
+    padding: 5px 15px;
   }
 
   @media print {
@@ -94,24 +51,22 @@
       display: none !important;
     }
   }
-
 </style>
 
 <script>
-var sitemap_button = document.getElementById("sitemap-button");
-sitemap_button.addEventListener("click", toggle_sitemap);
+  var sitemap_button = document.getElementById("sitemap__button");
+  sitemap_button.addEventListener("click", toggle_sandboxSitemap);
 
-function toggle_sitemap() {
-  var sitemap = document.getElementById("sandbox-sitemap");
-  var className = sitemap.getAttribute("class");
+  function toggle_sandboxSitemap() {
+    var sitemap = document.getElementById("sandbox-sitemap");
+    var className = sitemap.getAttribute("class");
 
-  if(className == "show") {
-    sitemap.className = "";
-    sitemap_button.innerHTML = "&#9776;";
+    if (className == "sitemap--active") {
+      sitemap.className = "sitemap--inactive";
+      sitemap_button.innerHTML = "&#9776;";
+    } else {
+      sitemap.className = "sitemap--active";
+      sitemap_button.innerHTML = "&#10006;";
+    }
   }
-  else {
-    sitemap.className = "show";
-    sitemap_button.innerHTML = "&#10006;";
-  }
-}
 </script>
