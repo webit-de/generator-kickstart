@@ -7,6 +7,18 @@
       <% if (includeErrorpage) { %><li><a href="errorpage.html" tabindex="-1">Errorpage</a></li><% } %>
     </ul>
   </div>
+</div> <!-- sandbox-sitemap -->
+
+<div id="sandbox-navi">
+  <!-- NOTE:: -->
+  <!-- you have to add id="sandbox-only-id-myElementName" to each component, eg. example-heading or dummy-wrapper-div -->
+  <!-- like: <h2 id="sandbox-only-id-new-component">component heading name</h2> -->
+  <!-- or: <div id="sandbox-only-id-new-component">... component content ...</div> -->
+
+  <!-- within this js-snipped we use the id to list and link the components -->
+  <!-- the id="sandbox-only-id-new-component" will be listed as "new-component"-->
+  <div id="sandbox-navi-list"></div>
+  <div id="sandbox-navi-nav"></div>
 </div>
 
 {app:{sandbox-sitemap:{sandbox-sitemap.css}}}

@@ -1,34 +1,158 @@
-<script type="text/javascript">
+<script>
   window.onload = function() {
 
+    var sitemap_button = document.getElementById("sitemap-button");
+    sitemap_button.addEventListener("click", toggle_sitemap);
+
+    function toggle_sitemap() {
+      var sitemap = document.getElementById("sandbox-sitemap");
+      var className = sitemap.getAttribute("class");
+
+      if(className == "show") {
+        sitemap.className = "";
+        sitemap_button.innerHTML = "&#9776;";
+      }
+      else {
+        sitemap.className = "show";
+        sitemap_button.innerHTML = "&#10006;";
+      }
+    }
+
+    if (window.NodeList && !NodeList.prototype.forEach) {
+      NodeList.prototype.forEach = function (callback, thisArg) {
+        thisArg = thisArg || window;
+        for (var i = 0; i < this.length; i++) {
+          callback.call(thisArg, this[i], i, this);
+        }
+      };
+    }
+
     var SandboxSiteMap = {
+      /**
+      * Caches all jQuery Objects, Strings or Variables for later use.
+      * @function _cacheElements
+      * @private
+      */
+      _cacheElements: function() {
+        this.title;
+        this.sandboxNaviListArray = [];
+        this.sandboxOnlyIdNodes = document.querySelectorAll('[id^="sandbox-only-id"]');
+        this.sandboxNaviList = document.getElementById('sandbox-navi-list');
+        this.sandboxNavi = document.getElementById('sandbox-navi');
+        this.sandboxNaviNav = document.getElementById('sandbox-navi-nav');
+      },
+
       /**
       * Initiates the module.
       * @function init
       * @public
       */
       init: function() {
-        var
-        sitemap = document.getElementById("sandbox-sitemap"),
-        sitemap_button = document.getElementById("sitemap__button");
+        SandboxSiteMap._cacheElements();
 
-        sitemap.addEventListener("mouseenter", toggle_sandboxSitemap);
-        sitemap.addEventListener("mouseleave", toggle_sandboxSitemap);
-        sitemap_button.addEventListener("click", toggle_sandboxSitemap);
-
-        function toggle_sandboxSitemap() {
-          var className = sitemap.getAttribute("class");
-
-          if (className == "sitemap--active") {
-            sitemap.className = "sitemap--inactive";
-            sitemap_button.innerHTML = "&#10095;";
-          } else {
-            sitemap.className = "sitemap--active";
-            sitemap_button.innerHTML = "&#10094;";
-          }
+        if (SandboxSiteMap.sandboxOnlyIdNodes.length > 0) {
+          SandboxSiteMap._bindEvents();
+          SandboxSiteMap._setupSandboxComponentNavi();
         }
       },
 
+      /**
+      * create component navigation for sandbox
+      * @function _setupSandboxComponentNavi
+      * @public
+      */
+      _setupSandboxComponentNavi: function() {
+        SandboxSiteMap.sandboxNavi.className = 'closed';
+
+        SandboxSiteMap.sandboxNaviAZFilter = document.createElement('button');
+        SandboxSiteMap.opensandboxNavi = document.createElement('button');
+
+        SandboxSiteMap.sandboxNaviNav.appendChild(SandboxSiteMap.sandboxNaviAZFilter);
+        SandboxSiteMap.sandboxNaviNav.appendChild(SandboxSiteMap.opensandboxNavi);
+        SandboxSiteMap.opensandboxNavi.className = 'sandbox-navi-btn open-nav';
+        SandboxSiteMap.sandboxNaviAZFilter.className = 'sandbox-navi-filter';
+
+        SandboxSiteMap.fillSandboxNaviList = function() {
+
+          SandboxSiteMap.sandboxOnlyIdNodes.forEach(function(element) {
+            title =
+            element.getAttribute('id')
+            .replace('sandbox-only-id','')
+            .replace(/\-/ig, ' ');
+
+            var
+            aElement =  document.createElement('a');
+            aElement.innerText = title;
+            aElement.setAttribute('href', '#'+element.id);
+
+            SandboxSiteMap.sandboxNaviList.appendChild(aElement);
+          });
+        };
+
+        SandboxSiteMap.fillSandboxNaviList();
+        SandboxSiteMap.sandboxNavi.className += ' active';
+
+      },
+
+      /**
+      * BindEvents
+      * @function _bindEvents
+      * @public
+      */
+      _bindEvents: function() {
+
+        // show/hide component-navi
+        SandboxSiteMap.opensandboxNavi.addEventListener("click", function(event) {
+          var
+          element = event.currentTarget;
+
+          if (SandboxSiteMap.sandboxNavi.className.indexOf('closed') > -1 ) {
+            element.className = element.className.replace('open-nav', 'close-nav');
+            SandboxSiteMap.sandboxNavi.className = SandboxSiteMap.sandboxNavi.className.replace('closed', 'opened');
+          } else {
+            element.className = element.className.replace('close-nav', 'open-nav');
+            SandboxSiteMap.sandboxNavi.className = SandboxSiteMap.sandboxNavi.className.replace('opened', 'closed');
+          }
+
+        }, false);
+
+        // toggle search for component-navi
+        if (SandboxSiteMap.sandboxNaviAZFilter) {
+          SandboxSiteMap.sandboxNaviAZFilter.addEventListener("click", function(event) {
+
+            if(SandboxSiteMap.sandboxNavi.className.indexOf('order-asc') === -1 ) {
+
+              SandboxSiteMap.sandboxNaviListArray = Array.prototype.slice.call(SandboxSiteMap.sandboxNaviList.children, 0);
+              SandboxSiteMap.sandboxNavi.className += ' order-asc';
+
+              SandboxSiteMap.sandboxNaviListArray.sort(function(a, b) {
+                var
+                nameA = a.innerHTML.trim().toUpperCase(), // Groß-/Kleinschreibung ignorieren
+                nameB = b.innerHTML.trim().toUpperCase(); // Groß-/Kleinschreibung ignorieren
+
+                if (nameA < nameB) {return -1;}
+                if (nameA > nameB) {return 1;}
+                // Namen müssen gleich sein
+                return 0;
+              });
+
+              // delete and fill list
+              SandboxSiteMap.sandboxNaviList.innerHTML = '';
+              SandboxSiteMap.sandboxNaviListArray.forEach(function(element) {
+                SandboxSiteMap.sandboxNaviList.appendChild(element);
+              });
+            } else {
+
+              SandboxSiteMap.sandboxNavi.className = SandboxSiteMap.sandboxNavi.className.replace(' order-asc', '');
+
+              // delete and fill list
+              SandboxSiteMap.sandboxNaviList.innerHTML = '';
+              SandboxSiteMap.fillSandboxNaviList();
+            }
+
+          }, false);
+        }
+      },
     }
 
     SandboxSiteMap.init();

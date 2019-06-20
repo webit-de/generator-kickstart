@@ -42,4 +42,120 @@
       display: none !important;
     }
   }
+
+
+  /* sandbox component navi */
+  #sandbox-navi {
+    bottom: 20px;
+    display: none;
+    left: 0;
+    padding: 0;
+    position: fixed;
+    transform: translateX(0%);
+    z-index: 999;
+  }
+
+  #sandbox-navi.active {
+    display: block;
+  }
+
+  #sandbox-navi.closed {
+    transform: translateX(-100%);
+    transition: transform .2s ease-in-out;
+  }
+  #sandbox-navi.opened {
+    left: 10px;
+    transition: left .2s ease-in;
+  }
+
+  #sandbox-navi a {
+    color: #4f4f4f;
+    display: block;
+    font-size: 1.2rem;
+    line-height: 1.2;
+    padding: 5px 10px;
+  }
+
+  #sandbox-navi a:nth-child(odd) {
+    background-color: #f0f0f0;
+  }
+
+  #sandbox-navi-nav,
+  #sandbox-navi-list {
+    position: relative;
+  }
+
+  #sandbox-navi-list {
+    background-color: #fff;
+    border: 1px solid #555;
+    max-height: 50vh;
+    opacity: 0;
+    overflow: auto;
+    padding: 10px 0;
+    transition: opacity .2s ease-in;
+  }
+
+  .opened #sandbox-navi-list {
+    opacity: 1;
+    transition: opacity .1s ease-in;
+  }
+
+  #sandbox-navi .sandbox-navi-filter,
+  #sandbox-navi .sandbox-navi-btn {
+    background-color: #6d6d6d;
+    border: 0 none;
+    color: #fff;
+    line-height: 1;
+    margin: 0;
+  }
+
+  #sandbox-navi .sandbox-navi-filter:hover,
+  #sandbox-navi .sandbox-navi-btn:hover {
+    background-color: #666666;
+  }
+
+  #sandbox-navi .sandbox-navi-filter {
+    padding: 7px 10px;
+  }
+
+  #sandbox-navi .sandbox-navi-filter::before {
+    content: "[a-z]";
+  }
+
+  #sandbox-navi.order-asc .sandbox-navi-filter::before {
+    content: "orig";
+  }
+
+  #sandbox-navi .sandbox-navi-btn {
+    bottom: 0;
+    position: absolute;
+    right: 0;
+    transform: translateX(100%);
+  }
+
+  #sandbox-navi .sandbox-navi-btn::after,
+  #sandbox-navi .sandbox-navi-btn::before {
+    display: inline-block;
+    font-size: 1rem;
+    padding: 5px;
+    position: relative;
+    vertical-align: middle;
+  }
+
+  #sandbox-navi .sandbox-navi-btn::before {
+    content: "</>";
+  }
+
+  #sandbox-navi .sandbox-navi-btn::after {
+    content: "+";
+    font-size: 1.8rem;
+    font-weight: 700;
+    transform-origin: center;
+    transform: rotate(45deg);
+    transition: transform .2s ease-in;
+  }
+
+  #sandbox-navi.closed .sandbox-navi-btn::after {
+    transform: rotate(0deg);
+  }
 </style>
