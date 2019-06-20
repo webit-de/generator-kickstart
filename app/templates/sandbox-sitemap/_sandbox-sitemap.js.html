@@ -35,7 +35,8 @@
       */
       _cacheElements: function() {
         this.title;
-        this.sandboxNaviListArray = [];
+        this.sandboxNaviListArrayInitial = [];
+        this.sandboxNaviListArrayCurrent = [];
         this.sandboxOnlyIdNodes = document.querySelectorAll('[id^="sandbox-only-id"]');
         this.sandboxNaviList = document.getElementById('sandbox-navi-list');
         this.sandboxNavi = document.getElementById('sandbox-navi');
@@ -72,26 +73,44 @@
         SandboxSiteMap.opensandboxNavi.className = 'sandbox-navi-btn open-nav';
         SandboxSiteMap.sandboxNaviAZFilter.className = 'sandbox-navi-filter';
 
-        SandboxSiteMap.fillSandboxNaviList = function() {
+        // cache and filter sandbox components
+        SandboxSiteMap.sandboxOnlyIdNodes.forEach(function(element) {
+          SandboxSiteMap.sandboxNaviListArrayInitial.push(element.getAttribute('id'));
+        });
 
-          SandboxSiteMap.sandboxOnlyIdNodes.forEach(function(element) {
-            title =
-            element.getAttribute('id')
-            .replace('sandbox-only-id','')
-            .replace(/\-/ig, ' ');
+        SandboxSiteMap.sandboxNaviListArrayInitial = SandboxSiteMap.sandboxNaviListArrayInitial.filter(function(item, pos) {
+          return SandboxSiteMap.sandboxNaviListArrayInitial.indexOf(item) == pos;
+        });
+        // clone sandboxNaviListArrayInitial
+        SandboxSiteMap.sandboxNaviListArrayCurrent = SandboxSiteMap.sandboxNaviListArrayInitial.slice(0);
 
-            var
-            aElement =  document.createElement('a');
-            aElement.innerText = title;
-            aElement.setAttribute('href', '#'+element.id);
-
-            SandboxSiteMap.sandboxNaviList.appendChild(aElement);
-          });
-        };
-
-        SandboxSiteMap.fillSandboxNaviList();
+        SandboxSiteMap._fillSandboxNaviList();
         SandboxSiteMap.sandboxNavi.className += ' active';
+      },
 
+      /**
+      * fill sandbox-navi list with id's from components
+      * @function _fillSandboxNaviList
+      * @public
+      */
+      _fillSandboxNaviList: function() {
+
+        // delete and fill list
+        SandboxSiteMap.sandboxNaviList.innerHTML = '';
+
+        SandboxSiteMap.sandboxNaviListArrayCurrent.forEach(function(element) {
+          var
+          aElement,
+          title =
+          element.replace('sandbox-only-id','')
+          .replace(/\-/ig, ' ');
+
+          aElement = document.createElement('a');
+          aElement.innerText = title;
+          aElement.setAttribute('href', '#'+element);
+
+          SandboxSiteMap.sandboxNaviList.appendChild(aElement);
+        });
       },
 
       /**
@@ -120,15 +139,19 @@
         if (SandboxSiteMap.sandboxNaviAZFilter) {
           SandboxSiteMap.sandboxNaviAZFilter.addEventListener("click", function(event) {
 
+            // remove search query
+            SandboxSiteMap.sandboxNaviSearch && (SandboxSiteMap.sandboxNaviSearch.value = '');
+
             if(SandboxSiteMap.sandboxNavi.className.indexOf('order-asc') === -1 ) {
 
-              SandboxSiteMap.sandboxNaviListArray = Array.prototype.slice.call(SandboxSiteMap.sandboxNaviList.children, 0);
-              SandboxSiteMap.sandboxNavi.className += ' order-asc';
+              // clone array
+              SandboxSiteMap.sandboxNaviListArrayCurrent = SandboxSiteMap.sandboxNaviListArrayInitial.slice(0);
 
-              SandboxSiteMap.sandboxNaviListArray.sort(function(a, b) {
+              // sort array
+              SandboxSiteMap.sandboxNaviListArrayCurrent.sort(function(a, b) {
                 var
-                nameA = a.innerHTML.trim().toUpperCase(), // Groß-/Kleinschreibung ignorieren
-                nameB = b.innerHTML.trim().toUpperCase(); // Groß-/Kleinschreibung ignorieren
+                nameA = a.trim().toUpperCase(), // Groß-/Kleinschreibung ignorieren
+                nameB = b.trim().toUpperCase(); // Groß-/Kleinschreibung ignorieren
 
                 if (nameA < nameB) {return -1;}
                 if (nameA > nameB) {return 1;}
@@ -136,20 +159,14 @@
                 return 0;
               });
 
-              // delete and fill list
-              SandboxSiteMap.sandboxNaviList.innerHTML = '';
-              SandboxSiteMap.sandboxNaviListArray.forEach(function(element) {
-                SandboxSiteMap.sandboxNaviList.appendChild(element);
-              });
+              SandboxSiteMap.sandboxNavi.className += ' order-asc';
             } else {
 
+              SandboxSiteMap.sandboxNaviListArrayCurrent = SandboxSiteMap.sandboxNaviListArrayInitial;
               SandboxSiteMap.sandboxNavi.className = SandboxSiteMap.sandboxNavi.className.replace(' order-asc', '');
-
-              // delete and fill list
-              SandboxSiteMap.sandboxNaviList.innerHTML = '';
-              SandboxSiteMap.fillSandboxNaviList();
             }
 
+            SandboxSiteMap._fillSandboxNaviList();
           }, false);
         }
       },
