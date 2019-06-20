@@ -1,0 +1,45 @@
+<style>
+  #sandbox-sitemap {
+    background-color: white;
+    border-right: 5px solid currentColor;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    top: 0;
+    transition: transform 0.5s;
+    z-index: 999;
+  }
+
+  .sitemap--inactive {
+    transform: translateX(-100%);
+  }
+
+  #sitemap__button {
+    background-color: black;
+    border: 0;
+    color: white;
+    cursor: pointer;
+    font-size: inherit;
+    font-weight: bold;
+    left: calc(100% + 5px);
+    line-height: inherit;
+    outline: none;
+    padding: 10px 15px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .sitemap__container {
+    height: 100%;
+    max-width: calc(100vw - 80px);
+    overflow-y: auto;
+    padding: 5px 15px;
+  }
+
+  @media print {
+    #sandbox-sitemap {
+      display: none !important;
+    }
+  }
+</style>

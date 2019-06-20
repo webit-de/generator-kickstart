@@ -1,0 +1,36 @@
+<script type="text/javascript">
+  window.onload = function() {
+
+    var SandboxSiteMap = {
+      /**
+      * Initiates the module.
+      * @function init
+      * @public
+      */
+      init: function() {
+        var
+        sitemap = document.getElementById("sandbox-sitemap"),
+        sitemap_button = document.getElementById("sitemap__button");
+
+        sitemap.addEventListener("mouseenter", toggle_sandboxSitemap);
+        sitemap.addEventListener("mouseleave", toggle_sandboxSitemap);
+        sitemap_button.addEventListener("click", toggle_sandboxSitemap);
+
+        function toggle_sandboxSitemap() {
+          var className = sitemap.getAttribute("class");
+
+          if (className == "sitemap--active") {
+            sitemap.className = "sitemap--inactive";
+            sitemap_button.innerHTML = "&#10095;";
+          } else {
+            sitemap.className = "sitemap--active";
+            sitemap_button.innerHTML = "&#10094;";
+          }
+        }
+      },
+
+    }
+
+    SandboxSiteMap.init();
+  }
+</script>

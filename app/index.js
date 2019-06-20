@@ -594,6 +594,24 @@ KickstartGenerator = yeoman.Base.extend({
 
     // Sandbox-Sitemap
     this.fs.copyTpl(
+      this.templatePath('sandbox-sitemap/_sandbox-sitemap.css.html'),
+      this.destinationPath('components/app/sandbox-sitemap/sandbox-sitemap.css.html'),
+      {
+        ProjectName: this.ProjectName,
+        includeErrorpage: this.includeErrorpage
+      }
+    );
+    // Sandbox-Sitemap
+    this.fs.copyTpl(
+      this.templatePath('sandbox-sitemap/_sandbox-sitemap.js.html'),
+      this.destinationPath('components/app/sandbox-sitemap/sandbox-sitemap.js.html'),
+      {
+        ProjectName: this.ProjectName,
+        includeErrorpage: this.includeErrorpage
+      }
+    );
+    // Sandbox-Sitemap
+    this.fs.copyTpl(
       this.templatePath('sandbox-sitemap/_sandbox-sitemap.html'),
       this.destinationPath('components/app/sandbox-sitemap/sandbox-sitemap.html'),
       {
