@@ -41,6 +41,7 @@
         this.sandboxNaviList = document.getElementById('sandbox-navi-list');
         this.sandboxNavi = document.getElementById('sandbox-navi');
         this.sandboxNaviNav = document.getElementById('sandbox-navi-nav');
+        this.sandboxNaviSearch = document.getElementById('sandbox-navi-search');
       },
 
       /**
@@ -93,12 +94,13 @@
       * @function _fillSandboxNaviList
       * @public
       */
-      _fillSandboxNaviList: function() {
+      _fillSandboxNaviList: function(elementArray) {
+        elementArray = elementArray || SandboxSiteMap.sandboxNaviListArrayCurrent;
 
         // delete and fill list
         SandboxSiteMap.sandboxNaviList.innerHTML = '';
 
-        SandboxSiteMap.sandboxNaviListArrayCurrent.forEach(function(element) {
+        elementArray.forEach(function(element) {
           var
           aElement,
           title =
@@ -111,6 +113,19 @@
 
           SandboxSiteMap.sandboxNaviList.appendChild(aElement);
         });
+      },
+
+      /**
+      * search string within sandbox-navi list
+      * @function _searchWithinSandboxNaviList
+      * @public
+      */
+      _searchWithinSandboxNaviList: function( query) {
+        SandboxSiteMap._fillSandboxNaviList(
+        SandboxSiteMap.sandboxNaviListArrayCurrent.filter(function(el) {
+          return el.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+        })
+        );
       },
 
       /**
@@ -134,6 +149,15 @@
           }
 
         }, false);
+
+        if (SandboxSiteMap.sandboxNaviSearch) {
+          SandboxSiteMap.sandboxNaviSearch.addEventListener("keydown", function(event) {
+            var
+            query = event.currentTarget.value;
+
+            SandboxSiteMap._searchWithinSandboxNaviList(query);
+          });
+        }
 
         // toggle search for component-navi
         if (SandboxSiteMap.sandboxNaviAZFilter) {
