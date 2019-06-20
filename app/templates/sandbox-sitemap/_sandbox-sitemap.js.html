@@ -1,20 +1,20 @@
-<script>
+<script type="text/javascript">
   window.onload = function() {
 
-    var sitemap_button = document.getElementById("sitemap-button");
+    var sitemap_button = document.getElementById("sitemap__button");
     sitemap_button.addEventListener("click", toggle_sitemap);
 
     function toggle_sitemap() {
-      var sitemap = document.getElementById("sandbox-sitemap");
-      var className = sitemap.getAttribute("class");
+      var
+      sitemap = document.getElementById("sandbox-sitemap"),
+      className = sitemap.getAttribute("class");
 
-      if(className == "show") {
-        sitemap.className = "";
-        sitemap_button.innerHTML = "&#9776;";
-      }
-      else {
-        sitemap.className = "show";
-        sitemap_button.innerHTML = "&#10006;";
+      if (className == "sitemap--active") {
+        sitemap.className = "sitemap--inactive";
+        sitemap_button.innerHTML = "&#10095;";
+      } else {
+        sitemap.className = "sitemap--active";
+        sitemap_button.innerHTML = "&#10094;";
       }
     }
 
@@ -51,8 +51,8 @@
         SandboxSiteMap._cacheElements();
 
         if (SandboxSiteMap.sandboxOnlyIdNodes.length > 0) {
-          SandboxSiteMap._bindEvents();
           SandboxSiteMap._setupSandboxComponentNavi();
+          SandboxSiteMap._bindEvents();
         }
       },
 
@@ -102,7 +102,7 @@
       _bindEvents: function() {
 
         // show/hide component-navi
-        SandboxSiteMap.opensandboxNavi.addEventListener("click", function(event) {
+        SandboxSiteMap.opensandboxNavi && SandboxSiteMap.opensandboxNavi.addEventListener("click", function(event) {
           var
           element = event.currentTarget;
 
