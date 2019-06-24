@@ -118,6 +118,11 @@ KickstartGenerator = yeoman.Base.extend({
             checked: true
           },
           {
+            name: 'ScForm',
+            value: 'includeScForm',
+            checked: true
+          },
+          {
             name: 'SearchResults',
             value: 'includeSearchResults',
             checked: true
@@ -252,6 +257,7 @@ KickstartGenerator = yeoman.Base.extend({
       this.includeFigureElement = this._hasFeature('includeFigureElement');
       this.includeSocialSharing = this._hasFeature('includeSocialSharing');
       this.includeDefaultForm = this._hasFeature('includeDefaultForm');
+      this.includeScForm = this._hasFeature('includeScForm');
       this.includeSearchResults = this._hasFeature('includeSearchResults');
       this.includeErrorpage = this._hasFeature('includeErrorpage');
       this.includeSprite = this._hasFeature('includeSprite');
@@ -477,6 +483,7 @@ KickstartGenerator = yeoman.Base.extend({
         includeCookie: this.includeCookie,
         includeFigureElement: this.includeFigureElement,
         includeDefaultForm: this.includeDefaultForm,
+        includeScForm: this.includeScForm,
         includeSearchResults: this.includeSearchResults,
         includeSocialSharing: this.includeSocialSharing,
         includeSprite: this.includeSprite
@@ -732,6 +739,25 @@ KickstartGenerator = yeoman.Base.extend({
       this.fs.copyTpl(
         this.templatePath('form/_form.scss'),
         this.destinationPath('components/app/form/_form.scss')
+      );
+    }
+  },
+
+  /**
+   * Create all files for sc-forms from templates.
+   * @function ScForm
+   * @private
+   */
+  ScForm: function () {
+    if (this.includeScForm) {
+      this.fs.copyTpl(
+        this.templatePath('form/_sc-form.html'),
+        this.destinationPath('components/app/form/sc-form.html')
+      );
+
+      this.fs.copyTpl(
+        this.templatePath('form/_sc-form.scss'),
+        this.destinationPath('components/app/form/_sc-form.scss')
       );
     }
   },

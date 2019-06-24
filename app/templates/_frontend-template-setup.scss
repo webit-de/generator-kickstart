@@ -8,4 +8,5 @@
 <% if (includeCookie) { %>@import 'app/cookie-info/cookie-info';<% } %>
 <% if (includeFigureElement) { %>@import 'app/figure/figure';<% } %>
 <% if (includeDefaultForm) { %>@import 'app/form/form';<% } %>
+<% if (includeScForm) { %>@import 'app/form/sc-form';<% } %>
 <% if (includeSearchResults) { %>@import 'app/search-results/search-results';<% } %>
