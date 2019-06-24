@@ -65,7 +65,15 @@ KickstartGenerator = yeoman.Base.extend({
       {
         type: 'input',
         name: 'ProjectName',
-        message: 'What is the project\'s name?'
+        message: 'What is the project\'s name?',
+        validate: function(value) {
+          value = value.trim();
+
+          if (value.length > 0)  {
+            return true;
+          }
+          return 'error, you have to enter a name';
+        }
       },
       {
         type: 'input',
@@ -154,7 +162,7 @@ KickstartGenerator = yeoman.Base.extend({
         },
         type: 'input',
         name: 'sshPath',
-        message: 'Please insert the Path to your ssh-Key, starting from Home.',
+        message: 'Please insert the Path to your ssh-Key, starting from Home. <default: .ssh/id_rsa>',
         default: '.ssh/id_rsa'
       },
       {
@@ -163,7 +171,7 @@ KickstartGenerator = yeoman.Base.extend({
         },
         type: 'input',
         name: 'HostServerPreview',
-        message: 'What is the Hostserver?'
+        message: 'What is the Hostserver? <e.g: myown.server.io>'
       },
       {
         when: function(response) {
@@ -171,7 +179,7 @@ KickstartGenerator = yeoman.Base.extend({
         },
         type: 'input',
         name: 'DeployPathPreview',
-        message: 'What is the Deploymentpath?'
+        message: 'What is the Deploymentpath? <e.g: /my/www/server/path>'
       },
       {
         type: 'confirm',
@@ -193,7 +201,7 @@ KickstartGenerator = yeoman.Base.extend({
         },
         type: 'input',
         name: 'sshPath',
-        message: 'Please insert the Path to your ssh-Key, starting from Home.',
+        message: 'Please insert the Path to your ssh-Key, starting from Home. <default: .ssh/id_rsa>',
         default: '.ssh/id_rsa'
       },
       {
@@ -202,7 +210,7 @@ KickstartGenerator = yeoman.Base.extend({
         },
         type: 'input',
         name: 'HostServerDemo',
-        message: 'What is the Hostserver?'
+        message: 'What is the Hostserver? <e.g: myown.server.io>'
       },
       {
         when: function(response) {
@@ -210,7 +218,7 @@ KickstartGenerator = yeoman.Base.extend({
         },
         type: 'input',
         name: 'DeployPathDemo',
-        message: 'What is the Deploymentpath?'
+        message: 'What is the Deploymentpath? <e.g: /my/www/server/path>'
       },
       {
         type: 'confirm',
