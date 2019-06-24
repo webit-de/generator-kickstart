@@ -129,6 +129,21 @@
       },
 
       /**
+      * search string within sandbox-navi list
+      * @function _toggleNavi
+      * @public
+      */
+      _toggleNavi: function( ) {
+        if (SandboxSiteMap.sandboxNavi.className.indexOf('closed') > -1 ) {
+          SandboxSiteMap.opensandboxNavi.className = SandboxSiteMap.opensandboxNavi.className.replace('open-nav', 'close-nav');
+          SandboxSiteMap.sandboxNavi.className = SandboxSiteMap.sandboxNavi.className.replace('closed', 'opened');
+        } else {
+          SandboxSiteMap.opensandboxNavi.className = SandboxSiteMap.opensandboxNavi.className.replace('close-nav', 'open-nav');
+          SandboxSiteMap.sandboxNavi.className = SandboxSiteMap.sandboxNavi.className.replace('opened', 'closed');
+        }
+      },
+
+      /**
       * BindEvents
       * @function _bindEvents
       * @public
@@ -136,19 +151,18 @@
       _bindEvents: function() {
 
         // show/hide component-navi
-        SandboxSiteMap.opensandboxNavi && SandboxSiteMap.opensandboxNavi.addEventListener("click", function(event) {
-          var
-          element = event.currentTarget;
+        if (SandboxSiteMap.opensandboxNavi) {
+          SandboxSiteMap.opensandboxNavi.addEventListener("click", function(event) {
+            SandboxSiteMap._toggleNavi();
+          }, false);
 
-          if (SandboxSiteMap.sandboxNavi.className.indexOf('closed') > -1 ) {
-            element.className = element.className.replace('open-nav', 'close-nav');
-            SandboxSiteMap.sandboxNavi.className = SandboxSiteMap.sandboxNavi.className.replace('closed', 'opened');
-          } else {
-            element.className = element.className.replace('close-nav', 'open-nav');
-            SandboxSiteMap.sandboxNavi.className = SandboxSiteMap.sandboxNavi.className.replace('opened', 'closed');
-          }
-
-        }, false);
+          // close sandboxNaviList if we click some ankerLink
+          SandboxSiteMap.sandboxNaviList.addEventListener("click", function(event) {
+            if (event.target && event.target.matches("a")) {
+              SandboxSiteMap._toggleNavi();
+            }
+          }, false);
+        }
 
         if (SandboxSiteMap.sandboxNaviSearch) {
           SandboxSiteMap.sandboxNaviSearch.addEventListener("keydown", function(event) {
