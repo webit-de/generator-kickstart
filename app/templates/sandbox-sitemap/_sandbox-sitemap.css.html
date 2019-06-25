@@ -1,12 +1,11 @@
 <style>
+  /* Sandbox sitemap */
+
   #sandbox-sitemap {
     background-color: white;
     border-right: 5px solid currentColor;
     bottom: 0;
     left: 0;
-    max-height: 100vh;
-    max-width: 50vw;
-    min-width: 50px;
     position: fixed;
     top: 0;
     transition: transform 0.5s;
@@ -46,8 +45,8 @@
     }
   }
 
+  /* Sandbox navi */
 
-  /* sandbox component navi */
   #sandbox-navi {
     bottom: 20px;
     display: none;
@@ -160,5 +159,11 @@
 
   #sandbox-navi.closed .sandbox-navi-btn::after {
     transform: rotate(0deg);
+  }
+
+  @media print {
+    #sandbox-navi {
+      display: none !important;
+    }
   }
 </style>
