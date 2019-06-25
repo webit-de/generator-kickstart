@@ -1,13 +1,15 @@
 <script type="text/javascript">
   window.onload = function() {
+    var
+    sitemap = document.getElementById("sandbox-sitemap"),
+    sitemap_button = document.getElementById("sitemap__button");
 
-    var sitemap_button = document.getElementById("sitemap__button");
-    sitemap_button.addEventListener("click", toggle_sitemap);
+    sitemap.addEventListener("mouseenter", toggle_sandboxSitemap);
+    sitemap.addEventListener("mouseleave", toggle_sandboxSitemap);
+    sitemap_button.addEventListener("click", toggle_sandboxSitemap);
 
-    function toggle_sitemap() {
-      var
-      sitemap = document.getElementById("sandbox-sitemap"),
-      className = sitemap.getAttribute("class");
+    function toggle_sandboxSitemap() {
+      var className = sitemap.getAttribute("class");
 
       if (className == "sitemap--active") {
         sitemap.className = "sitemap--inactive";
