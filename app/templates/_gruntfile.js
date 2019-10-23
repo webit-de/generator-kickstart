@@ -99,7 +99,7 @@ module.exports = function(grunt) {
       // HTML
       html: {
         options: { livereload: true },
-        files: ['components/app/_svg/**/*.svg', 'components/app/_sprite-items/**/*.svg'],
+        files: ['*.html', 'components/app/**/*.html', '!build/**/*.html'],
         tasks: ['replace'],
       },
 
