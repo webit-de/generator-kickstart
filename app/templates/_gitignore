@@ -1,4 +1,5 @@
 ### Folders
+.idea
 .bundles
 .sass-cache
 /build
